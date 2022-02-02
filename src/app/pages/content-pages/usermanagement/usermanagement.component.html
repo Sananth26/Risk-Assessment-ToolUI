@@ -1,0 +1,138 @@
+<div>
+    <section class="content-header">
+        <h4>
+            User Management
+        </h4>
+    </section>
+</div>
+
+<!--<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="javaScript:;">Wipe Admin</a></li>
+    <li class="breadcrumb-item"><a href="javaScript:;">Form</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Mask</li>
+</ol>-->
+
+<div class="card">
+    <div class="card-body">
+        <ngb-tabset #t="ngbTabset">
+            <ngb-tab title="Add User Details" id="AddUserDetails">
+                <ng-template ngbTabContent>
+                   
+                        <form [formGroup]="form" (ngSubmit)="saveAndGo()">
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label">Employee Id</label>
+                                <div class="col-10">
+                                    <input type="number" class="form-control" placeholder="eg: 20"
+                                        formControlName="employeeCode" [readonly]="isReadonly" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label">First Name</label>
+                                <div class="col-10">
+                                    <input type="text" class="form-control" formControlName="firstName"
+                                        placeholder="eg: ram" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label">Last Name</label>
+                                <div class="col-10">
+                                    <input type="text" class="form-control" formControlName="lastName"
+                                        placeholder="eg: chowhan" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label">User Name</label>
+                                <div class="col-10">
+                                    <input type="text" class="form-control" formControlName="userName"
+                                        placeholder="eg: ramchowhan" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-10">
+                                    <input type="text" class="form-control" placeholder="eg: *****@gmail.com"
+                                        formControlName="email">
+                                    <small class="form-text text-muted text-danger"
+                                        *ngIf="!form.get('email').valid && (form.get('email').dirty || form.get('email').touched)">Please
+                                        enter a valid email!</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Mobile No</label>
+                                <div class="col-10">
+                                    <input type="text" class="form-control" formControlName="mobileNo" type="tel"
+                                        placeholder="eg: 9874645626" required>
+                                </div>
+                            </div>
+                            <div class="form-group row" ngbDropdown>
+                                <label class="col-sm-2 col-form-label">Role</label>
+                                <div class="col-10">
+                                    <select class="form-control" ngDefaultControl formControlName="roleId" required>
+                                        <option value=""> Choose your Role </option>
+                                        <option *ngFor="let role of roles" [value]="role.code">
+                                            {{role.value}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <div class="form-group">
+                                    <div class="col-md-12 text-center">
+                                        <button type="button" class="btn btn-primary" [disabled]="!form.valid"
+                                            (click)="Submit(formDirective,'ViewUserDetails');">Submit</button>&nbsp;&nbsp;&nbsp;
+                                        <!--[disabled]="!saveOrgForm.valid"-->
+                                        <button type="button" class="btn btn-danger mr-2"
+                                            (click)="cancel(formDirective,'ViewUserDetails')">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab title="View User Details" id="ViewUserDetails">
+                <ng-template ngbTabContent>
+                    <div class="card">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Employee Id</th>
+                                  <th scope="col">Employee Name</th>
+                                  <th scope="col">Email Id</th>
+                                  <th scope="col">Mobile No</th>
+                                  <th scope="col">Action</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let field of fields">
+                                  <td scope="row">{{field.employeeCode}}</td>
+                                  <td scope="row">{{field.firstName}}</td>
+                                  <td scope="row">{{field.email}}</td>
+                                  <td scope="row">{{field.mobileNo}}</td>
+                                  <td>
+                                    <span>
+                                      <button type="button" class="btn btn-outline-success m-1"
+                                      (click)="editUser(field.id);t.select('AddUserDetails')"> <i
+                                          class="zmdi zmdi-edit"></i></button>
+                                      &nbsp; &nbsp; &nbsp;
+                                      <button type="button" class="btn btn-outline-danger m-1"
+                                        (click)="deleteUser(field,'ViewUserDetails')" > <i
+                                          class="zmdi zmdi-delete"></i></button>
+                                    </span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>

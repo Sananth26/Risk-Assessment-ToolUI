@@ -1,0 +1,325 @@
+.applabel {
+  font-weight: bold;
+  color: black;
+}
+
+table {
+  border-collapse: collapse;
+  border: 1px solid white;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.tr1:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+th,
+td {
+  border: 1px solid white;
+  white-space: normal;
+  word-wrap: break-word;
+}
+table.a {
+  table-layout: auto;
+  width: 100%;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+// for table
+
+#page td {
+  padding: 0;
+  margin: 0;
+}
+.noBorder {
+  border: 0px;
+  padding: 0;
+  margin: 5px;
+  border-collapse: collapse;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.noBorderserial {
+  border: 0px;
+  padding: 0;
+  margin: 5px;
+  left: 5px;
+  border-collapse: collapse;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.progressbar {
+  margin: 20px auto;
+  padding: 0;
+  width: 90%;
+  height: 30px;
+  overflow: hidden;
+  background: #e5e5e5;
+  border-radius: 6px;
+}
+
+.barpercent {
+  position: relative;
+  float: left;
+  min-width: 1%;
+  height: 100%;
+  background: cornflowerblue;
+}
+
+.percentbar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-family: tahoma, arial, helvetica;
+  font-size: 12px;
+  color: white;
+}
+.panel-heading1 {
+  padding: 10px 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.container {
+  display: flex;
+}
+.fixed {
+  width: 35px;
+}
+.flex-item {
+  flex-grow: 1;
+}
+
+.text {
+  font-weight: bold;
+  color: black;
+  white-space: normal;
+  word-wrap: break-word;
+}
+thcss {
+  background-color: #636363 !important;
+  background-color: blue;
+}
+table#testcase-table-checkList thead td {
+  /*background-color: #BEBEBE;*/
+  background-color: rgba(190, 190, 190, 0.801);
+  /* border-right: solid 2px white; */
+}
+table#testcase-table-checkList thead label {
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+table#testcase-table-checkList tbody label {
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+table#testcase-table-checkList tbody td {
+  padding: 10px 2px;
+  vertical-align: middle;
+}
+
+lableClass {
+  font-size: 16px;
+  color: black;
+  font-family: "Open Sans", sans-serif;
+}
+
+//ngx css for datatable
+
+:host ::ng-deep.datatable-body-cell {
+  border: 0.5px solid white;
+}
+:host ::ng-deep.datatable-header-cell {
+  background-color: #bfc5ec;
+  color: black;
+  text-align: center;
+  border: 1px solid white;
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+}
+:host ::ng-deep.ngx-datatable.material {
+  .datatable-header-cell {
+    background-color: rgba(190, 190, 190, 0.801);
+    color: black;
+    text-align: center;
+    border: 1px solid white;
+    font-size: 15px;
+    font-family: "Open Sans", sans-serif;
+  }
+}
+
+::ng-deep .multiselect-dropdown .dropdown-list {
+  position: inherit !important ;
+}
+
+:host ::ng-deep.datatable-row-even {
+  background-color: #ffffff;
+  text-align: center;
+}
+
+:host ::ng-deep.datatable-row-odd {
+  background-color: #efeffb;
+  text-align: center;
+}
+
+tableValue {
+  border-collapse: collapse;
+  border: 1px solid white;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+::ng-deep.datatable-row-detail {
+  width: max-content !important;
+}
+
+.htimeline {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+}
+
+.htimeline .step {
+  float: left;
+  border-top-style: solid;
+  border-top-width: 5px;
+  position: relative;
+  margin-bottom: 15px;
+  text-align: left;
+  padding: 3px 0 5px 10px;
+  background-color: #ddd;
+  color: #333;
+  height: 160px;
+  vertical-align: middle;
+  border-right: solid 1px #bbb;
+  transition: all 0.5s ease;
+}
+.htimeline .step:nth-child(odd) {
+  background-color: whitesmoke;
+}
+.htimeline .step:nth-child(even) {
+  background-color: whitesmoke;
+}
+.htimeline .step:first-child {
+  border-left: solid 1px #bbb;
+}
+.htimeline .step:hover {
+  background-color: #ccc;
+  border-bottom-width: 6px;
+}
+
+.htimeline .step > div {
+  margin: 0 5px;
+  font-size: 14px;
+  vertical-align: top;
+  padding: 0;
+}
+
+.htimeline .step.green {
+  border-top-color: #348f50;
+}
+.htimeline .step.orange {
+  border-top-color: #f09819;
+}
+.htimeline .step.red {
+  border-top-color: #c04848;
+}
+.htimeline .step.blue {
+  border-top-color: #49a09d;
+}
+
+.htimeline .step::before {
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  content: " ";
+  background-color: white;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  border-style: solid;
+  border-width: 3px;
+  transition: all 0.5s ease;
+}
+.htimeline .step:hover::before {
+  width: 18px;
+  height: 18px;
+  bottom: -12px;
+}
+.htimeline .step.green::before {
+  border-color: #348f50;
+}
+.htimeline .step.orange::before {
+  border-color: #f09819;
+}
+.htimeline .step.red::before {
+  border-color: #c04848;
+}
+.htimeline .step.blue::before {
+  border-color: #49a09d;
+}
+
+.htimeline .step::after {
+  content: attr(data-date);
+  position: absolute;
+  top: -20px;
+  left: 17px;
+  font-size: 11px;
+  font-style: italic;
+  color: #888;
+}
+
+/*TASKS*/
+.htimeline .step .tasks {
+  margin-top: 10px;
+}
+.htimeline .step .tasks .resource {
+  position: relative;
+  height: 40px;
+}
+.htimeline .step .tasks .resource::before {
+  position: absolute;
+  bottom: 2px;
+  left: -5px;
+  content: attr(data-name);
+  font-size: 10px;
+  font-style: italic;
+  color: #888;
+}
+.htimeline .step .tasks .task {
+  overflow: hidden;
+  font-size: 10px;
+  padding: 3px;
+  border: solid 1px white;
+  border-radius: 4px;
+  min-height: 20px;
+}
+.htimeline .step.green .tasks .task {
+  background-color: #348f50;
+  color: white;
+}
+.htimeline .step.orange .tasks .task {
+  background-color: #f09819;
+  color: white;
+}
+.htimeline .step.red .tasks .task {
+  background-color: #c04848;
+  color: white;
+}
+.htimeline .step.blue .tasks .task {
+  background-color: #49a09d;
+  color: white;
+}
+
+.top {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  transition: 0.3s;
+}

@@ -1,0 +1,89 @@
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  top: 15;
+  left: 15;
+  background-color: whitesmoke;
+  cursor: pointer;
+}
+
+table#testcase-table-checkList thead td {
+  background-color: rgba(190, 190, 190, 0.801);
+}
+
+table#testcase-table-checkList thead label {
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+table#testcase-table-checkList tbody label {
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+table#testcase-table-checkList tbody td {
+  padding: 2px 0px;
+  vertical-align: middle;
+}
+
+:host ::ng-deep.datatable-body-cell {
+  border: 0.5px solid white;
+}
+:host ::ng-deep.datatable-header-cell {
+  background-color: #bfc5ec;
+  color: black;
+  text-align: center;
+  border: 1px solid white;
+}
+
+::ng-deep .nav-fill .nav-link.active {
+  margin-top: -1px;
+  border-top: 2px solid #20a8d8;
+}
+
+::ng-deep .nav-pills .nav-link.active,
+::ng-deep .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #20a8d8;
+}
+::ng-deep a {
+  color: #20a8d8;
+}
+
+input {
+  width: 100%;
+  padding: 5px 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+:host ::ng-deep.datatable-row-even {
+  background-color: #ffffff;
+  text-align: center;
+}
+
+:host ::ng-deep.datatable-row-odd {
+  background-color: #efeffb;
+  text-align: center;
+}
+:host ::ng-deep.datatable-body-cell {
+  border: 0.5px solid white;
+}
+:host ::ng-deep.datatable-header-cell {
+  background-color: #c0c0c0;
+  color: black;
+  text-align: center;
+  border: 1px solid white;
+}
+:host ::ng-deep.ngx-datatable.material {
+  .datatable-header-cell {
+    background-color: #c0c0c0;
+    color: white;
+    text-align: center;
+    border: 1px solid white;
+  }
+}

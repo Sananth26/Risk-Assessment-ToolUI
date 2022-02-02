@@ -1,0 +1,132 @@
+<div class="card-header" style="text-align: center;">
+    <hr>
+    <b>
+        <h3 class="card-header-text">
+            Test Application
+        </h3>
+    </b>
+    <hr>
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <form name="sopForm" [formGroup]="testApplication" novalidate>
+
+            <div class="form-group row pt-20 ml-18 mr-9">
+                <label class="col-2 col-form-label">Select Department<span class='asterisk'>*</span></label>
+                <div class="col-10">
+                    <select [attr.disabled]="startTestFag ? '' : null" class="form-control" formControlName="DepartmentName" 
+                    (change)="onDepartmentNameChange($event)" [(ngModel)]="testFormData.departmentId" name="departmentName"
+                         required>
+                         <option *ngFor="let module of this.departmentList;let i=index" [value]="module.id">
+                            {{module.key}}
+                        </option>
+                    </select>
+                    <small class="form-text text-muted text-danger"  *ngIf="!testApplication.get('DepartmentName').valid && (testApplication.get('DepartmentName').dirty || testApplication.get('DepartmentName').touched)"> Department Name is required...!</small>
+                </div>
+              </div>
+
+              <div class="form-group row pt-20 ml-18 mr-9">
+                <label class="col-2 col-form-label">Select the Document<span class='asterisk'>*</span></label>
+                <div class="col-10">
+                    <ng-multiselect-dropdown [required]='true' [disabled]="startTestFag" [placeholder]="'Select the Document'" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="selectedDocNum" [data]="documentNumberList" [settings]="docNumdropdownSettings">
+                </ng-multiselect-dropdown>
+                <small class="form-text text-muted text-danger"  *ngIf="this.selectedDocNum.length<=0"> Document Number is required...!</small>
+                </div>
+              </div>
+
+              
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Participant Name<span class='asterisk'>*</span></label>
+                <div class="col-sm-10">
+                  <input [readonly]="startTestFag" type="text" class="form-control" formControlName="ParticipantName" [(ngModel)]="testFormData.participantName">
+                  <small class="form-text text-muted text-danger"  *ngIf="!testApplication.get('ParticipantName').valid && (testApplication.get('ParticipantName').dirty || testApplication.get('ParticipantName').touched)"> Participant Name is required...!</small>
+                </div>
+              </div>
+
+
+              <div class="col-12 text-center"> 
+                <div class="form-group">
+                  <div class="col-md-12 text-center">
+                    <button [disabled]="startTestFag" type="button" class="btn btn-primary" (click)="startTest()">Start Test</button>&nbsp;&nbsp;&nbsp;
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="card-body">
+                <ul class="list-unstyled" *ngFor="let item of questionFieldsList; let i = index" >
+                  <li class="media">
+                    <div class="media-body">
+                      <strong><span style="font-weight: bolder;">{{i+1}} :</span> {{item.question}}</strong><br><br>  
+
+                     <div class="form-group row" *ngIf="item.inputField.type=='number'">
+                      <div class="col-5">
+                        <input class="form-control" [type]='item.inputField.type' [required]="item.inputField.required"
+                          [ngModelOptions]="{standalone: true}" [min]="item.inputField.min" [max]="item.inputField.max" [step]="item.inputField.step"
+                          [(ngModel)]="item.inputField.Data" #number="ngModel">
+                      </div>
+                    </div>
+
+                    <div class="form-group row" *ngIf="(item.inputField.type ==='text')">
+                      <div class="col-5">
+                        <input class="form-control" [disabled]="item.inputField.disabled" [type]='item.inputField.subtype'
+                          [name]='item.inputField.name' [(ngModel)]='item.inputField.value' [ngModelOptions]="{standalone: true}"
+                          [minlength]="item.inputField.minlength" [required]="item.inputField.required" [maxlength]="item.inputField.maxlength"
+                          #text="ngModel">
+                      </div>
+                    </div>
+
+                    <div class="form-group row" *ngIf="(item.inputField.type==='checkbox-group')">
+                      <div class="col-10">
+                        <div *ngFor="let cheboxvalue of item.inputField.values">
+                          <div class="checkbox-fade fade-in-primary">
+                            <label>
+                              <input type="checkbox" [name]="item.inputField.name" [checked]="cheboxvalue.selected"
+                                (change)="cheboxvalue.selected=!cheboxvalue.selected;">
+                              <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-success"></i></span>
+                              <span>{{cheboxvalue.label}}</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row" *ngIf="(item.inputField.type==='radio-group')">
+                      <div class="col-10">
+                        <div *ngFor="let radioButtonValue of item.inputField.values">
+                          <div class="form-radio radio radiofill fade-in-primary">
+                            <label>
+                              <input type="radio" [name]="item.inputField.name" [checked]="radioButtonValue.selected">
+                              <span class="cr"><i class="helper"></i></span>
+                              <span>{{radioButtonValue.label}}</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr>
+
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+
+              <div [ngbCollapse]="!startTestFag" class="row no-print">
+                  <div class="col-lg-12">
+                  <div class="float-sm-right">
+                   <button class="btn btn-success m-1"><i class="fa fa-credit-card"></i> Submit Paper</button>
+                   <!-- <button class="btn btn-primary m-1"><i class="fa fa-download"></i> Generate PDF</button> -->
+                  </div>
+                </div>
+              </div>
+
+        </form>
+
+    </div>
+</div>

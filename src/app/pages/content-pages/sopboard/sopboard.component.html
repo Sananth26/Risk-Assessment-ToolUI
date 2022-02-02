@@ -1,0 +1,126 @@
+<div class="card col-lg-12">
+    <div class="card-header" style="text-align: center;">
+        <b>
+          <h3 class="card-header-text">
+            SOP
+          </h3>
+        </b>
+      </div>
+
+<br/>
+
+    <div class="form-group row pt-20 ml-18 mr-9">
+        <label class="col-2 col-form-label"><b>Select Department</b><span class='asterisk'>*</span></label>
+        <div class="col-4 mr-7">
+            <select name="select" class="form-control" [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onDepartmentNameChange($event)" [(ngModel)]="departmentName" name="departmentName"
+                #templateName="ngModel" required>
+                <option *ngFor="let module of this.departmentNameDTOList;let i=index" [value]="module.id">
+                    {{module.key}}
+                </option>
+            </select>
+        </div>&nbsp;&nbsp;
+        <button type="button"  [routerLink]="['/pages/sopform']" class="btn btn-outline-primary btn-sm ">New Document</button>
+    </div>
+    <!-- end of Department DD -->
+ <br/>
+ <div class="row  mt-3" >
+ 
+    <div *ngFor="let course of CardsData">
+
+        <div *ngIf="course.statusID === 0" > 
+             
+        <div class="col-12 col-md-12 col-lg-6 col-lg-12" (click)='filtertable(course.statusID,course.status)'>
+            <div class="card bg-info-2 border-0">
+                <div class="card-body card-block p-1">
+                    <div class="media align-items-center bg-white p-3">
+                        <div class="media-body">
+                            <div class="align-self-center w-circle-icon rounded bg-white shadow border border-info ">
+                                <i class="icon-basket-loaded text-info"></i></div>
+                        </div>
+                        <div class="text-info" style="text-align: center;"> 
+                            <h5 class=" mb-0 text-info">{{course.numberCount}}</h5>
+                            <p class=""> {{course.status}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div> 
+        <div *ngIf="course.statusID != 0" >
+            <div class="col-12 col-md-12 col-lg-6 col-lg-12"  (click)='filtertable(course.statusID,course.status)'>
+                <div class="card bg-warning-2 border-0">
+                    <div class="card-body card-block p-1">
+                        <div class="media align-items-center bg-white p-3">
+                            <div class="media-body">
+                                <div class="align-self-center w-circle-icon rounded bg-white shadow border border-warning ">
+                                    <i class="icon-basket-loaded text-warning"></i></div>
+                            </div>
+                            <div class="text-warning" style="text-align: center;">
+                                <h5 class=" mb-0 text-warning">{{course.numberCount}}</h5>
+                                <p style="width:100px"  class="">{{course.status}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+    <!--end row-->
+<br/>
+
+    <div class="row">
+
+        <div class="form-group row col-md-12 text-center">
+            <label class="col-sm-2 col-form-label">Select the Document</label>
+            <div class="col-sm-4">
+                <ng-multiselect-dropdown [placeholder]="'Select the Document'" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="selectedCORS" [data]="DocNumber" [settings]="corsdropdownSettings" (click)='filtertableDDL(selectedCORS)'>
+                </ng-multiselect-dropdown>
+            </div>
+            <!-- <div class="icon-container">
+                <span class="ti-angle-right"> </span><span class="icon-name">Next</span>
+            </div> -->
+        </div>
+
+        <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header border-0">
+                        Status:  <b>{{statusHeading}}</b>
+                </div>
+                 <div class="table-responsive">
+                   <table class="table align-items-center table-flush">
+                    <thead>
+                     <tr>
+                       <th>Document Number</th>
+                       <th>Version</th>
+                       <th>Title</th>
+                       <th>Status</th>
+                       <th>Created Date</th>
+                       <th>Modified Date</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                        <tr *ngFor="let items of tableData">
+                         <td><span (click)="viewtheSop(items.documentNumber)" ngbTooltip="View" class="text-primary ti-angle-right">{{items.documentNumber}}</span></td>
+                        <td><span class="text-primary ti-angle-right">{{items.version}}</span></td>
+                         <td>{{items.title}}</td>
+                        <td><span class="badge gradient-bloody text-white shadow">{{items.status}}</span></td>
+                         <td>{{items.createdDate | date:"dd/mm/yy"}}</td>
+                         <td>{{items.updatedDate | date:"dd/MM/yy"}}</td>
+                     </tr>
+                     </tbody>                     
+      
+                   </table>
+                 </div>
+            </div>
+          </div>
+
+
+
+    </div>
+
+
+
+</div>

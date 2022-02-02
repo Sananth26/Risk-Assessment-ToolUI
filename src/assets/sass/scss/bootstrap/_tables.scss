@@ -1,0 +1,235 @@
+/* Tables */
+
+table.grid {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 0px;
+  
+    td {
+      border: 2px solid #e8e8e8;
+      padding: 8px;
+    }
+  }
+  
+  .card .table {
+    margin-bottom: 0px;
+  
+    td, th {
+      padding-right: $spacer;
+      padding-left: $spacer;
+    }
+  }
+  
+  .task-table.table {
+    td, th {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+  
+  .table-spacing {
+    border-spacing: 0px 5px !important;
+    border-collapse: separate !important;
+  
+    &.table {
+      
+      thead th {
+        border-bottom: 0px solid rgba(255, 255, 255, 0.3);
+      }
+  
+      td, th {
+        border-top: 0px solid rgba(255, 255, 255, 0.15);
+      }
+  
+      tr {
+        background-color: rgb(247, 250, 254);
+        box-shadow: 0 1px 0px rgba(151, 174, 193, 0.2);
+      }
+    }
+  }
+  
+  .table {
+    &.align-items-center {
+      td, th {
+        vertical-align: middle;
+      }
+    }
+  
+    thead th {
+      font-size: .72rem;
+      padding-top: .75rem;
+      padding-bottom: .75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  .table-bordered {
+    border: 1px solid rgba(37, 33, 33, 0.1);
+  }
+  
+  .table-flush {
+    td, th {
+      border-right: 0;
+      border-left: 0;
+    }
+  }
+  
+  .table {
+    td, th {
+      white-space: nowrap;
+      border-top: 1px solid #dee2e6;
+    }
+  }
+  
+  .table-bordered {
+    td, th {
+      border-top: 1px solid #dee2e6;
+    }
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: rgba(129, 90, 232, 0.12);
+  }
+  
+  .table th {
+    font-weight: 600;
+  }
+  
+  .table-responsive {
+    white-space: nowrap;
+  }
+  
+  .table {
+    .thead-primary th {
+      color: #fff;
+      background-color: #14abef;
+      border-color: #14abef;
+    }
+  
+    .thead-secondary th {
+      color: #fff;
+      background-color: #d13adf;
+      border-color: #d13adf;
+    }
+  
+    .thead-success th {
+      color: #fff;
+      background-color: #02ba5a;
+      border-color: #02ba5a;
+    }
+  
+    .thead-danger th {
+      color: #fff;
+      background-color: #f5365c;
+      border-color: #f5365c;
+    }
+  
+    .thead-warning th {
+      color: #fff;
+      background-color: #fba540;
+      border-color: #fba540;
+    }
+  
+    .thead-info th {
+      color: #fff;
+      background-color: #03d0ea;
+      border-color: #03d0ea;
+    }
+  
+    .thead-dark th {
+      color: #fff;
+      background-color: #000000;
+      border-color: #000000;
+    }
+  
+    .thead-light th {
+      color: #495057;
+      background-color: rgba(255, 255, 255, 0.125);
+      border-color: rgba(255, 255, 255, 0.125);
+    }
+  }
+  
+  .table-primary {
+    color: #fff;
+    background-color: #14abef;
+  
+    td, th, thead th {
+      border-color: rgba(244, 245, 250, 0.15);
+    }
+  }
+  
+  .table-secondary {
+    color: #fff;
+    background-color: #d13adf;
+  
+    td, th, thead th {
+      border-color: rgba(244, 245, 250, 0.3);
+    }
+  }
+  
+  .table-success {
+    color: #fff;
+    background-color: #02ba5a;
+  
+    td, th, thead th {
+      border-color: rgba(244, 245, 250, 0.3);
+    }
+  }
+  
+  .table-danger {
+    color: #fff;
+    background-color: #f5365c;
+  
+    td, th, thead th {
+      border-color: rgba(244, 245, 250, 0.3);
+    }
+  }
+  
+  .table-warning {
+    color: #fff;
+    background-color: #fba540;
+  
+    td, th, thead th {
+      border-color: rgba(244, 245, 250, 0.3);
+    }
+  }
+  
+  .table-info {
+    color: #fff;
+    background-color: #03d0ea;
+  
+    td, th, thead th {
+      border-color: rgba(244, 245, 250, 0.3);
+    }
+  }
+  
+  .table-dark {
+    color: #fff;
+    background-color: #000000;
+  
+    td, th, thead th {
+      border-color: rgba(244, 245, 250, 0.15);
+    }
+  }
+  
+  .table-light {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.14);
+  
+    td, th, thead th {
+      border-color: rgba(221, 222, 222, 0.22);
+    }
+  }
+  
+  .table-active {
+    background-color: rgba(255, 255, 255, 0.07);
+  
+    > {
+      td, th {
+        background-color: rgba(255, 255, 255, 0.07);
+      }
+    }
+  }

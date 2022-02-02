@@ -1,0 +1,450 @@
+<div class="card-header" style="text-align: left;">
+  <b><br>
+   
+
+    <h4 class="card-header-text">
+      <i><img style="width: 40px; height: 40px;" src="assets/images/avatars/workflow.png"></i> &nbsp;
+      Workflow Master&nbsp;
+
+      <i class="fa fas fa-plus-square" style="cursor:pointer;font-size: 28px;color:#3b5998;padding-left:6px;"
+       title="Add Workflow"(click)="openContent(contentPopUp,'')"></i>
+ 
+    </h4>
+    
+  </b>
+
+  
+<div>
+  <div class="card-body">
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">{{headerName}}</h4>
+        <button type="button" style="border: none;background-color: transparent;" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12 text-center">
+          <div class="form-group">
+            <div class="col-md-12 text-center">
+              <label class="col-4 col-form-label">Category :&nbsp;&nbsp;
+                <span><b>{{selectedCategory[0].key}}</b></span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label">Level<span class='asterisk'>*</span></label>
+          <div class="col-3">
+            <input class="form-control" [disabled]="true" type="number" name="level" min="1" required
+              [ngModelOptions]="{standalone: true}" [(ngModel)]="item.level">
+            <div class="messages text-danger" *ngIf="item.level == undefined || item.level == 0">
+              Level can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label" for="basicform">Level Name</label>
+          <div class="col-10">
+            <input type="text" class="form-control" required [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="item.levelName">
+            <div class="messages text-danger" *ngIf="item.levelName == undefined || item.levelName == ''">
+              Name can't be blank</div>
+          </div>
+        </div>
+
+        <!-- <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Select the roles</label>
+          <div class="col-sm-10">
+            <ng-multiselect-dropdown [placeholder]="'Select the roles'" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="item.selectedRoles" [data]="roleDTOList" (onSelect)="onRoleSelect($event)"
+              (onDeSelect)="onRoleDeSelect($event)" (onSelectAll)="onRoleSelectAll($event)"
+              (onDeSelectAll)="onRoleDeSelectAll($event)" [settings]="dropdownSettings">
+            </ng-multiselect-dropdown>
+          </div>
+        </div> -->
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Select the users</label>
+          <div class="col-sm-10">
+            <ng-multiselect-dropdown [placeholder]="'Select the users'" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="item.selectedUsers" [data]="item.userList" [settings]="dropdownUsersSettings"
+              (onSelect)="onDropDownSelect($event, 'users')" (onDeSelect)="onDropDownDeSelect($event,'users')"
+              (onSelectAll)="onDropDownSelectAll($event, 'users')"
+              (onDeSelectAll)="onDropDownDeSelectAll($event, 'users')">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <label>SLA</label>&nbsp;&nbsp;
+            <ui-switch uncheckedLabel="off" checkedLabel="on" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="item.slaActive"></ui-switch>
+          </div>
+          <div class="col-sm-6 row" [ngbCollapse]="!item.slaActive">
+            <label class="col-3 col-form-label">Enter SLA Days<span class='asterisk'>*</span></label>
+            <div class="col-4">
+              <input class="form-control" type="number" name="slaDays" min="1" required
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="item.slaDays">
+              <div class="messages text-danger" *ngIf="item.slaDays == undefined || item.slaDays == 0">
+                Days can't be blank</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <label>Is Active</label>&nbsp;&nbsp;
+            <ui-switch uncheckedLabel="off" checkedLabel="on" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="item.isActive"></ui-switch>
+          </div>
+          <!-- <div class="col-sm-4">
+            <button type="button" class="btn btn-danger mr-2" (click)="onDeleteChange(item)"> <i
+                class="zmdi zmdi-delete" title="Delete"></i>&nbsp;Delete</button>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" style="border: none;background-color: transparent;"  (click)="save()"><i>
+            <img style="width: 26px; height: 26px;" title="Save" src="assets/images/avatars/SaveBtn.png"></i></button>
+        <button type="button" style="border: none;background-color: transparent;"  title="Cancel" (click)="modal.dismiss('Cross click')">
+          <i>
+            <img style="width: 26px; height: 26px;" src="assets/images/avatars/CloseWF.png"></i></button>
+      </div>
+    </ng-template>
+
+    <ng-template #longContent let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Workflow</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="overflow-x: hidden;">
+        <div class="row">
+          <div class="col-sm-3">
+            <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;"> Category</label>
+            <div>
+              <ng-multiselect-dropdown style="width:200px" [required]='true' [placeholder]="'Select the Category'"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedCategory"
+                (onSelect)="onCategorySelectCreate($event)" [data]="categoryDTOList"
+                [settings]="singleSelectdropdownSettings">
+              </ng-multiselect-dropdown>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Level Name</label>
+            <div>
+              <ng-multiselect-dropdown style="width:200px" [placeholder]="'Select the Levels'" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="item.selectedRoles" [data]="roleDTOList" (onSelect)="onRoleSelect($event)"
+                (onDeSelect)="onRoleDeSelect($event)" (onSelectAll)="onRoleSelectAll($event)"
+                (onDeSelectAll)="onRoleDeSelectAll($event)" [settings]="dropdownSettings">
+              </ng-multiselect-dropdown>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Users</label>
+          <div>
+          <ng-multiselect-dropdown style="width:100px" [placeholder]="'Select the users'" [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="item.selectedUsers" [data]="item.userList" [settings]="dropdownUsersSettings"
+            (onSelect)="onDropDownSelect($event, 'users')" (onDeSelect)="onDropDownDeSelect($event,'users')"
+            (onSelectAll)="onDropDownSelectAll($event, 'users')"
+            (onDeSelectAll)="onDropDownDeSelectAll($event, 'users')">
+          </ng-multiselect-dropdown>
+        </div> 
+      </div>
+
+      <div class="col-sm-3" *ngIf="UserAccessModel.add">
+        <br>
+        <button type="button" style="border: none;background-color: transparent;" (click)="save()"> <i><img
+          style="width: 20px; height: 20px;" title="Add Level"
+          src="assets/images/avatars/AddWF.png"></i></button> &nbsp;&nbsp;
+      </div>
+      </div>
+
+      <div class="row" style="padding:10px;">
+        <div class="col-sm-12" *ngIf="UserAccessModel.view">
+          <hr>
+            <table class="table-striped table-bordered" id="tbllevel" style="margin-left: auto;margin-right: auto;width: 70%;height: 400px;padding:10px 20px;">
+                <tr *ngFor="let levellist of this.workFlowMasterDetailsList ; let i = index">
+                  <td>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="col-md-12"> <b>Level</b>: <label>{{levellist.levelName}}</label></div>
+                        <div class="col-md-12"> <b>Order</b>: <label>{{i+1}}</label></div>
+                      </div>
+                      <div class="col-md-4"><b>Users</b>: <label>{{levellist.users}}</label></div>
+                      <div class="col-md-4" style="padding-left: 30px;">
+                        <a role="button" title="Edit Level"    (click)="Leveledit(levellist)" class="fa fa-edit" 
+                        style="font-size: 20px;color: black;" *ngIf="UserAccessModel.edit"></a> &nbsp;
+                        <a role="button" title="Delete Level"    (click)="Deletelevel(levellist)" class="fa fa-trash-o" style="font-size: 20px;color: black;" *ngIf="UserAccessModel.delete"></a>
+                      </div>
+                    </div>
+                    <div class="col-md-12 text-center"><i class="fa fas fa-arrow-down" style="font-size: 20px;height:30px"></i></div>
+                  </td>
+                </tr>
+              </table>
+        </div>
+    </div>
+
+
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      </div>
+    </ng-template>
+
+
+    <ng-template #contentPopUp let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title">Workflow</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="overflow-x: hidden;">
+        <div class="row">
+          <div class="col-sm-4">
+            <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;"> Category</label>
+            <div>
+
+            <angular2-multiselect style="width:200px" [required]='true'
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedCategory" 
+                (onSelect)="onCategorySelectCreate($event)" [data]="categoryDTOList"
+              [settings]="categorydropdownSettings">
+            </angular2-multiselect>
+
+        <!--    <ng-multiselect-dropdown style="width:200px" [required]='true' [placeholder]="'Select the Category'"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedCategory"
+                (onSelect)="onCategorySelectCreate($event)" [data]="categoryDTOList"
+                [settings]="singleSelectdropdownSettings">
+              </ng-multiselect-dropdown>-->
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Level Name</label>
+            <div>
+          <angular2-multiselect style="width:200px" [required]='true'
+            [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selectedRoles" 
+            [data]="roleDTOList" (onSelect)="onRoleSelect($event)" 
+            (onDeSelect)="onRoleDeSelect($event)" (onSelectAll)="onRoleSelectAll($event)"
+            (onDeSelectAll)="onRoleDeSelectAll($event)" [settings]="leveldropdownSettings"
+            [settings]="leveldropdownSettings">
+          </angular2-multiselect>
+
+              <!--<ng-multiselect-dropdown style="width:200px" [placeholder]="'Select the Levels'" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="item.selectedRoles" [data]="roleDTOList" (onSelect)="onRoleSelect($event)"
+                (onDeSelect)="onRoleDeSelect($event)" (onSelectAll)="onRoleSelectAll($event)"
+                (onDeSelectAll)="onRoleDeSelectAll($event)" [settings]="dropdownSettings">
+              </ng-multiselect-dropdown>-->
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Users</label>
+          <div>
+            <angular2-multiselect style="width:100px" [ngModelOptions]="{standalone: true}" [disabled]="true"
+            [(ngModel)]="item.selectedUsers" [data]="userListTemp" [settings]="userdropdownSettings">
+          </angular2-multiselect>
+
+          <!--<ng-multiselect-dropdown style="width:100px" [placeholder]="'Select the users'" [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="item.selectedUsers" [data]="item.userList" [settings]="dropdownUsersSettings"
+            (onSelect)="onDropDownSelect($event, 'users')" (onDeSelect)="onDropDownDeSelect($event,'users')"
+            (onSelectAll)="onDropDownSelectAll($event, 'users')"
+            (onDeSelectAll)="onDropDownDeSelectAll($event, 'users')">
+          </ng-multiselect-dropdown>-->
+        </div> 
+      </div>
+    </div>
+
+    <div style="margin-left: 48%;margin-right: auto;">
+        <br>
+        <button *ngIf="!isEditable" type="button" class="btn btn-primary" title="Add Level"
+        (click)="save()">Save</button>
+        <button  *ngIf="isEditable" type="button" class="btn btn-primary" title="Add Level"
+        (click)="save()">Update</button>
+        <!-- <button type="button" style="border: none;background-color: transparent;" (click)="save()"> <i><img
+          style="width: 30px; height: 30px;" title="Add Level"
+          src="assets/images/avatars/AddWF.png"></i></button> &nbsp;&nbsp; -->
+    </div>
+
+    &nbsp;
+      <div class="row" style="padding:10px;">
+        <div class="col-sm-12">
+            <table class="table-striped table-bordered" id="tbllevel" style="margin-left: auto;margin-right: auto;width: 90%;height: 400px;padding:10px 20px;">
+                <tr *ngFor="let levellist of this.workFlowMasterDetailsList ; let i = index">
+                  <td> 
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div> <b>Level</b>: <label>{{levellist.levelName}}</label></div>
+                        <div> <b>Order</b>: <label>{{i+1}}</label></div>
+                      </div>
+                      <div class="col-sm-5">
+                      <b>Users :</b>{{levellist.users}}
+                      </div>
+                      <div class="col-sm-3" style="float: right;text-align: right;">
+                        <a role="button" title="Edit Level"    (click)="Leveledit(levellist)" class="fa fa-edit" 
+                        style="font-size: 20px;color: #367588;"></a> 
+                        &nbsp;<a role="button" title="Delete Level"    (click)="Deletelevel(levellist)" class="fa fa-trash-o" style="font-size: 20px;color: #ff4500;"></a>
+                      </div>
+                    </div><br>
+                    <div class="col-md-12 text-center"><i class="fa fas fa-arrow-down" style="font-size: 20px;height:30px"></i></div>
+
+                    <!--<div class="row">
+                      <div class="col-md-4">
+                        <div class="col-md-12"> <b>Level</b>: <label>{{levellist.levelName}}</label></div>
+                        <div class="col-md-12"> <b>Order</b>: <label>{{i+1}}</label></div>
+                      </div>
+                      <div class="col-md-4"><b>Users</b>: 
+                        <textarea cols="50" rows="3" name="sorted">{{levellist.users}}</textarea>
+                      </div>
+                      <div class="col-md-4" style="padding-left: 30px;float;right">
+                        <a role="button" title="Edit Level"    (click)="Leveledit(levellist)" class="fa fa-edit" style="font-size: 20px;color: #367588;"></a> 
+                        &nbsp;<a role="button" title="Delete Level"    (click)="Deletelevel(levellist)" class="fa fa-trash-o" style="font-size: 20px;color: #ff4500;"></a>
+                      </div>
+                    </div>
+                    <div class="col-md-12 text-center"><i class="fa fas fa-arrow-down" style="font-size: 20px;height:30px"></i></div>-->
+                  </td>
+                </tr>
+              </table>
+        </div>
+    </div>
+
+
+        
+      </div>
+      <div class="modal-footer">
+<!--        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+-->      
+       </div> 
+    </ng-template>
+
+    <ngb-tabset>
+
+      <ngb-tab>
+        <ng-template ngbTabTitle><b>Create Workflow</b> </ng-template>
+        <ng-template ngbTabContent>
+
+          <div class="row">
+            <div class="col-sm-12 mb-4" *ngIf="UserAccessModel.view">
+              <br>
+              <ngx-datatable #tableSubCategory class='material' [columnMode]="'force'" [headerHeight]="50"
+                [footerHeight]="50" [rowHeight]="'50'" [limit]="10" [rows]='WFCreateView' style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
+                <!--<ngx-datatable-column name="Id" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <strong class="fontStyle">{{row['id']}}</strong>
+                  </ng-template>
+                </ngx-datatable-column>-->
+
+                <ngx-datatable-column name="Category Name" [width]="600">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <strong class="fontStyle" style="text-align: center;">{{row['key']}}</strong>
+                  </ng-template>
+                </ngx-datatable-column>
+                
+                <!-- <ngx-datatable-column name="Sub Category Name">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <strong class="fontStyle">{{row['SubCategoryName']}}</strong>
+                  </ng-template>
+                </ngx-datatable-column> -->
+
+                <ngx-datatable-column name="Action" [width]="600">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div style="padding: 0px 48%;">
+
+                    <a role="button" title="Edit" class="fa fa-edit" style="font-size: 20px;color: #365778;" (click)="openContent(contentPopUp, row['id'])" *ngIf="UserAccessModel.edit">
+                      &nbsp;</a>
+                    <a  class="pointer" role="button" title="Delete">
+                      <i aria-hidden="true" class="fa fas-fa-trash-alt" style="font-size: 20px;color: black;" (click)="onDeleteChange(row['id'])"  *ngIf="UserAccessModel.delete"></i>
+                      &nbsp;</a>
+
+                    <!--<button type="button" style="border: none;background-color: transparent;cursor: pointer;"
+                      (click)="openContent(contentPopUp, row['id'])" *ngIf="UserAccessModel.edit" ><i><img title="Edit"
+                          style="width: 18px; height: 18px;" src="assets/images/avatars/edit.png" ></i></button>
+                    <button *ngIf="!row['isActive']" type="button" style="cursor: pointer;border: none;background-color: transparent;"
+                      (click)="onDeleteChange(row['id'])" ><i><img title="Delete" style="width: 18px; height: 18px;"
+                          src="assets/images/avatars/delete.png" *ngIf="UserAccessModel.delete"></i></button>-->
+                  </div>  
+                  </ng-template>
+                </ngx-datatable-column>
+
+              </ngx-datatable>
+            </div>
+          </div>
+
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab>
+        <ng-template ngbTabTitle><b>Create Level</b> </ng-template>
+        <ng-template ngbTabContent>
+          <form>
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-sm-4" style="padding:0px 20px;">
+                    <label class="strong">Level Name :</label>
+                    <input type="text" class="itemInput" name="workFlowLevelName" placeholder="Level Name"[(ngModel)]="levelModel.workFlowLevelName" [ngModelOptions]="{standalone: true}">
+                </div>
+                <!--<div class="col-sm-4">
+                  <label class="strong">Active :</label>
+                  <select class="itemInput" [(ngModel)]="levelModel.activeFlag" [ngModelOptions]="{standalone: true}" style="width: 100%;height: 35px;">
+                      <option value=''>Select Y/N</option>
+                      <option *ngFor="let e of dataList" [value]="e.key">{{ e.key }}</option>  
+                  </select>
+                </div>-->
+                <div class="col-sm-4" style="padding:09px 20px;"  *ngIf="UserAccessModel.edit">
+                  <br>
+                    <button *ngIf="!isUpdate" type="button" class="btn btn-primary"
+                    (click)="saveLevel()">Save</button>
+
+                    <button *ngIf="isUpdate" type="button" class="btn btn-primary"
+                    (click)="saveLevel()">Update</button>
+                    &nbsp;&nbsp;
+                    <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+        </form>
+          <div class="row">
+            <div class="col-sm-12 mb-4"  *ngIf="UserAccessModel.view">
+
+              <ngx-datatable #tableSubCategory class='material' [columnMode]="'force'" [headerHeight]="50"
+                [footerHeight]="50" [rowHeight]="'40'" [limit]="5" [rows]='workFlowLevelList' style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
+
+                <ngx-datatable-column name="Level Name">
+                  <ng-template ngx-datatable-cell-template let-row="row"  let-rowIndex="rowIndex" let-value="value">
+                    <span>
+                      {{row['workFlowLevelName']}}
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+               <!-- <ngx-datatable-column name="ActiveFlag">
+                  <ng-template ngx-datatable-cell-template let-row="row"  let-rowIndex="rowIndex" let-value="value">
+                    <span>
+                      {{row['activeFlag']}}
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>-->
+                <ngx-datatable-column name="Action">
+                  <ng-template let-row="row" let-value="value"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <div style="margin: 0px 48%;cursor: pointer;"  *ngIf="UserAccessModel.edit">
+                        <i class="fa fa-edit" style="font-size: 20px;color: #365778;"   title="Modify"    
+                        (click)="editLevel(row)" ></i>
+                       <!-- <i class="fa fa-trash-o" title="Delete"  (click)="onDeleteChange(row.id)"></i>-->
+                      </div>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+  </div>
+</div>
+</div>

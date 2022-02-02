@@ -1,0 +1,232 @@
+
+    <div style="top:-70px;">
+
+        <div class="card" style="padding:10px">
+            <br>
+            <div>
+                <b>
+                    <h4 style="text-align: left;">
+                    <i><img style="width: 30px; height: 30px;" src="assets/images/avatars/usermanagement.png"></i> User Management
+                    </h4>
+                </b>
+            </div>
+<br>
+            <ngb-tabset #t="ngbTabset">
+                <ngb-tab title="Add Users" id="AddUsers">
+                    <ng-template ngbTabContent>
+                                <div style="padding:10px;">
+                                <form [formGroup]="form">
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label>Corporate Id :<span class="required-asterisk" style="color: red;">*</span>
+                                            </label>
+                                            <div>
+                                                <input type="text" placeholder="Corporate Id" class="form-control"
+                                                    [(ngModel)]="user.corporateId" formControlName="corporateId" />
+                                            </div>
+                                        </div>
+    
+                                        <div class="col-6">
+                                            <label>Name :<span class="required-asterisk" style="color: red;">*</span></label>
+                                            <div>
+                                                <input type="text" class="form-control" placeholder="Name"
+                                                    [(ngModel)]="user.firstName" formControlName="firstName" required />
+                                                <small class="form-text text-muted text-danger"
+                                                    *ngIf="!form.get('firstName').valid && (form.get('firstName').dirty || form.get('firstName').touched)">
+                                                    Name is required...!</small>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label>Email :<span class="required-asterisk"
+                                                    style="color: red;">*</span></label>
+                                            <div>
+                                                <input type="text" class="form-control" placeholder="Email"
+                                                    [(ngModel)]="user.email" formControlName="email">
+                                                <small class="form-text text-muted text-danger"
+                                                    *ngIf="!form.get('email').valid && (form.get('email').dirty)">Please
+                                                    enter a valid email!</small>
+                                            </div>
+                                        </div>
+    
+                                        <div class="col-6">
+                                            <label>Phone No :<span class="required-asterisk"
+                                                    style="color: red;">*</span></label>
+                                            <div>
+                                                <input type="mobile" class="form-control" type="text"
+                                                    formControlName="mobileNo" [(ngModel)]="user.mobileNo"
+                                                    placeholder="Phone No" required>
+                                                <small class="form-text text-muted text-danger"
+                                                    *ngIf="!form.get('mobileNo').valid && (form.get('mobileNo').dirty || form.get('mobileNo').touched)">Please
+                                                    enter a valid Phone No!</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" ngbDropdown>
+                                        <div class="col-6" ngbDropdown>
+                                            <label>Department :<span class="required-asterisk"
+                                                    style="color: red;">*</span></label>
+                                            <div>
+                                                <select class="form-control" ngDefaultControl formControlName="departmentId"
+                                                    (ngModelChange)="onDeptChnage($event)" [(ngModel)]="user.departmentId"
+                                                    name="departmentName" required>
+                                                    <option value="">Select your Department</option>
+                                                    <option *ngFor="let dept of departmentsList" [value]="dept.id">
+                                                        {{dept.key}}</option>
+                                                </select>
+    
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label>Location :<span class="required-asterisk"
+                                                style="color: red;">*</span></label>
+                                            <div>
+                                                <input type="text" class="form-control" formControlName="Location"
+                                                    [(ngModel)]="user.location" placeholder="Location" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label> Manager :<span class="required-asterisk"
+                                                style="color: red;">*</span></label>
+                                            <div>
+                                                <select class="form-control" ngDefaultControl
+                                                    [(ngModel)]="user.immediateSupervisorId" name="immediateSupervisor"
+                                                    formControlName="immediateSupervisorId">
+                                                    <option [ngValue]="undefined" > Choose your Manager </option>
+                                                    <option *ngFor="let supervisor of immediateSupervisorList"
+                                                        [value]="supervisor.id">
+                                                        {{supervisor.key}} </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label>Role :<span class="required-asterisk"
+                                                style="color: red;">*</span></label>
+                                            <div>
+                                                <select class="form-control" ngDefaultControl formControlName="roleId"
+                                                    [(ngModel)]="user.roleId" name="roleId">
+                                                    <option value="">Select your Role</option>
+                                                    <option *ngFor="let role of rolesList" [value]="role.id">
+                                                        {{role.key}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label>Password :<span class="required-asterisk"
+                                                style="color: red;">*</span></label>
+                                            <div>
+                                                <input type="text" class="form-control" formControlName="password"
+                                                    [(ngModel)]="user.password" placeholder="Password" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <br>
+                                            <label>IT Admin Access :</label>
+                                            <br>
+                                            <ui-switch uncheckedLabel="No" checkedLabel="Yes"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="ItProcessAccess">
+                                            </ui-switch>
+                                        </div>
+                                        <div class="col-2">
+                                            <br>
+                                            <label>Manager Access :</label>
+                                            <br>
+                                            <ui-switch uncheckedLabel="No" checkedLabel="Yes"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="ManagerAccess">
+                                            </ui-switch>
+                                        </div>
+                                        <div class="col-2">
+                                            <br>
+                                            <label>Is Active :</label>
+                                            <br>
+                                            <ui-switch uncheckedLabel="No" checkedLabel="Yes"
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="IsActive">
+                                            </ui-switch> 
+                                        </div>
+                                    </div>
+    <div *ngIf="validationMsg" style="color: red;text-align: center;">
+        Please fill all the details.
+    </div>
+                                            <div style="text-align:center;margin: auto;margin-left: auto;" *ngIf="UserAccessModel.add">
+                                                <button *ngIf="!this.isUpdate" type="button" class="btn btn-primary m-1"
+                                                (click)="saveAndGo('ViewUsers')">&nbsp;&nbsp;Save</button>
+
+                                                <button *ngIf="this.isUpdate" type="button" class="btn btn-primary m-1"
+                                                (click)="saveAndGo('ViewUsers')">&nbsp;&nbsp;Update</button>
+
+                                                &nbsp;&nbsp;&nbsp;
+                                                <button type="button" class="btn btn-danger m-1"
+                                                (click)="cancel()">Cancel</button>
+                                            </div>
+                                    </form>
+                             </div>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="User Record" id="ViewUsers" *ngIf="UserAccessModel.view">
+                    <ng-template ngbTabContent>                          
+                                    <div style="padding: 10px;">
+                                        <ngx-datatable #myTable class="material" [rows]='users' [columnMode]="'force'"
+                                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="60" [limit]="10"
+                                            [scrollbarH]="false" id="myrequestopenrequest" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
+                                            <ngx-datatable-column name="S.No" [width]="30">
+                                                <ng-template let-row="row"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                                    <strong class="fontStyle">{{rowIndex+1}}</strong>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+
+                                            <ngx-datatable-column name="CorporateId">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    <strong class="fontStyle">{{row['corporateId']}}</strong>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+    
+                                            <ngx-datatable-column name="Name" style="background-color: darkgray;">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    <strong class="fontStyle">{{row['firstName']}}</strong>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Email" style="background-color: darkgray;" [width]="200">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    <strong class="fontStyle">{{row['email']}}</strong>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Department Name" style="background-color: darkgray;">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    <strong class="fontStyle">{{row['departmentName']}}</strong>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name=" Supervisor Name"
+                                                style="background-color: darkgray;">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    <strong class="fontStyle">{{row['immediateSupervisorName']}}</strong>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column [flexGrow]="1.5" name="Action" cellClass="d-flex align-items-center">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    <div style="margin:0% 100%;">
+                                                   
+                                                        <a role="button" title="Edit User" class="fa fa-edit" style="font-size: 20px;color: #367588;"
+                                                            (click)="editUser(row.id);t.select('AddUsers')" *ngIf="UserAccessModel.edit">
+                                                        </a>&nbsp;
+                                                        <a role="button" title="Delete User" class="fa fas fa-trash" style="font-size: 20px;color: #ff4500;"
+                                                        (click)="deleteUser(row.id)" *ngIf="UserAccessModel.delete" ></a>
+                                                    </div>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                        </ngx-datatable>
+    
+                                    </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+    
+        </div>
+  
+          
+    </div>

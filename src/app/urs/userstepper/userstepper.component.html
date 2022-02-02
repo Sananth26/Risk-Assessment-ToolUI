@@ -1,0 +1,180 @@
+
+   <div class="top" style="margin-top:-20px;padding:0px 20px;box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;background-color:white">
+     <div class="row" style="padding:10px">
+       <div class="col-sm-12">
+           <div style="float:left;padding-top: 10px;" *ngIf="!cardView">
+               <div>
+                <span class="applabel ">Request Id :<span class="sublabel">{{requestSno || this.gxpFormComp.requestSno3}}</span>&nbsp;&nbsp;&nbsp;
+                </span>
+                <span class="applabel ">Status :
+                <span class="sublabel" style="background-color: yellow;">Draft</span></span>&nbsp;
+                <a  style="cursor: pointer;">
+                  <i class="fa fas fa-info-circle" style="font-size: 15px;" 
+                  placement="bottom" [ngbTooltip]="popContent"></i>&nbsp;&nbsp;</a>
+                <br>
+               </div>
+           </div>
+
+
+           <div style="float:left;padding-top: 10px;" *ngIf="cardView">
+            <div>
+              <span class="applabel ">Request Id  :<span class="sublabel">{{requestSno}}</span>&nbsp;&nbsp;&nbsp;</span>
+              <span class="applabel ">Status :
+                <span *ngIf="status=='Draft'" style="background-color: yellow;">Draft</span>
+                <span *ngIf="status=='userpublish'" style="background-color: yellow;">Published</span>
+                <span *ngIf="status=='Publish'" style="background-color: yellow;">Manager Approved</span>
+                <span *ngIf="status=='ITApprove'" style="background-color: yellow;">Network Approved</span>
+                <span *ngIf="status=='Peer Review'" style="background-color: yellow;">Peer Review</span>
+                <span *ngIf="status=='Completed'" style="background-color: yellow;">Completed</span>
+            </span>&nbsp;
+              <a  style="cursor: pointer;">
+                <i class="fa fas fa-info-circle" style="font-size: 15px;" 
+                placement="bottom" [ngbTooltip]="popContent"></i>&nbsp;&nbsp;</a>
+             <br>
+            </div>
+        </div>
+
+        <ng-template #popContent>
+          <span class="text-left">
+            <div><b>Corp-Id : </b>{{corpid}}</div>
+            <div><b>Requestor Name :</b> {{requestersName}}</div>
+            <div>{{requestersEmail}}</div>
+            <div><b>Phone No : </b> {{requestersPhone}}</div>
+            <div><b>Department : </b>{{requestersDept}}</div>
+          </span>
+        </ng-template>
+
+      
+
+        &nbsp;&nbsp;&nbsp;
+        <div style="float: right;padding-top: 10px;" *ngIf="editPermission">   
+          <a style="cursor: pointer;"
+          (click)="navigatePrevious();" *ngIf="btnPrev" >
+          <i><img style="width: 30px; height: 30px;" title="Previous"
+             src="assets/images/avatars/previous.png"></i>&nbsp;&nbsp;</a>
+
+             <!--<a style="cursor: pointer;"
+             (click)="navigateNext();" *ngIf="btnNext && enableNext" >
+             <i><img style="width: 30px; height: 30px;" title="Next"
+                src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>-->
+             
+          <a  style="cursor: pointer;"
+          (click)="navigateNext();;"  *ngIf="!summarytab && peerTab">
+          <i><img style="width: 30px; height: 30px;" title="Next"
+             src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>
+
+             <a  *ngIf="false" style="cursor: pointer;"
+             (click)="openModal();"  >
+             <i><img style="width: 30px; height: 30px;" title="Workflow"
+                src="assets/images/avatars/workflow.png"></i>&nbsp;&nbsp;</a>
+      
+
+          <a  *ngIf="saveRequest" style="cursor: pointer;" (click)="this.gxpFormComp.saveAndGo();" >
+         <i><img style="width: 25px; height: 25px;" title="Save"
+            src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;</a> 
+
+          <a  *ngIf="saveRisk" style="cursor: pointer;" (click)="this.userriskComp.saveAndGo();" >
+            <i><img style="width: 25px; height: 25px;" title="Save"
+              src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;</a> 
+  
+        <a  *ngIf="summarytab" style="cursor: pointer;"
+         (click)="this.summaryComp.openModal();" >
+         <i><img style="width: 30px; height: 30px;"title="Invite for Per Review"
+          src="assets/images/avatars/share1.png"></i>
+        &nbsp;</a>
+       
+       <a  *ngIf="summarytab" style="cursor: pointer;"
+       (click)="this.summaryComp.publish();" >
+       <i><img style="width: 30px; height: 30px;" title="Publish"
+        src="assets/images/avatars/bullhorn.png"></i>
+              &nbsp; </a>     
+          
+          <a  style="cursor: pointer;"  [routerLink]="['/urs/userview']">
+          <i><img style="width: 30px; height: 30px;" title="Cancel"
+             src="assets/images/avatars/cancel1.png"></i></a>
+       </div>  
+
+       <div style="float: right;padding-top: 10px;" *ngIf="!editPermission">   
+        <a style="cursor: pointer;"
+        (click)="navigatePrevious();" *ngIf="btnPrev" >
+        <i><img style="width: 30px; height: 30px;" title="Previous"
+           src="assets/images/avatars/previous.png"></i>&nbsp;&nbsp;</a>
+
+           <!--<a style="cursor: pointer;"
+           (click)="navigateNext();" *ngIf="btnNext && enableNext" >
+           <i><img style="width: 30px; height: 30px;" title="Next"
+              src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>-->
+           
+        <a  style="cursor: pointer;"
+        (click)="navigateNext();;"  *ngIf="btnNext && this.gxpFormComp.nextFlag && !this.enableNext">
+        <i><img style="width: 30px; height: 30px;" title="Next"
+           src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>
+
+     
+        <a  style="cursor: pointer;"
+           (click)="navigateNext();;"  *ngIf="!btnNext && this.userriskComp.nextSummary">
+           <i><img style="width: 30px; height: 30px;" title="Next"
+              src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>
+
+        <a  *ngIf="saveRequest" style="cursor: pointer;" (click)="this.gxpFormComp.saveAndGo();this.spinnerService.show();" >
+       <i><img style="width: 25px; height: 25px;" title="Save"
+          src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;</a> 
+
+        <a  *ngIf="saveRisk" style="cursor: pointer;" (click)="this.userriskComp.saveAndGo();" >
+          <i><img style="width: 25px; height: 25px;" title="Save"
+            src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;</a> 
+
+            <a  *ngIf="summarytab" style="cursor: pointer;"
+            (click)="this.summaryComp.openModal();" >
+            <i><img style="width: 30px; height: 30px;"title="Invite for Per Review"
+             src="assets/images/avatars/share1.png"></i>
+           &nbsp;</a>
+          
+          <a  *ngIf="summarytab" style="cursor: pointer;"
+          (click)="this.summaryComp.publish();" >
+          <i><img style="width: 30px; height: 30px;" title="Publish"
+           src="assets/images/avatars/bullhorn.png"></i> &nbsp;
+           </a>
+          
+        
+        <a  style="cursor: pointer;"  [routerLink]="['/urs/userview']">
+        <i><img style="width: 30px; height: 30px;" title="Cancel"
+           src="assets/images/avatars/cancel1.png"></i></a>
+
+     </div>  
+        
+       </div>
+     </div>
+     <div  class="col-sm-12" *ngIf="!this.gxpFormComp.requestValidation" style="color: red;font-size: small;text-align: center;">Please fill all the details</div>
+     <div  class="col-sm-12" *ngIf="!this.userriskComp.riskValidation" style="color: red;font-size: small;text-align: center;">Please fill all the Yes/No details</div>
+
+   </div>
+   
+  <br>
+
+  <!--<div class="container-fluid">
+    <ul class="list-unstyled multi-steps">
+        <li *ngFor="let item of workflowList" class="is-active" title="demo">{{item.levelName}}</li>
+    </ul>
+  </div>-->
+  <br><br><br>
+  
+  <div style="margin: 0px 20px;">
+   <form-wizard id="project-form-wizard" #formWizard (onStepChanged)="onStepChangedLoadData($event)">
+    <wizard-step [title]="'Request Information'"    [showNext]="false">
+        <app-firewallrequest #gxpFORM>
+      </app-firewallrequest>  
+    </wizard-step>
+
+    <wizard-step [title]="'Risk Detail and Ranking'" [showPrev]="false" [showNext]="false"> 
+         <app-userriskdetailranking  #userRisk>            
+         </app-userriskdetailranking>
+    </wizard-step>
+         
+    <wizard-step [title]="'Summary'" [showPrev]="false" [showNext]="false" >
+        <app-viewsummaryuser #userSummary></app-viewsummaryuser>    
+    </wizard-step>
+    </form-wizard>
+    </div>
+   
+    

@@ -1,0 +1,18 @@
+<div class="col-sm-12">
+  <h5 class="modal-title" id="modal-basic-title" style="display: inline;">Workflow</h5>
+  <button type="button" style="display: inline;background-color: transparent;border: none;float: right" (click)="closeModal()"><i class="fa fas fa-times"></i></button>
+<br>
+  <div class='container-fluid'> 
+<ul class='htimeline'>
+<div *ngFor="let item of workflowList;let i=index" >
+  <li class="step col-sm-3" [style.border-color]="status(item)" *ngIf="i<4" style="background-color:transparent">
+    <div style="text-align: center;font-size: 16px;"><strong>{{item.levelName=='ManagerGroup'?'Manager':item.levelName}}</strong></div>
+      <div class='tasks container-fluid' *ngIf="item.status!=null && item.status!=''">
+          <span><strong>User :</strong>{{item.actionTakenBy}}</span><br>
+          <span><strong>Completed On :</strong>{{item.actionTakenOn  | date: 'MM/dd/yyyy'}}</span><br>
+<!--          <span><strong>Status :</strong>Completed</span><br>
+-->      </div>
+  </li>  
+</div>    
+</ul>
+</div>

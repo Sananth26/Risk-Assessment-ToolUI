@@ -1,0 +1,290 @@
+ 
+
+<div style="padding: 20px;">
+
+  <div class="row">
+    <div class="col-sm-6">
+      <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Category <span style="color:red">*</span>:</label>
+      <div>
+        <angular2-multiselect name="category" [data]="categoryList" 
+        [(ngModel)]="newRequestFormData.category" (ngModelChange)="onCategoryChange($event)" 
+        [settings]="categorydropdownSettings"></angular2-multiselect>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;" >Sub Category <span style="color:red">*</span> :</label>
+      <div>
+        <angular2-multiselect  name="subCategory" [data]="subCategoryList" 
+        [(ngModel)]="newRequestFormData.subCategory" (ngModelChange)="onSubCategoryChange($event)" 
+        [settings]="subcategorydropdownSettings"></angular2-multiselect>
+
+      </div>
+    </div>
+  </div>
+ 
+  <div class="row">
+    <div class="col-sm-6">
+      <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Business Justification<span style="color:red">*</span> :</label>
+      <div>
+        <textarea  type="text" id="documentName"  name="BusinessJustification" placeholder="Business Justificatiom"   [(ngModel)]="newRequestFormData.BusinessJustification" class="form-control"></textarea>
+      </div>
+    </div>
+    <div class=" col-sm-6">
+      <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Managed Services <span style="color:red">*</span>:</label>
+      <div>
+        <textarea type="text"  name="ManagedServices" placeholder="Managed Services" [(ngModel)]="newRequestFormData.ManagedServices" class="form-control"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Firewall Region <span style="color:red">*</span>:</label>
+      <div>
+        
+        <angular2-multiselect  name="firewall" [data]="firewallRegionList" 
+        [(ngModel)]="newRequestFormData.firewall" (ngModelChange)="onFirewallRegionChange($event)" 
+        [settings]="firewalldropdownSettings"></angular2-multiselect>
+
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Normal/Expedited <span style="color:red">*</span>:</label>
+      <div>
+        <angular2-multiselect  name="nomrmalorexpedited" [data]="Normalexpecticated" 
+        [(ngModel)]="newRequestFormData.nomrmalorexpedited" (ngModelChange)="onNormalexpecticatedChange($event)" 
+        [settings]="normaldropdownSettings"></angular2-multiselect>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Business Owners <span style="color:red">*</span>:</label>
+      <div>
+        <angular2-multiselect  class="businessOwnerDropdown" name="businessOwner" [data]="businesOwnersData" 
+        [(ngModel)]="newRequestFormData.businessOwner" 
+        [settings]="businessownerdropdownSettings"></angular2-multiselect>
+      </div>
+    </div> 
+  
+    <div class="col-sm-6"> 
+        <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">IT Owners <span style="color:red">*</span>:</label>
+        <div>
+          <angular2-multiselect  name="itOwner" [data]="itOwnersData" 
+          [(ngModel)]="newRequestFormData.itOwner"  
+          [settings]="itownerdropdownSettings"></angular2-multiselect>
+        </div>
+     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Name of Project/Effort/Application <span style="color:red">*</span>:</label>
+      <div>
+        <input type="text"  name ="NameOfProject" placeholder="Project Name" [(ngModel)]="newRequestFormData.NameOfProject"  class="form-control">
+      </div>
+    </div>           
+     
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Description<span style="color:red">*</span> :</label>
+      <textarea type="text" rows="3" name ="Description" placeholder="Description"[(ngModel)]="newRequestFormData.Description"  class="form-control"></textarea>
+    </div>
+
+    <div class="col-sm-6">
+      <label style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Business Impact<span style="color:red">*</span> :</label>
+      <textarea type="text" rows="3"  name ="BusinessImpact" placeholder="Business Impact" [(ngModel)]="newRequestFormData.BusinessImpact"  class="form-control"></textarea>
+    </div>      
+  </div>
+
+
+<div style="text-align: center;color: red;font-size: small;" *ngIf="formValidation">Please fill all the request details</div>
+<!-- Form end-->
+
+<br>
+<mat-accordion multi>
+<mat-expansion-panel  [expanded]="isFirst">
+<mat-expansion-panel-header>
+<mat-panel-title>
+<h6>Security Policy <span style="color:red">*</span></h6>
+</mat-panel-title>
+<mat-panel-description>
+</mat-panel-description>
+</mat-expansion-panel-header>
+<!--Table start-->
+<div class="row">
+<div class="col-sm-12">
+<div id="check-list-drag-id" class="panel panel-default" dnd-sortable-container style="overflow-x: auto;">
+<table id="testcase-table-checkList" class="table table-striped">
+  <thead class="thead-dark background-color:'green'">
+    <tr>
+      <td class="w-6"><label class="text" style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">#</label></td>
+      <td class="w-40"><label class="text" style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Source VPC/Account</label></td>
+      <td class="w-40"><label class="text" style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Source IP Address</label></td>
+      <td class="w-40"><label class="text" style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Destination VPC/Account </label></td>
+      <td class="w-40"><label class="text" style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Destination Address </label></td>
+      <td class="w-40"><label class="text" style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Application</label></td>
+      <td class="w-10"><label class="text" style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Port</label></td>
+      <td class="w-40"><label class="text" style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Protocol</label></td>
+      <td class="w-40"><label class="text" style="font-size: 13px;font-weight:bold; color: black; font-family: Open Sans, sans-serif;">Action</label></td>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let securitypolicygrid of securitypolicygrid; let i = index">
+      <tr [draggable] dnd-sortable>
+        <td class="noBorder" style="padding-left: 25px;">
+          <label>{{i+1}} </label>
+        </td>
+        <td class="noBorder">
+          <angular2-multiselect style="width:50px;" name="check_list_name_id_{{i}}" [data]="VPCAccount" [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="securitypolicygrid.Sourcevpcaccount" [settings]="protocaldropdownSettings"></angular2-multiselect>
+        </td>
+        <td class="noBorder">
+          <input id="check_list_name_id_{{i}}" type="text" class="form-control"
+            [ngModelOptions]="{standalone: true}" [(ngModel)]="securitypolicygrid.Sourceipaddress"
+            rows="1" />
+        </td>
+        <td class="noBorder">
+          <angular2-multiselect style="width:50px;" name="check_list_name_id_{{i}}" [data]="VPCAccount" [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="securitypolicygrid.Destinationvpcaccount" [settings]="protocaldropdownSettings"></angular2-multiselect>
+        </td>
+        <td class="noBorder">
+          <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="securitypolicygrid.Destination" rows="1" />
+        </td>
+        <td class="noBorder">
+          <input type="text" autofocus class="form-control" [(ngModel)]="securitypolicygrid.Application"
+            [ngModelOptions]="{standalone: true}" />
+        </td>
+        <td class="noBorder">
+          <input type="text" class="form-control" autofocus [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="securitypolicygrid.Portservice" rows="1" />
+        </td>
+        <td class="noBorder" style="width:200px">
+          <angular2-multiselect  name="check_list_name_id_{{i}}" [data]="protocolList" [ngModelOptions]="{standalone: true}"
+             [(ngModel)]="securitypolicygrid.protocal" [settings]="protocaldropdownSettings"></angular2-multiselect>
+        </td>
+
+        <td>
+          &nbsp;&nbsp;
+          <a role="button" title="Add Security Policy" (click)="addChecklistItem(securitypolicygrid);">
+            <i class="fa fas fa-plus-circle" style="color: green;font-size: 20px;"></i></a>
+          &nbsp;
+            <a class="pointer" role="button" title="Delete" (click)="deleteSecurityTable(securitypolicygrid,i)">
+            <i class="fa fas fa-trash" style="color: red;font-size: 20px"></i></a>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+                          
+</div>
+<div style="text-align: left;color: red;font-size: small;" *ngIf="cannotDelete">First form cannot be deleted</div>
+<div class="col-sm-12">
+<div class="messages text-danger" *ngIf="isCheckListEntered">Please Fill the Details to Continue . . .
+</div>
+</div>
+
+</div>
+</div>
+<!--Table end-->
+</mat-expansion-panel>
+<br>
+
+<mat-expansion-panel [expanded]="isSecond">
+<mat-expansion-panel-header>
+<mat-panel-title>
+<h6>Architecture Diagram <span style="color:red">*</span></h6>
+</mat-panel-title>
+<mat-panel-description>
+</mat-panel-description>
+</mat-expansion-panel-header>
+<!--Diagram Start-->
+<div class="row">
+<br>
+<div  class="row container-fluid" id="divshowArchi">
+<div class="row"     >
+<ng-container>
+<div class="col-sm-12" style="left:25px" ><strong class="strong">&nbsp;&nbsp;Upload Your Files</strong></div>
+<div class="col-sm-12"  >
+<div class="col-sm-12" style="left:30px">
+  <form method="post" action="#">
+    <div class="files color">              
+      <input  #fileuploaddiv type="file" (change)="onFileChange($event)" multiple
+        accept=".pdf,.png,.jpeg,.PNG">
+        <div class="col-sm-12" style="text-align: left;padding:0px;color: red;font-size: 12px;">*JPEG, PNG & PDF format only</div>
+
+    </div>
+
+  </form>
+</div>
+<div class="col-sm-12" style="text-align: center;color: red;font-size: small;" *ngIf="diagramVAlidation">Please provide some  sample attachments</div>
+
+<!-- <app-file-upload-for-doc   >
+</app-file-upload-for-doc> -->
+</div>
+</ng-container>
+</div>
+<br>
+
+<div class="col-sm-12">
+<div *ngIf="this.fileList.length > 0">
+<div class="dt-desc" style="padding: 0px;padding-left: 1%; overflow-x:auto;">
+<div class="dt-desc dy-ui">
+  <br>
+  <table class="table-striped table-bordered" style="width: 100%;">
+    <thead>
+      <th>S. No</th>
+      <th>File Name</th>
+      <th>Date</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let file of this.fileList ; let i = index ">
+        <td>{{i+1}}</td>
+        <td><label>{{file.name || file.FileName}}</label></td>
+        <td><label>{{this.requestDate}} </label></td>
+        <td><a style="cursor:pointer;font-weight: bold" class="icofont icofont-eye-alt" placement="top"
+          container="body" ngbTooltip="view" (click)="viewFile(file, fileIndex, 'Static')"></a>&nbsp;&nbsp;
+       
+        <a [ngbCollapse]="createNewVersion" style="cursor:pointer;font-weight: bold"
+          style="cursor: pointer;" class="icofont icofont-ui-delete" placement="top" container="body"
+          ngbTooltip="delete" (click)="deleteUploadedFileForDoc(file, fileIndex)"></a>&nbsp;&nbsp;
+      </td>       
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>
+</div>
+</div> 
+</div>
+<!--Diagram end-->
+</mat-expansion-panel>
+
+
+</mat-accordion>
+<br>
+<!--Button start-->
+<div class="col-12 text-center" *ngIf="false">
+<div class="form-group">
+<div class="col-md-12 text-center">
+    <button type="button" class="btn btn-outline-primary" 
+        (click)="saveAndGo()" > <i><img style="width: 23px; height: 23px;"
+          src="assets/images/avatars/submit.png"></i>&nbsp;&nbsp;Submit</button>&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-outline-danger mr-2" (click)="clear()"> <i><img style="width: 20px; height: 20px;"
+      src="assets/images/avatars/quit.png"></i>&nbsp;&nbsp;Cancel</button>
+                                   
+</div>
+</div>
+</div>
+<!--button end-->
+</div>
+
+

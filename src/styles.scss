@@ -1,0 +1,258 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@swimlane/ngx-datatable/release/index.css";
+@import "~@swimlane/ngx-datatable/release/themes/material.css";
+@import "~@swimlane/ngx-datatable/release/themes/bootstrap.css";
+@import "~@swimlane/ngx-datatable/release/assets/icons.css";
+
+/* Importing Bootstrap SCSS file. */
+
+html,
+body {
+  height: 100%;
+}
+
+body.modal-open {
+  overflow: visible;
+}
+
+.card-footer {
+  display: none;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/*
+mat-dialog-container#modal-component {
+  border-radius: 11px;
+  background-color: white;
+  left: 70%;
+  top: 0%;
+}
+============ desktop view ============ */
+@media all and (min-width: 992px) {
+  .dropdown-menu li {
+    position: relative;
+  }
+  .nav-item .submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -7px;
+  }
+  .nav-item .submenu-left {
+    right: 100%;
+    left: auto;
+  }
+  .dropdown-menu > li:hover {
+    background-color: #f1f1f1;
+  }
+  .dropdown-menu > li:hover > .submenu {
+    display: block;
+  }
+}
+/* ============ desktop view .end// ============ */
+
+/* ============ small devices ============ */
+@media (max-width: 991px) {
+  .dropdown-menu .dropdown-menu {
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+}
+/* ============ small devices .end// ============ */
+
+$default-color: #ffffff;
+$base-color: #0079fe;
+$btn-background: #fff;
+$btn-border: #ccc;
+$btn-text-color: #333;
+$btn-arrow: #333;
+
+$token-background: $base-color;
+$token-text-color: #fff;
+$token-remove-color: #fff;
+
+$box-shadow-color: #959595;
+$list-hover-background: #f5f5f5;
+$label-color: #000;
+$selected-background: #e9f4ff;
+
+.mat-toolbar {
+  background: $default-color;
+}
+.c-btn {
+  background: $btn-background;
+  border: 1px solid $btn-border;
+  color: $btn-text-color;
+}
+.selected-list {
+  .c-list {
+    .c-token {
+      background: $token-background;
+      .c-label {
+        color: $token-text-color;
+      }
+      .c-remove {
+        svg {
+          fill: $token-remove-color;
+        }
+      }
+    }
+  }
+  .c-angle-down,
+  .c-angle-up {
+    svg {
+      fill: $btn-arrow;
+    }
+  }
+}
+.dropdown-list {
+  ul {
+    li:hover {
+      background: $list-hover-background;
+    }
+  }
+}
+.arrow-up,
+.arrow-down {
+  border-bottom: 15px solid #fff;
+}
+
+.arrow-2 {
+  border-bottom: 15px solid #ccc;
+}
+.list-area {
+  border: 1px solid #ccc;
+  background: #fff;
+  box-shadow: 0px 1px 5px $box-shadow-color;
+}
+.select-all {
+  border-bottom: 1px solid #ccc;
+}
+.list-filter {
+  border-bottom: 1px solid #ccc;
+  .c-search {
+    svg {
+      fill: #888;
+    }
+  }
+  .c-clear {
+    svg {
+      fill: #888;
+    }
+  }
+}
+
+.pure-checkbox {
+  input[type="checkbox"]:focus + label:before,
+  input[type="checkbox"]:hover + label:before {
+    border-color: $base-color;
+    background-color: #f2f2f2;
+  }
+  input[type="checkbox"] + label {
+    color: $label-color;
+  }
+  input[type="checkbox"] + label:before {
+    color: $base-color;
+    border: 1px solid $base-color;
+  }
+  input[type="checkbox"] + label:after {
+    background-color: $base-color;
+  }
+  input[type="checkbox"]:disabled + label:before {
+    border-color: #cccccc;
+  }
+  input[type="checkbox"]:disabled:checked + label:before {
+    background-color: #cccccc;
+  }
+  input[type="checkbox"] + label:after {
+    border-color: #ffffff;
+  }
+  input[type="radio"]:checked + label:before {
+    background-color: white;
+  }
+  input[type="checkbox"]:checked + label:before {
+    background: $base-color;
+  }
+}
+.single-select-mode .pure-checkbox {
+  input[type="checkbox"]:focus + label:before,
+  input[type="checkbox"]:hover + label:before {
+    border-color: $base-color;
+    background-color: #f2f2f2;
+  }
+  input[type="checkbox"] + label {
+    color: $label-color;
+  }
+  input[type="checkbox"] + label:before {
+    color: transparent !important;
+    border: 0px solid $base-color;
+  }
+  input[type="checkbox"] + label:after {
+    background-color: transparent !important;
+  }
+  input[type="checkbox"]:disabled + label:before {
+    border-color: #cccccc;
+  }
+  input[type="checkbox"]:disabled:checked + label:before {
+    background-color: #cccccc;
+  }
+  input[type="checkbox"] + label:after {
+    border-color: $base-color;
+  }
+  input[type="radio"]:checked + label:before {
+    background-color: white;
+  }
+  input[type="checkbox"]:checked + label:before {
+    background: none !important;
+  }
+}
+.selected-item {
+  background: $selected-background;
+}
+.btn-iceblue {
+  background: $base-color;
+  border: 1px solid $btn-border;
+  color: #fff;
+}
+
+.multiselect-dropdown .dropdown-btn {
+  display: inline-block;
+  border: 1px solid #adadad;
+  width: 100%;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border-radius: 4px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  z-index: 1;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: whitesmoke;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

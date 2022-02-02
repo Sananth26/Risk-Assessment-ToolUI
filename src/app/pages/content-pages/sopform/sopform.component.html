@@ -1,0 +1,573 @@
+<div class="card-header row" style="text-align: center;">
+ 
+  <div class="col-10 text-center">
+    <b>
+      <h3 class="card-header-text">
+        SOP
+      </h3>
+    </b>
+  </div>
+  <div class="float-sm-right col-2 ">
+    <button type="button"  [routerLink]="['/pages/sopboard']"  class="btn btn-dark m-1">  <i class="fa fa-chain-broken"></i> <span>&nbsp;&nbsp; Board</span></button>
+  </div>
+
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <ngb-tabset #t="ngbTabset">
+      <ngb-tab title="Add SOP Records" id="AddSOPRecords">
+        <ng-template ngbTabContent>
+
+          <div class="card">
+            <form name="sopForm" [formGroup]="sopForm" (ngSubmit)="save()" novalidate>
+              <div class="card-body">
+
+                <div>
+
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label">Document Number<span class='asterisk'>*</span> </label>
+                    <div class="col-10">
+                      <input type="text" class="form-control" formControlName="DocumentNumber" [readonly]="docReadOnlyFlag" [(ngModel)]="SOPRecord.documentNumber"
+                        placeholder="eg: SOP_0001" (blur)="CheckExist('')" required />
+                      <small class="form-text text-muted text-danger"
+                        *ngIf="!sopForm.get('DocumentNumber').valid && (sopForm.get('DocumentNumber').dirty || sopForm.get('DocumentNumber').touched)">
+                        Document Number is required ...!</small>
+                    </div>
+                  </div>
+
+                  <div class="form-group row pt-20 ml-18 mr-9">
+                    <label class="col-2 col-form-label">Select Department<span class='asterisk'>*</span></label>
+                    <div class="col-10">
+                        <select  class="form-control" formControlName="DepartmentName"
+                            (ngModelChange)="onDepartmentNameChange($event)" [(ngModel)]="SOPRecord.departmentId" name="departmentName"
+                             required>
+                             <option *ngFor="let module of this.departmentList;let i=index" [value]="module.id">
+                                {{module.key}}
+                            </option>
+                        </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label">Version<span class='asterisk'>*</span> </label>
+                    <div (click)="fetchVersionDetails('Back')"  [ngbCollapse]="!createNewVersion" class="icon-container mr-3 ml-3" style="width: auto !important;">
+                     <span class="ti-angle-left"  ngbTooltip="Back"> </span>
+                  </div>
+                    <div class="col-3">
+                      <input type="text" class="form-control" [readOnly]="true" [(ngModel)]="SOPRecord.version" formControlName="Version" required>
+                    </div>
+                    <div (click)="fetchVersionDetails('Next')"  [ngbCollapse]="!createNewVersion" class="icon-container" style="width: auto !important;">
+                      <span class="ti-angle-right" ngbTooltip="Next"> </span> 
+                  </div>
+                  <ng-template #popContent>
+                    The Next Available Version for the Document <b>{{sopForm.get('DocumentNumber').value}}</b> are <br/>
+                    <ng-container *ngFor="let version of versionList" >
+                      <button type="button" (click)="CheckExist(version)" class="btn btn-outline-info btn-round m-1">{{version}}</button>
+                    </ng-container>
+                   <br/><b>Select a Version</b><br/>
+                  </ng-template>
+
+                  <button type="button" [ngbCollapse]="!createNewVersion" class="btn btn-outline-primary btn-sm ml-5" placement="right" [ngbPopover]="popContent" popoverTitle="Available Versions">New Version</button>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label">Title<span class='asterisk'>*</span></label>
+                    <div class="col-10">
+                      <input type="text" class="form-control" [(ngModel)]="SOPRecord.title" formControlName="Title">
+                      <small class="form-text text-muted text-danger"
+                        *ngIf="!sopForm.get('Title').valid && (sopForm.get('Title').dirty || sopForm.get('Title').touched)">
+                        Title is required...!</small>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label">Status</label>
+                    <div class="col-10">
+                      <select  class="form-control" formControlName="Status"
+                          (ngModelChange)="onDepartmentNameChange($event)" [(ngModel)]="SOPRecord.statusId" name="status"
+                           required>
+                          <option *ngFor="let module of this.statusList;let i=index" [value]="module.id">
+                              {{module.key}}
+                          </option>
+                      </select>
+                  </div>
+                  </div>
+ 
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label" for="basicform">Effective Date </label>
+                    <div class="col-10">
+                      <input type="date" class="form-control"  formControlName="EffectiveDate"  [(ngModel)]="SOPRecord.effectiveDate"  (blur)="compareTwoDates()">
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label" for="basicform">Expiry Date </label>
+                    <div class="col-10">
+                      <input type="date" class="form-control" formControlName="ExpiryDate"  [(ngModel)]="SOPRecord.expiryDate"  (blur)="compareTwoDates()" >
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label" for="basicformFile1">Attachment</label>
+                    <div class="col-4">
+                      <input type="file" class="form-control-file" (change)="onFileUploadStatic($event)" 
+                      accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/*"
+                      multiple id="basicformFile1">
+                    </div>
+                    
+                    <div class="col-6 col-form-label" *ngIf="staticAttachmentTable.length > 0"  >
+                        <span>Uploaded Files:</span>
+                      <div class="dt-desc dy-ui">
+                        <table class="table-striped table-bordered">
+                          <thead><th>Sr. No</th><th>File Name</th><th>Date</th><th>Action</th></thead>
+                          <tbody>
+                          <tr *ngFor="let file of staticAttachmentTable; let fileIndex=index ">
+                            <td>{{fileIndex+1}}</td>
+                            <td><label>{{file.FileName}}</label></td>
+                            <td><label>{{file.Date | date:"dd/MM/yy"}}</label></td>
+
+                            <td><a style="cursor:pointer;font-weight: bold" class="icofont icofont-eye-alt" placement="top" container="body"
+                              ngbTooltip="view" (click)="viewFile(file, fileIndex, 'Static')"><i class="zmdi zmdi-view-dashboard"></i></a>&nbsp;&nbsp;
+                              <a style="cursor:pointer;font-weight: bold" class="icofont icofont-download" placement="top" container="body"
+                               ngbTooltip="Download" (click)="downloadFile(file, fileIndex, 'Static')"><i class="fa fa-cloud-download"></i></a>&nbsp;&nbsp;
+                              <a [ngbCollapse]="createNewVersion" style="cursor:pointer;font-weight: bold" style="cursor: pointer;" class="icofont icofont-ui-delete" placement="top" container="body"
+                              ngbTooltip="delete" (click)="deleteStaticUploadedFile(file, fileIndex)"><i class="zmdi zmdi-delete"></i></a>&nbsp;&nbsp;
+                            </td>
+                          </tr>
+                        </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-sm-10">
+                    <ng-multiselect-dropdown [placeholder]="'Cross Reference SOP'" [(ngModel)]="selectedCORS" [data]="dropdownList"
+                      [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                    </ng-multiselect-dropdown>
+                  </div> -->
+                  
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Cross Reference SOP</label>
+                <div class="col-sm-10">
+                  <ng-multiselect-dropdown [placeholder]="'Cross Reference SOP'" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedCORS"
+                   [data]="corsDropdownList" [settings]="corsdropdownSettings">
+                  </ng-multiselect-dropdown>
+                </div>
+              </div>
+
+                </div>
+
+                
+                <div class="card" [ngbCollapse]="oldSOPForm">
+                  <div class="card-body">
+                    <div class="form-group row">
+                      <label class="col-2 col-form-label"><b>Select Template</b></label>
+                      <div class="col-9">
+                        <select name="select" class="form-control" [ngModelOptions]="{standalone: true}"
+                          (ngModelChange)="onTemplateNameChange($event)" [(ngModel)]="sopDynamicFields.id"
+                          name="templateName" #templateName="ngModel" required>
+                          <option *ngFor="let module of this.templateNameDTOList;let i=index" [value]="module.id">
+                            {{module.templateName}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Dynamic fields -->
+                <div>
+
+                  <!-- Dynamic Form fields  -->
+                  <div class="mb-24" *ngFor='let input of fields ; let i=index'>
+
+                    <div *ngIf="input.type=='header'" class="card-header" style="text-align: center;">
+                      <div *ngIf="(input.subtype==='h1')">
+                        <h1 [innerHtml]="input.label"></h1>
+                      </div>
+                      <div *ngIf="(input.subtype==='h2')">
+                        <h2 [innerHtml]="input.label"></h2>
+                      </div>
+                      <div *ngIf="(input.subtype==='h3')">
+                        <h3 [innerHtml]="input.label"></h3>
+                      </div>
+                    </div>
+
+                    <!-- <div *ngIf="(input.type==='paragraph')">
+                      <p class="col-12" [innerHtml]="input.label"></p>
+                    </div> -->
+
+                    <div hidden class="form-group row" *ngIf="input.type=='hidden'">
+                      <input class="form-control" [type]="input.type" [required]="input.required"
+                        [placeholder]="input.placeholder">
+                    </div>
+
+                    <div class="form-group row" *ngIf="input.type=='number'">
+                      <label class="col-2 col-form-label" [for]='input.name'><label
+                          [innerHtml]="input.label"></label><span *ngIf="input.required!=undefined"
+                          class="asterisk">*</span>
+                        <a *ngIf="input.description!=undefined" href="javascript:;"
+                          class="m-r-15 crm-action-info text-muted text-primary" placement="top"
+                          [ngbTooltip]="input.description">
+                          <i style="font-size: 17px" class="fa fa-question-circle"></i>
+                        </a>
+                      </label>
+                      <div class="col-10">
+                        <input class="form-control" type="input.type" [required]="input.required"
+                          [ngModelOptions]="{standalone: true}" [min]="input.min" [max]="input.max" [step]="input.step"
+                          [(ngModel)]="input.Data" #number="ngModel">
+                        <div class="messages text-danger"
+                          *ngIf="(number.touched || submitted) && number.errors?.required">
+                          <label [innerHtml]="input.label"></label> can't be blank </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row" *ngIf="(input.type ==='text')">
+                      <label class="col-2 col-form-label" [for]='input.name'><label
+                          [innerHtml]="input.label"></label><span *ngIf="input.required!=undefined"
+                          class="asterisk">*</span>
+                        <a *ngIf="input.description!=undefined" href="javascript:;"
+                          class="m-r-15 crm-action-info text-muted text-primary" placement="top"
+                          [ngbTooltip]="input.description">
+                          <i style="font-size: 17px" class="fa fa-question-circle"></i>
+                        </a></label>
+                      <div class="col-10">
+                        <input class="form-control" [disabled]="input.disabled" [type]='input.subtype'
+                          [name]='input.name' [(ngModel)]='input.value' [ngModelOptions]="{standalone: true}"
+                          [minlength]="input.minlength" [required]="input.required" [maxlength]="input.maxlength"
+                          #text="ngModel">
+                        <div class="messages text-danger" *ngIf="(text.touched || submitted) && text.errors?.required">
+                          <label [innerHtml]="input.label"></label> can't be blank</div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row" *ngIf="(input.type==='date')">
+                      <label class="col-2 col-form-label" [for]='input.name'><label
+                          [innerHtml]="input.label"></label><span *ngIf="input.required!=undefined"
+                          class="asterisk">*</span>
+                        <a *ngIf="input.description!=undefined" href="javascript:;"
+                          class="m-r-15 crm-action-info text-muted text-primary" placement="top"
+                          [ngbTooltip]="input.description">
+                          <i style="font-size: 17px" class="fa fa-question-circle"></i>
+                        </a>
+                      </label>
+                      <div class="col-10">
+                        <input class="form-control" [ngModelOptions]="{standalone: true}" [disabled]="input.disabled"
+                          [type]='input.type' [name]='input.name' [(ngModel)]='input.value' [required]="input.required"
+                          #date="ngModel">
+                        <div class="messages text-danger" *ngIf="(date.touched || submitted) && date.errors?.required">
+                          Enter valid
+                          <label [innerHtml]="input.label"></label></div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row" *ngIf="(input.type==='select')">
+                      <label class="col-2 col-form-label" [for]='input.name'><label
+                          [innerHtml]="input.label"></label><span *ngIf="input.required!=undefined"
+                          class="asterisk">*</span>
+                        <a *ngIf="input.description!=undefined" href="javascript:;"
+                          class="m-r-15 crm-action-info text-muted text-primary" placement="top"
+                          [ngbTooltip]="input.description">
+                          <i style="font-size: 17px" class="fa fa-question-circle"></i>
+                        </a></label>
+                      <div class="col-10">
+                        <select class="form-control" [required]="input.required" [name]="input.name"
+                          [(ngModel)]="input.value" [ngModelOptions]="{standalone: true}" #select="ngModel">
+                          <option *ngFor='let optionList of input.values' [value]="optionList.value">
+                            {{optionList.label}}
+                          </option>
+                        </select>
+                        <div class="messages text-danger"
+                          *ngIf="(select.touched || submitted) && select.errors?.required">
+                          <label [innerHtml]="input.label"></label> can't be blank</div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row" *ngIf="(input.type==='checkbox-group')">
+                      <label class="col-2 col-form-label" [for]='input.name'><label
+                          [innerHtml]="input.label"></label><span *ngIf="input.required!=undefined"
+                          class="asterisk">*</span>
+                        <a *ngIf="input.description!=undefined" href="javascript:;"
+                          class="m-r-15 crm-action-info text-muted text-primary" placement="top"
+                          [ngbTooltip]="input.description">
+                          <i style="font-size: 17px" class="fa fa-question-circle"></i>
+                        </a></label>
+                      <div class="col-10">
+                        <div *ngFor="let cheboxvalue of input.values">
+                          <div class="checkbox-fade fade-in-primary">
+                            <label>
+                              <input type="checkbox" [name]="input.name" [checked]="cheboxvalue.selected"
+                                (change)="cheboxvalue.selected=!cheboxvalue.selected;">
+                              <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-success"></i></span>
+                              <span>{{cheboxvalue.label}}</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="messages text-danger"
+                          *ngIf="(submitted && (input.values===undefined||input.values.length==0) && input.required)"><label
+                            [innerHtml]="input.label"></label> can't be
+                          blank</div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row" *ngIf="(input.type==='radio-group')">
+                      <label class="col-2 col-form-label" [for]='input.name'><label [innerHtml]="input.label"></label>
+                        <span *ngIf="input.required!=undefined" class="asterisk">*</span>
+                        <a *ngIf="input.description!=undefined" href="javascript:;"
+                          class="m-r-15 crm-action-info text-muted text-primary" placement="top"
+                          [ngbTooltip]="input.description">
+                          <i style="font-size: 17px" class="fa fa-question-circle"></i>
+                        </a></label>
+                      <div class="col-10">
+                        <div *ngFor="let radioButtonValue of input.values">
+                          <div class="form-radio radio radiofill fade-in-primary">
+                            <label>
+                              <input type="radio" [name]="input.name" [checked]="radioButtonValue.selected">
+                              <span class="cr"><i class="helper"></i></span>
+                              <span>{{radioButtonValue.label}}</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="messages text-danger"
+                          *ngIf="(submitted &&(input.value===undefined||input.value.length==0)&& input.required)"><label
+                            [innerHtml]="input.label"></label> can't be
+                          blank</div>
+                      </div>
+                    </div>
+ 
+                    <div class="form-group row" *ngIf="(input.type==='file')" >
+                      <label class="col-sm-12 col-form-label" [for]='input.name'><label
+                            [innerHtml]="input.label"></label><span *ngIf="input.required!=undefined"
+                            class="asterisk">*</span>
+                          <a *ngIf="input.description!=undefined" href="javascript:;"
+                            class="m-r-15 crm-action-info text-muted text-primary" placement="top"
+                            [ngbTooltip]="input.description">
+                            <i style="font-size: 17px" class="fa fa-question-circle"></i>
+                          </a></label>
+                      <div *ngIf="(!input.multiple)"  class="col-sm-6">
+                        <input [type]='input.type' [name]='input.name'   [ngModelOptions]="{standalone: true}" (change)="onFileUploadDynamic($event,input)" 
+                          [(ngModel)]='input.value' #file="ngModel">
+                        <div class="messages text-danger"
+                          *ngIf="(file.touched || submitted) && ( input.required && ( input.values == undefined|| input.values.length==0))">
+                          <label [innerHtml]="input.label"></label> can't be blank</div>
+                      </div>
+                      <div *ngIf="(input.multiple)"  class="col-sm-6">
+                        <div  class=" files color">
+                          <input type="file" [name]='input.name' [ngModelOptions]="{standalone: true}" [(ngModel)]='input.value' (change)="onFileUploadDynamic($event,input)"  multiple  #fileMultiple="ngModel">
+                        </div>
+                       <div class="messages text-danger"
+                          *ngIf="(fileMultiple.touched || submitted) && ( input.required && ( input.values == undefined|| input.values.length==0))">
+                          <label [innerHtml]="input.label"></label> can't be blank</div>
+                      </div>
+                      <br><br>
+
+                      <!-- <div class="col-form-label"  >
+                        <strong class="col-sm-12" *ngIf="(input.multiple)" >Uploaded Files</strong>
+                        <strong class="col-sm-12" *ngIf="(!input.multiple)" >Uploaded File</strong>
+                        <div class="dt-desc dy-ui">
+                          <table class="table-striped table-bordered">
+                            <thead><th>Sr. No</th><th>File Name</th><th>Date</th><th>Action</th></thead>
+                            <tbody>
+                            <tr *ngFor="let file of input.values ; let fileIndex=index ">
+                              <td>{{fileIndex+1}}</td>
+                              <td><label>{{file.fileName}}</label></td>
+                              <td><label>{{file.displayDate}}</label></td>
+
+                              <td><a style="cursor:pointer;font-weight: bold" class="icofont icofont-eye-alt" placement="top" container="body"
+                                ngbTooltip="view" (click)="downloadFileOrView(file.fileName,file.path,true,input.name)"><i class="zmdi zmdi-view-dashboard"></i></a>&nbsp;&nbsp;
+                                <a style="cursor:pointer;font-weight: bold" class="icofont icofont-download" placement="top" container="body"
+                                 ngbTooltip="Download" (click)="downloadFileOrView(file.fileName,file.path,false,input.name)"><i class="fa fa-cloud-download"></i></a>&nbsp;&nbsp;
+                                <a style="cursor:pointer;font-weight: bold" style="cursor: pointer;" class="icofont icofont-ui-delete" placement="top" container="body"
+                                ngbTooltip="delete" (click)="deleteUploadedFile(input.values,fileIndex,input.name)"><i class="zmdi zmdi-delete"></i></a>&nbsp;&nbsp;
+                              </td>
+                            </tr>
+                          </tbody>
+                          </table>
+                        </div>
+                      </div> -->
+
+                      <div class="col-6 col-form-label" *ngIf="dynamicAttachmentTable.length > 0"  >
+                        <strong class="col-sm-12" *ngIf="(input.multiple)" >Uploaded Files</strong>
+                        <strong class="col-sm-12" *ngIf="(!input.multiple)" >Uploaded File</strong>
+                      <div class="dt-desc dy-ui">
+                        <table class="table-striped table-bordered">
+                          <thead><th>Sr. No</th><th>File Name</th><th>Date</th><th>Action</th></thead>
+                          <tbody>
+                          <tr *ngFor="let file of dynamicAttachmentTable; let fileIndex=index ">
+                            <td>{{fileIndex+1}}</td>
+                            <td><label>{{file.FileName}}</label></td>
+                            <td><label>{{file.Date | date:"dd/MM/yy"}}</label></td>
+
+                            <td><a style="cursor:pointer;font-weight: bold" class="icofont icofont-eye-alt" placement="top" container="body"
+                              ngbTooltip="view" (click)="viewFile(file, fileIndex, 'Dynamic')"><i class="zmdi zmdi-view-dashboard"></i></a>&nbsp;&nbsp;
+                              <a style="cursor:pointer;font-weight: bold" class="icofont icofont-download" placement="top" container="body"
+                               ngbTooltip="Download" (click)="downloadFile(file, fileIndex, 'Dynamic')"><i class="fa fa-cloud-download"></i></a>&nbsp;&nbsp;
+                              <a [ngbCollapse]="createNewVersion"  style="cursor:pointer;font-weight: bold" style="cursor: pointer;" class="icofont icofont-ui-delete" placement="top" container="body"
+                              ngbTooltip="delete" (click)="deleteDynamicUploadedFile(file, fileIndex)"><i class="zmdi zmdi-delete"></i></a>&nbsp;&nbsp;
+                            </td>
+                          </tr>
+                        </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                      <div id="{{input.name}}"> </div>
+                  </div>
+
+                  <div class="form-group row" *ngIf="(input.type==='textarea')">
+                    <label class="col-2 col-form-label" [for]='input.name'><label [innerHtml]="input.label"></label>
+                        <span *ngIf="input.required!=undefined" class="asterisk">*</span>
+                        <a *ngIf="input.description!=undefined" href="javascript:;"
+                          class="m-r-15 crm-action-info text-muted text-primary" placement="top"
+                          [ngbTooltip]="input.description">
+                          <i style="font-size: 17px" class="fa fa-question-circle"></i>
+                        </a></label>
+                    <div class="col-10">
+                      <textarea [name]='input.name' [(ngModel)]='input.value' [required]="input.required" [ngModelOptions]="{standalone: true}"
+                       rows="3" [maxlength]="input.maxlength" #quill="ngModel" class="col-12">
+                      </textarea>
+                      <div class="messages text-danger" *ngIf="(quill.touched || submitted) && quill.errors?.required">
+                        <label [innerHtml]="input.label"></label> can't be blank</div>
+                    </div>
+                  </div>
+
+                  </div>
+
+                  <!-- Dynamic Table -->
+                  <div [ngbCollapse]="!tableAvailFlag" class="mt-12" style="border: 2px dashed gainsboro;">
+                    <button (click)="addRows()" type="button" class="btn btn-primary m-b-0">Add Row</button>&nbsp;
+
+                    <div style="padding: 26px;">
+                      <table border>
+                        <thead>
+                          <tr>
+                            <th *ngFor="let header of getHeaders()">{{header}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of this.tablelistData">
+                            <td *ngFor="let key of getHeaders()">
+                              <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="item[key]">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col-12 text-center">
+                  <div class="form-group">
+                    <div class="col-md-12 text-center">
+                      <button [ngbCollapse]="createNewVersion" type="button" class="btn btn-primary" (click)="save()">Submit</button>&nbsp;&nbsp;&nbsp;
+                      <button type="button" class="btn btn-danger mr-2" (click)="cancel()">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab title="View SOP Records" id="ViewSopRecords">
+        <ng-template ngbTabContent>
+          <div class="card">
+            <form name="sopViewForm" [formGroup]="sopViewForm"  novalidate>
+            <div class="card-body">
+
+              <div class="form-group row">
+               
+                <label class="col-2 col-form-label">Select Department <span class='asterisk'>*</span></label>
+                <div class="col-3">
+                    <select  class="form-control" formControlName="DepartmentNameView"
+                        (ngModelChange)="onDeptNameChangeView($event)"   name="departmentNameView"
+                         required>
+                         <option *ngFor="let module of this.departmentListView;let i=index" [value]="module.id" >
+                            {{module.key}}
+                        </option>
+                    </select>
+                </div>
+                <label class="col-2 col-form-label">Document Number<span class='asterisk'>*</span></label>
+                <div class="col-3">
+                    <select  class="form-control" formControlName="DocumentNumberView" (ngModelChange)="onDocNumView($event)" 
+                           name="documentNumberView"
+                         required>
+                         <option *ngFor="let module of this.docuNumberListView;let i=index" [value]="module.id">
+                            {{module.documentNumber}}
+                        </option>
+                    </select>
+                </div>
+
+                <!-- <label class=" col-2 col-form-label"><b>Document Number</b><span class='asterisk'>*</span></label>
+                <div class="col-3">
+                  <input class="form-control" type="text" min="10" max="10" name="viewDocNumberToFetch" required [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="viewDocNumberToFetch" #viewDocNumberFetch="ngModel" >
+                    <div class="messages text-danger"
+                    *ngIf="viewDocNumberFetch.touched && viewDocNumberFetch.errors?.required">
+                    <label> Document Number is required...!</label> </div>
+                 </div> -->
+                 <div>
+                  <button type="button" [disabled] ="btnshow" ngbTooltip="Fetch Records" (click)="loadSOPRecord()" class="btn btn-success m-1"> Load Data <i class="fa fa-refresh"></i> </button>
+                 </div>
+                </div>
+              
+
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Action</th>
+                      <th scope="col">Document Number</th>
+                      <th scope="col"> Version</th>
+                      <th scope="col">Effective Date</th>
+                      <th scope="col">Expiry Date</th>
+                      <th scope="col">Title</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Department Name</th>
+                      <th scope="col">Created Date</th>
+                      <th scope="col">Last Modified Date</th>
+                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let field of dataForTableView">
+                      <td>
+                        <span>
+                          <button type="button" class="btn btn-outline-success m-1"  ngbTooltip="View"
+                            (click)="editSOPRecord(field.id);t.select('AddSOPRecords')"> <i
+                              class="zmdi zmdi-view-list-alt" ></i></button>
+                          <button type="button" class="btn btn-outline-danger m-1" ngbTooltip="Delete" (click)="deleteSopRecord(field.id)">
+                            <i class="zmdi zmdi-delete"></i></button>
+                        </span>
+                      </td>
+                      <td scope="row">{{field.DocumentNumber}}</td>
+                      <td scope="row">{{field.Version}}</td>
+                      <td scope="row">{{field.EffectiveDate | date: 'dd/MM/yyyy'}}</td>
+                      <td scope="row">{{field.ExpiryDate | date: 'dd/MM/yyyy'}}</td>
+                      <td scope="row">{{field.Title}}</td>
+                      <td scope="row">{{field.Status}}</td>
+                      <td scope="row">{{field.DepartmentName}}</td>
+                      <td scope="row">{{field.CreatedDate | date: 'dd/MM/yyyy hh:mm'}}</td>
+                      <td scope="row">{{field.LastModifiedDate |  date: 'dd/MM/yyyy hh:mm'}}</td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+            </form>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="card-header" style="text-align: center;">
+  <hr>
+  <b>
+    <h3 class="card-header-text">
+      Look up
+    </h3>
+  </b>
+  <hr>
+</div>
+ 
+
+
+
+<div class="card">
+  <div class="card-body">
+    <form>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Select Category</label>
+        <div class="col-sm-5">
+          <select  class="form-control" id="formwithcheckboxSelect1" (change)=loadItemBasedOnCategory($event)>
+            <!-- <option>Select Category</option> -->
+            <option *ngFor="let ro of rows2" [value]="ro.name"> {{ ro.name}}</option>
+           
+          </select>
+        </div>
+        <div class="col-sm-5">
+          <button type="button" class="btn btn-primary" (click)="openContent()">Add
+            Category</button>&nbsp;&nbsp;&nbsp;
+          <button type="button" class="btn btn-primary"  (click)="addItemClick();this.isEditable[0]=!this.isEditable[0]">Add Item</button>
+        </div>
+
+      </div>
+    </form>
+
+
+
+
+
+
+
+    <div class="row">
+      <div class="col-sm-12 mb-4">
+        <ngx-datatable #table class='material' [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+          [rowHeight]="'auto'" [limit]="10" [rows]='rows' >
+          <ngx-datatable-column [flexGrow]="1.5" name="Key" prop="key">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+
+              <input [ngStyle]="styleFunctions(isEditable[rowIndex])" value="key" [(ngModel)]="row.key"
+                [disabled]="!isEditable[rowIndex]">
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column [flexGrow]="1.5" name="Value" prop="value">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+              <input [ngStyle]="styleFunctions(isEditable[rowIndex])" value="value" [(ngModel)]="row.value"
+                [disabled]="!isEditable[rowIndex]">
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column [flexGrow]="1.5" name="Display Order" prop="displayOrder">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+              <input [ngStyle]="styleFunctions(isEditable[rowIndex])" value="display" [(ngModel)]="row.displayOrder"
+                [disabled]="!isEditable[rowIndex]">
+            </ng-template>
+          </ngx-datatable-column>
+ 
+          <ngx-datatable-column [flexGrow]="1.5" name="Action">
+            <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+              <!-- Pencil icon -->
+              <button type="button" class="btn btn-outline-success m-1" *ngIf="!this.isEditable[rowIndex]"
+                (click)="this.isEditable[rowIndex]=!this.isEditable[rowIndex];editRow(rowIndex)">
+                <i class="zmdi zmdi-edit" title="Modify"></i></button>
+
+              <!-- Save/Delete icons -->
+              <button type="button" class="btn btn-outline-primary m-1" *ngIf="this.isEditable[rowIndex]" title="Save"
+                (click)="save(row, rowIndex);">
+                <i class="fa fa-save"></i></button>
+
+              <button type="button" class="btn btn-outline-danger m-1" *ngIf="this.isEditable[rowIndex]" title="Delete"
+                (click)="delete(row,rowIndex)">
+                <i class="zmdi zmdi-delete"></i></button>
+            </ng-template>
+          </ngx-datatable-column>
+
+
+        </ngx-datatable>
+
+
+      </div>
+    </div>
+
+
+
+  </div>
+</div>

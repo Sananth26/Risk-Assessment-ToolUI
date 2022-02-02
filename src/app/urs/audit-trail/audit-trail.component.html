@@ -1,0 +1,126 @@
+<div class="card-header" style="text-align: center;">
+	<b>
+		<h4 class="card-header-text">
+			<i><img style="width: 40px; height: 40px;" src="assets/images/avatars/auditTrail.png"></i> &nbsp;
+			Audit Trail
+		</h4>
+	</b>
+	<hr>
+</div>
+
+<div class="card">
+	<div class="card-body">
+		<div>
+			<div>
+				<form name="auditForm" [formGroup]="auditForm" novalidate>
+     			 <div class="row">
+				<div class="col-sm-3">
+					<label class="col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;From Date</label>
+				 	<div class="col-sm-12">
+							<div class="col-10">
+								<input type="date" class="form-control"  formControlName="startdate1" [(ngModel)]="auditRecord.fromdate" >
+							</div>
+							<!-- <div id="inputgroup" >
+								<input type="date" class="form-control" placeholder="From Date" name="startDate">
+								[(ngModel)]="startdate1" ngbDatepicker #e="ngbDatepicker"
+								 #dob="ngModel" required readonly="readonly" [maxDate]="today"
+							</div> -->
+						</div>
+					</div>
+				<div class="col-sm-3">
+					<label class="col-form-label">&nbsp;&nbsp;&nbsp;To Date </label>
+					<br>
+					<div class="col-sm-12">
+						<div class="col-10">
+							<input type="date" class="form-control"  formControlName="Enddate1"  [(ngModel)]="auditRecord.todate" >
+						</div>
+						<!-- <div id="inputgroup">
+							<input type="date" class="form-control" placeholder="To Date" name="endDate">
+							 [(ngModel)]="Enddate1" ngbDatepicker #f="ngbDatepicker"
+								 #dob="ngModel" required readonly="readonly" [maxDate]="today"
+						</div> -->
+
+					</div>
+				</div>
+		 
+				<div class="col-sm-2" style="padding-top: 0.5%;">
+					<br>&nbsp;&nbsp;
+					<label class="col-form-label">&nbsp;&nbsp;&nbsp; </label>
+					<button type="button" class="btn btn-primary" (click)="loadAuditDateRange()">Search</button>
+				</div>
+			</div>
+		</form>
+	
+			</div>
+			<br>
+
+  
+        <div *ngIf="data.length == 0" id="nodata">
+          <strong>&nbsp;&nbsp;No Data</strong>
+		</div>
+		
+        <div *ngIf="data.length > 0">
+          <div *ngFor="let d of data">
+            <div  style="width: 100%; background-color:cadetblue ;"  id="data">&nbsp;&nbsp;<Strong  [ngStyle]="{'color': 'white', 'font-size': '24px', 'font-weight': 'bold'}">{{d.date}}</Strong></div><br>
+            <div class="card-notification" *ngFor="let v of d.value">
+              <div class="card-noti-conatin">
+                <div class="row">
+					<div class="col-sm-6">
+						<i style="color: red;" class="fa fa-circle">	</i>&nbsp;	&nbsp;				 
+						<Strong>Module : </Strong><label>{{v.module}}</label>
+					  </div>
+                  <div class="col-sm-6">
+                    <Strong>Event : </Strong><label>{{v.event1}}</label>
+                  </div>
+                
+                </div>
+                <div class="row">
+                  
+				  <div class="col-sm-6">
+                    <Strong>Ip Address : </Strong><label>{{v.ipAddress}}</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <Strong>Browser And Device : </Strong><label>{{v.browser}}</label>
+                  </div>
+                </div>
+                <div class="row">
+					<div class="col-sm-6">
+						<Strong>Action Taken By : </Strong><label>{{v.loginUserName}}</label>
+					  </div>
+
+                  <div class="col-sm-6">
+					<Strong>Action Taken On : </Strong><label>{{v.createdTime| date: 'dd-MM-yyyy  hh:mm:ss'}}</label>
+				  </div>
+                 </div>
+            <label>
+				<Strong>User Remarks : </Strong>
+			</label> <label> NA </label> <br>
+					<label>
+						<Strong>System Remarks : </Strong>
+					  </label>
+					  <div class="dt-desc col-sm-12" style="padding: 0px; overflow-x:auto;">
+						<div class="dt-desc dy-ui" style="padding-left: 0px !important;">
+							<table class="table-striped table-bordered" style="width: 100%;">
+								<thead>
+								  <th style="width: 5%;">Sl. No</th>
+								  <th style="text-align: left !important;">Remarks</th>
+								</thead>
+								<tbody>
+								  <tr *ngFor="let remark of v.userRemarks ; let i = index ">
+									<td>{{i+1}}</td>
+									<td style="text-align: left !important;">{{remark}}</td>
+								  </tr>
+								</tbody>
+							  </table>
+												 
+						</div>
+					  </div>
+					 
+				  </div> <br>
+				</div>
+			  </div>
+		</div>
+  			
+		</div>
+	</div>
+</div>

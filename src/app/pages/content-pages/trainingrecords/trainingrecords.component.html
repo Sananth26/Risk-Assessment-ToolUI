@@ -1,0 +1,251 @@
+
+  <div class="card-header" style="text-align: center;">
+    <hr>
+    <b>
+      <h3 class="card-header-text">
+        Training Records
+      </h3>
+    </b>
+    <hr>
+  </div>
+  <div class="card">
+    <div class="card-body">
+  
+      <ngb-tabset #t="ngbTabset">
+        <ngb-tab title="Add Training Records" id="AddTrainingRecords">
+          <ng-template ngbTabContent>
+       
+            <div class="card">
+              <div class="card-body">
+                <form name="TrainingForms" [formGroup]="TrainingForms"  (ngSubmit)="saveAndGo()" novalidate>
+                  <!-- <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Department</label>
+                    <div class="col-sm-10">
+                      <ng-multiselect-dropdown [placeholder]="'Department'" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDepartment"
+                       [data]="departmentList" [settings]="departmentdropdownSettings" (click)="onDeptSelect(selectedDepartment)" >
+                      </ng-multiselect-dropdown>
+                    </div> 
+                  </div> -->
+                  
+                  <div class="form-group row pt-20 ml-18 mr-9">
+                    <label class="col-2 col-form-label">Select Department<span class='asterisk'>*</span></label>
+                    <div class="col-10">
+                        <select  class="form-control" formControlName="DepartmentName"
+                            (ngModelChange)="onDepartmentNameChange($event)" [disabled]="docReadOnlyFlag" [(ngModel)]="TrainingForms.deptid" name="departmentName"
+                             required> 
+
+                             <option *ngFor="let module of this.departmentList;let i=index" [value]="module.id" >
+                                {{module.key}}
+                            </option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="form-group row pt-20 ml-18 mr-9">
+                    <label class="col-2 col-form-label">Document Number<span class='asterisk'>*</span></label>
+                    <div class="col-10">
+                        <select  class="form-control" formControlName="DocumentNumber"
+                            (ngModelChange)="ondocumentNumberChange($event)" [disabled]="!docReadOnlyFlag" [(ngModel)]="TrainingForms.SopId" name="documentNumber"
+                             required>
+                             <option *ngFor="let module of this.documentNumberList;let i=index" [value]="module.id">
+                                {{module.documentNumber}}
+                            </option>
+                        </select>
+                    </div>
+                  </div>
+                   <!-- <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Document Number</label>
+                    <div class="col-sm-10">
+                      <ng-multiselect-dropdown [placeholder]="'DocumentNumber'" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDocumentNumber"
+                       [data]="documentNumberList" (onSelect)="onDeptSelect($event)" [settings]="docNumberdropdownSettings">
+                      </ng-multiselect-dropdown>
+                    </div>
+                  </div>  -->
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label">Title</label>
+                    <div class="col-10">
+                      <input type="text" class="form-control"   [readOnly]="true" [(ngModel)]="tdFormData.Title" formControlName="Title">
+                      <small class="form-text text-muted text-danger"  *ngIf="!TrainingForms.get('Title').valid && (TrainingForms.get('Title').dirty || TrainingForms.get('Title').touched)"> Title is required...!</small>
+
+                    </div>
+                  </div>
+                
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label" for="basicformFile1">Attachment</label>
+                    <div class="col-4">
+                      <input type="file" class="form-control-file" (change)="onFileUploadStatic($event)"
+                      accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/*"
+                      multiple id="basicformFile1">
+                    </div>
+                    
+                    <div class="col-6 col-form-label" *ngIf="staticAttachmentTable.length > 0"  >
+                        <span>Uploaded Files:</span>
+                      <div class="dt-desc dy-ui">
+                        <table class="table-striped table-bordered">
+                          <thead><th>Sr. No</th><th>File Name</th><th>Date</th><th>Action</th></thead>
+                          <tbody>
+                          <tr *ngFor="let file of staticAttachmentTable; let fileIndex=index ">
+                            <td>{{fileIndex+1}}</td>
+                            <td><label>{{file.FileName}}</label></td>
+                            <td><label>{{file.Date | date:"dd/MM/yy"}}</label></td>
+
+                            <td><a style="cursor:pointer;font-weight: bold" class="icofont icofont-eye-alt" placement="top" container="body"
+                              ngbTooltip="view" (click)="viewFile(file, fileIndex, 'Static')"><i class="zmdi zmdi-view-dashboard"></i></a>&nbsp;&nbsp;
+                              <a style="cursor:pointer;font-weight: bold" class="icofont icofont-download" placement="top" container="body"
+                               ngbTooltip="Download" (click)="downloadFile(file, fileIndex, 'Static')"><i class="fa fa-cloud-download"></i></a>&nbsp;&nbsp;
+                              <a [ngbCollapse]="createNewVersion" style="cursor:pointer;font-weight: bold" style="cursor: pointer;" class="icofont icofont-ui-delete" placement="top" container="body"
+                              ngbTooltip="delete" (click)="deleteStaticUploadedFile(file, fileIndex)"><i class="zmdi zmdi-delete"></i></a>&nbsp;&nbsp;
+                            </td>
+                          </tr>
+                        </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div> 
+                  
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Faculty</label>
+                    <div class="col-sm-10">
+                      <ng-multiselect-dropdown [placeholder]="'Faculty'" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedFaculty"
+                       [data]="facultyList" [settings]="FacultydropdownSettings">
+                      </ng-multiselect-dropdown>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Date</label>
+                    <div class="col-10">
+                      <input type="date" class="form-control" placeholder="eg: 20-Mar-2030" formControlName="Trainingdate">
+                      <!-- <small class="form-text text-muted text-danger"  *ngIf="!TrainingForms.get('date').valid && (TrainingForms.get('date').dirty || TrainingForms.get('date').touched)"> Date is required...!</small> -->
+
+                    </div>
+                  </div> 
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Time</label>
+                    <div class="col-10">
+                      <input type="Time" class="form-control"  formControlName="Time">
+                      <!-- <small class="form-text text-muted text-danger"  *ngIf="!TrainingForms.get('Time').valid && (TrainingForms.get('Time').dirty || TrainingForms.get('Time').touched)"> Time is required...!</small> -->
+
+                    </div>
+                  </div> 
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Location</label>
+                    <div class="col-10">
+                      <textarea type="text" class="form-control" formControlName="Location"
+                        placeholder="eg: some pvt ltd ,   1st cross,  banglore" required></textarea>
+                        <small class="form-text text-muted text-danger"  *ngIf="!TrainingForms.get('Location').valid && (TrainingForms.get('Location').dirty || TrainingForms.get('Location').touched)"> Location is required...!</small>
+
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Participant Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" formControlName="ParticipantName">
+                      <small class="form-text text-muted text-danger"  *ngIf="!TrainingForms.get('ParticipantName').valid && (TrainingForms.get('ParticipantName').dirty || TrainingForms.get('ParticipantName').touched)"> Participant Name is required...!</small>
+
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Remarks</label>
+                    <div class="col-sm-10">
+                       <textarea type="text" class="form-control" formControlName="Remarks"
+                      placeholder="Remarks - By Trainer" required></textarea>
+                      <small class="form-text text-muted text-danger"  *ngIf="!TrainingForms.get('Remarks').valid && (TrainingForms.get('Remarks').dirty || TrainingForms.get('Remarks').touched)">  Remarks By Trainer is required...!</small>
+
+                    </div>
+                  </div>
+                  <div class="col-12 text-center">
+                    <div class="form-group">
+                        <div class="col-md-12 text-center">
+                            <button type="button" class="btn btn-primary"  
+                                (click)="saveAndGo()">Submit</button>&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-danger mr-2" (click)="cancel()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                </form>
+
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="View Training Records" id="ViewTrainingRecords">
+          <ng-template ngbTabContent>
+            <div class="card">
+              <form name="TRViewForm" [formGroup]="TRViewForm"  novalidate>
+
+              <div class="card-body">
+
+                <div class="form-group row">
+                
+                  <label class="col-2 col-form-label">Select Department <span class='asterisk'>*</span></label>
+                  <div class="col-3">
+                    <select  class="form-control" formControlName="DepartmentNameView"
+                        (ngModelChange)="onDepartmentNameChangeView($event)"   [(ngModel)]="TrainingForms.deptid" name="departmentNameView"
+                         required>
+                         <option *ngFor="let module of this.departmentViewList;let i=index" [value]="module.id" >
+                            {{module.key}}
+                        </option>
+                    </select>
+                </div>
+                <label class="col-2 col-form-label">Select Department <span class='asterisk'>*</span></label>
+                 <div class="col-3">
+                    <select  class="form-control" formControlName="DocumentNumberView"
+                        (ngModelChange)="ondocumentNumberChangeView($event)"   [(ngModel)]="TrainingForms.SopId" name="documentNumberView"
+                         required>
+                         <option *ngFor="let module of this.documentNumberViewList;let i=index" [value]="module.id">
+                            {{module.documentNumber}}
+                        </option>
+                    </select>
+                </div>
+                <div>
+                  <button type="button"  ngbTooltip="Fetch Records" (click)="loadTRRecord()" class="btn btn-success m-1"> Load Data <i class="fa fa-refresh"></i> </button>
+                 </div>
+              
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">Action</th>
+                        <th scope="col">Document Number</th>
+                        <th scope="col"> Title</th>
+                        <th scope="col">Training Date</th> 
+                        <th scope="col">Time</th>                       
+                        <th scope="col">Department</th>                       
+                        <th scope="col">Location</th>                       
+                        <th scope="col">Participant Name</th>                       
+                        <th scope="col">Remarks</th>                       
+                       </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let field of fields">
+                        <td>
+                          <span>
+                            <button type="button" class="btn btn-outline-success m-1"
+                              (click)="editTrainingRecord(field.id,$event);t.select('AddTrainingRecords')"> <i
+                                class="zmdi zmdi-edit"></i></button> 
+                          </span>
+                        </td>
+                        <td scope="row">{{field.sop_id}}</td>
+                        <td scope="row">{{field.Title}}</td>
+                        <td scope="row">{{field.Trainingdate | date: 'dd/MM/yyyy'}}</td>
+                        <td scope="row">{{field.Time}}</td>
+                        <td scope="row">{{field.DepartmentName}}</td>
+                        <td scope="row">{{field.Location}}</td>
+                        <td scope="row">{{field.ParticipantName}}</td>
+                        <td scope="row">{{field.Remarks}}</td>
+                       </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+              </div></form></div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+          
+    </div>
+  </div> 

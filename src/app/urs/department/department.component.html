@@ -1,0 +1,206 @@
+<div class="card-header" style="text-align: center;">
+    <b>
+        <h4 class="card-header-text">
+            <i><img style="width: 40px; height: 40px;" src="assets/images/avatars/department.png"></i> &nbsp;
+            Department
+        </h4>
+    </b>
+    <hr>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <ngb-tabset #t="ngbTabset">
+            <ngb-tab title="Add Department" id="AddDept">
+                <ng-template ngbTabContent>
+                    <div class="card">
+                        <div class="card-body">
+                            <form [formGroup]="form">
+                                <div class="row">
+                                    <div class="col-12 col-lg-6 col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 col-form-label">Department Name</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" formControlName="deptName"
+                                                    [(ngModel)]="department.departmentName" required
+                                                    (blur)="checkDeptName()">
+                                                <small class="form-text text-muted text-danger"
+                                                    *ngIf="!form.get('deptName').valid && (form.get('deptName').dirty || form.get('deptName').touched)">
+                                                    Department Name is required...!</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-xl-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Active Flag</label>
+                                            <div class="col-sm-6">
+                                                <ui-switch uncheckedLabel="off" checkedLabel="on"
+                                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="isActive">
+
+                                                </ui-switch>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-8 col-lg-6 col-xl-6">
+                                        <div class="form-group row"  [ngbCollapse]="slaFlag">
+                                            <label class="col-sm-2 col-form-label">No. of Levels</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="form-control" formControlName="level"
+                                                    [(ngModel)]="department.noOfLevel" min="1" max="10" maxlength="1"
+                                                    required>
+                                                <small class="form-text text-muted text-danger"
+                                                    *ngIf="!form.get('level').valid && (form.get('level').dirty || form.get('level').touched)">
+                                                    No. of level is required...!</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-xl-6">
+                                        <div class="form-group row">
+                                            <!-- <div class="col-sm-4"> -->
+                                            <label class="col-sm-2 col-form-label">SLA</label>&nbsp;&nbsp;
+                                            <div class="col-sm-6">
+                                                <ui-switch uncheckedLabel="off" checkedLabel="on" (change)="slaFlagChange()"
+                                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="slaFlag">
+                                                </ui-switch>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <button class="btn btn-outline-primary m-1" (click)="addEvent()"
+                                    [ngbCollapse]="!slaFlag"> <i><img style="width: 20px; height: 20px;"
+                                            src="assets/images/avatars/add item.png"></i>&nbsp;&nbsp;
+                                    Add SLA Days</button>
+                                <br>
+                                <br>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" style="width: 35%;"
+                                        [ngbCollapse]="!slaFlag">
+                                        <thead>
+                                            <tr>
+                                                <th style=" text-align: center;">Level</th>
+                                                <th style=" text-align: center;">No Of SLA Days</th>
+                                                <th style=" text-align: center;">Action</th>
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr *ngFor="let event of levels ; let i = index ">
+                                                <td style=" text-align: center;">
+                                                    {{ event.levelNo}}
+                                                </td>
+
+                                                <td style=" text-align: center;">
+                                                    <input class="form-control" type="number"
+                                                        [(ngModel)]="event.slaDays" style=" text-align: center;"
+                                                        [ngModelOptions]="{standalone: true}" min="1" required />
+                                                </td>
+
+                                                <td style=" text-align: center;">
+                                                    <i (click)=" deleteLevel(event.levelNo)"><img
+                                                            style="width: 23px; height: 23px;"
+                                                            src="assets/images/avatars/delete.png"></i>&nbsp;&nbsp;
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <div class="form-group">
+                                        <div class="col-md-12 text-center">
+                                            <button type="button" class="btn btn-outline-primary"
+                                                (click)="saveAndGo(tabActiveId);t.select('ViewDept')"
+                                                [disabled]="!form.get('deptName').valid" *ngIf="UserAccessModel.add"> <i><img style="width: 23px; height: 23px;"
+                                                        src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;Save</button>&nbsp;&nbsp;&nbsp;
+                                            <button type="button" class="btn btn-outline-danger mr-2"
+                                                (click)="cancel()"> <i><img style="width: 20px; height: 20px;"
+                                                        src="assets/images/avatars/quit.png"></i>&nbsp;&nbsp;Cancel</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab title="View Department" id="ViewDept" *ngIf="UserAccessModel.view">
+                <ng-template ngbTabContent>
+                    <div class="card">
+                        <div class="card-body">
+                            <br>
+                            <div class="col-xs-12 col-sm-12 ">
+                                <div class="form-group row">
+                                    <label class="col-1 col-form-label">Search:</label>
+                                    <div>
+                                        <input #search id="search" type="text" class="form-control" placeholder="Search"
+                                            aria-label="Search" (keyup)='filterDatatable($event)' aria-describedby="basic-addon1" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <!-- departmentsList -->
+                            <ngx-datatable #myTable class="material" [rows]='departmentsList' [columnMode]="'force'"
+                                [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" (page)="onPage($event)"
+                                [limit]="5" [scrollbarH]="true">
+
+                                <ngx-datatable-column [flexGrow]="1.5" name="Action">
+                                    <ng-template let-row="row" ngx-datatable-cell-template >
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <button type="button" class="btn btn-outline-success m-1"
+                                                    (click)="editDept(row.id);t.select('AddDept')" *ngIf="UserAccessModel.edit">
+                                                    <i><img style="width: 20px; height: 20px;" title="Edit"
+                                                            src="assets/images/avatars/edit.png"></i></button>
+
+                                                <button type="button" class="btn btn-outline-danger m-1" title="Delete"
+                                                    (click)="deleteDept(row.id)" *ngIf="UserAccessModel.delete">
+                                                    <i><img style="width: 20px; height: 20px;"
+                                                            src="assets/images/avatars/delete.png"></i></button>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <!-- <ngx-datatable-column name="Department Id">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">
+                                            {{row['id']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column> -->
+
+                                <ngx-datatable-column name="Department Name">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['departmentName']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="No.of Levels">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['noOfLevel']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Active">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <input type="checkbox" [checked]='row.isActive' disabled>
+                                        <!-- check this as workflow thing -->
+                                        <!-- <i *ngIf="row['isActive']" class="fa fa-check" title="Active"></i>
+                            <i *ngIf="!row['isActive']" class="fa fa-close" title="Inactive"></i> -->
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                            </ngx-datatable>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>

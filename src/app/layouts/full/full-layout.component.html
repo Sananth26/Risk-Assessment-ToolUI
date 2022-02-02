@@ -1,0 +1,58 @@
+
+<body class="main">
+    <div class="navigation-wrap pt-0 pb-0 start-header start-style">
+      <nav  class="goval-bg-color">
+ 
+    <div class="row">
+      <div class="col-sm-5" style="float: left;display: inline;padding:15px 20px">
+        <h5 style="display: inline;color:white;padding-left: 10px;">Risk Assessment Tool</h5>
+     </div>
+
+
+        <div class="col-sm-7" style="text-align: right;padding:15px 20px">
+
+        <a style="color: white;font-size:15px;cursor: pointer;" [routerLink]="['/urs/uasdashboard']">Dashboard&nbsp;&nbsp;&nbsp;</a>
+        <a style="color: white;font-size:15px;cursor: pointer;" [routerLink]="['/urs/userview']">My Request&nbsp;&nbsp;&nbsp;</a>
+        <a *ngIf="managerApprove"style="color: white;font-size:15px;cursor: pointer;" [routerLink]="['/urs/managerapproval']">Manager Approval&nbsp;&nbsp;&nbsp;</a>
+        <a *ngIf="networkApprove" style="color: white;font-size:15px;cursor: pointer;" [routerLink]="['/urs/networkview']">Network Approval&nbsp;&nbsp;&nbsp;</a>
+        <a *ngIf="itApprove" style="color: white;font-size:15px;cursor: pointer;" [routerLink]="['/urs/itreview']">Security Approval&nbsp;&nbsp;&nbsp;</a>
+        <a  style="color: white;font-size:16px;cursor: pointer;" (click)="openModal()" title="Help">
+          <i class="fa fas fa-info-circle" style="font-size:16px;color: white;"></i>&nbsp;
+        </a>
+        <div class="w3-dropdown-hover" style="margin-top:0px;display: inline;background-color: transparent;">
+          <button  style="background-color: transparent;border: none;">
+            <i class="fa fas fa-user" style="font-size:16px;color: white;"></i>&nbsp;&nbsp;&nbsp;
+          </button>
+            <div class="w3-dropdown-content w3-bar-block w3-border" style="right:0;width:150px;font-size:12px;font-weight:300">
+                <a class="w3-bar-item w3-button" (click)="$event.preventDefault()">User : {{loginUsername}}</a>
+                <a class="w3-bar-item w3-button" (click)="$event.preventDefault()"  [routerLink]="['/urs/profile']">Profile</a>
+                <a class="w3-bar-item w3-button" (click)="$event.preventDefault()"  [routerLink]="['/urs/change-password']">Change Password</a>
+                <a class="w3-bar-item w3-button" (click)="$event.preventDefault();logout();">Logout</a>
+              </div>
+        </div>
+      </div>
+
+
+     </div>
+
+
+      
+      </nav>
+    </div>
+  
+    <div class="my-5" >
+      <div class="inner-content">
+        <div class="main-body">
+          <div class="page-wrapper">
+            <router-outlet  (activate)="onActivate($event)">
+                <ng4-loading-spinner> </ng4-loading-spinner>
+            </router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+   
+  </body>
+  
+  

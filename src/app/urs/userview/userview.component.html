@@ -1,0 +1,286 @@
+<div class="card-header" style="text-align:left;padding:20px 10px">
+    <h4>
+        <i><img style="width: 30px; height: 30px;" src="assets/images/avatars/department.png">
+        </i>
+        My Requests <i id="userView1" class="fa fas fa-plus-square" style="cursor:pointer;font-size: 28px;color:#3b5998;padding-left:6px;"
+        (click)="userStepper()" title="Create New Request"></i>
+        &nbsp;&nbsp;
+   
+    </h4>
+
+
+    <div id="userView2" class="has-feedback" style="padding-top:10px" >    
+        <input  type="text" id="txtSearch"  [(ngModel)]="searchText" placeholder="Search" />
+    </div>
+
+
+
+
+        <br><br>
+        <div  style="position:relative; left:0px; top:-30px;">
+
+            <ngb-tabset #tabset="ngbTabset"  #vendorTab>
+                <ngb-tab title="Open" id="open" id="userView3">
+                    <ng-template ngbTabContent>
+                        &nbsp;
+                        <div class="card">
+                            <!-- departmentsList -->
+                            <ngx-datatable #myTableclosed class="material" [rows]='openrequestList | filter: searchText' [columnMode]="'force'"
+                            id="myrequestclosedrequest" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10"
+                            style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
+                                               
+                          
+                        <ngx-datatable-column name="S.No" [width]="35">
+                            <ng-template let-row="row"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                <strong class="fontStyle">{{rowIndex+1}}</strong>
+                            </ng-template>
+                        </ngx-datatable-column>
+     
+                            <ngx-datatable-column name="Request Id" [width]="170">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <strong class="fontStyle">{{row['requestSno']}}</strong>
+                                </ng-template>
+                            </ngx-datatable-column>
+    
+                            <ngx-datatable-column name="Category" [width]="100">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <strong class="fontStyle">{{row['categoryname']}}</strong>
+                                </ng-template>
+                            </ngx-datatable-column>
+    
+                            <ngx-datatable-column name="Status" [width]="100">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <strong class="fontStyle">{{row['status']}}</strong>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Assigned To" [width]="250">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <strong class="fontStyle">{{row['assignedto']}}</strong>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Last Update" [width]="70">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <strong class="fontStyle">{{row['lastupdate'] | date: 'MM/dd/yyyy'}}</strong>
+                                </ng-template>
+                            </ngx-datatable-column>
+        
+                            <ngx-datatable-column [flexGrow]="1.5" name="Action">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    <div class="row" style="padding: 0px 30px">
+        
+                                        <a role="button" title="View Request" class="fa fa-eye" style="font-size: 20px;color: black;"  (click)="navigate(row.requestid);">
+                                        </a> &nbsp;
+                                        <a role="button" title="Edit Request" class="fa fa-edit" style="font-size: 20px;color: black;" (click)="toEdit(row);">
+                                        </a>&nbsp;
+                                        <a *ngIf="row.status=='Peer Review'?false:true" role="button" title="Publish">
+                                            <i aria-hidden="true" class="fa fa-bullhorn" style="font-size: 20px;color:black" (click)="publish(row['requestid'])"> 
+                                            </i>&nbsp;
+                                        </a> 
+
+                                        <a  class="pointer" role="button" title="Invite for Peer Review"  (click)="openModal(row.requestid)" class="fa fas fa-share-alt" style="font-size: 20px;color: black;">
+                                        </a>
+
+                                        <a  class="pointer" role="button" title="Request Withdrawn">
+                                            &nbsp;<i aria-hidden="true" class="fa fa-close" style="font-size: 20px;color: black;" (click)="deleteRequest(row.requestid)"></i>
+                                        </a>
+                                        <!--<a *ngIf="row.status=='Peer Review'?true:false" class="pointer" role="button" title="Invite"  (click)="toUnlock(row.requestid)" class="fa fas fa-lock" style="font-size: 18px;color: #CD5C5C;">
+                                            &nbsp;</a>-->
+                                        
+        
+                                   </div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+        
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+
+                <ngb-tab title="Published" id="publishedtab" id="userView4">
+                    <ng-template ngbTabContent>
+                        <div class="card">
+                            <br>
+        
+                            <!-- departmentsList -->
+                            <ngx-datatable #myTableclosed class="material" [rows]='publishedList | filter: searchText' [columnMode]="'force'"
+                                id="myrequestclosedrequest" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10"
+                                [scrollbarH]="false"  style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
+                                <ngx-datatable-column name="S.No" [width]="35">
+                                    <ng-template let-row="row"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{rowIndex+1}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column name="Request Id" [width]="150">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['requestSno']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column name="Category" [width]="200">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['categoryname']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column name="Status" [width]="160">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['status']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Assigned To" [width]="250">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['assignedto']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Last Update" [width]="70">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['lastupdate'] | date: 'MM/dd/yyyy'}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column [flexGrow]="1.5" name="Action" [width]="100">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div style="padding: 0px 50px;">
+                                                
+                                                <a role="button" title="View Request" class="fa fa-eye" style="font-size: 20px;color: black;"  (click)="navigate(row.requestid);">
+                                                </a> &nbsp;
+                                            </div>
+                                      
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+        
+                            </ngx-datatable>
+        
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+
+                <ngb-tab title="Review" id="review" id="userView5"> 
+                    <ng-template ngbTabContent>
+                        &nbsp;
+                        <div class="card">
+                            <!-- departmentsList -->
+                            <ngx-datatable #myTablereview class="material" [rows]='reviewrequestList| filter: searchText' [columnMode]="'force'"
+                                id="myrequestreviewrequest" [headerHeight]="50" [footerHeight]="60" [rowHeight]="50" [limit]="5"
+                                [scrollbarH]="false"  style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;" >
+
+                                <ngx-datatable-column name="S.No" [width]="30">
+                                    <ng-template let-row="row"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{rowIndex+1}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column name="Request Id"  [width]="140">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['requestSno']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column name="Category"  [width]="100">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['categoryname']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column name="Status" [width]="120">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['status']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Assigned To"[width]="250">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['assignedto']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+
+                                <ngx-datatable-column name="Last Update"[width]="70">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['lastupdate'] | date: 'MM/dd/yyyy'}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column [flexGrow]="1.5" name="Action" [width]="100">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        
+                     
+                                        <div class="row" style="padding: 0px 60px">
+                                            <a role="button" title="View Request" class="fa fa-eye" style="font-size: 20px;color: black;"  (click)="navigate(row.requestid);">
+                                            </a> &nbsp;
+                                            <a role="button" title="Edit Request" class="fa fa-edit" style="font-size: 20px;color: black;" (click)="toEdit(row);">
+                                            </a>&nbsp;     
+                                        </div>     
+                                    </ng-template>
+                                </ngx-datatable-column>        
+                            </ngx-datatable>
+        
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+
+                <ngb-tab title="Closed" id="closed" id="userView6">
+                    <ng-template ngbTabContent>
+                        &nbsp;
+                        <div class="card">
+                            <!-- departmentsList -->
+                            <ngx-datatable #myTableclosed class="material" [rows]='closedrequestList| filter: searchText' [columnMode]="'force'"
+                                id="myrequestclosedrequest" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [limit]="10"
+                                [scrollbarH]="false"  style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
+                                <ngx-datatable-column name="S.No" [width]="35">
+                                    <ng-template let-row="row"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{rowIndex+1}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column name="Request Id" [width]="150">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['requestSno']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column name="Category" [width]="200">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['categoryname']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column name="Status" [width]="160">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['status']=="Rejected"?'Closed':row['status']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Assigned To" [width]="250">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['assignedto']}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Last Update" [width]="70">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                        <strong class="fontStyle">{{row['lastupdate'] | date: 'MM/dd/yyyy'}}</strong>
+                                    </ng-template>
+                                </ngx-datatable-column>
+        
+                                <ngx-datatable-column [flexGrow]="1.5" name="Action" [width]="100">
+                                    <ng-template let-row="row" ngx-datatable-cell-template>
+                                            <div style="padding: 0px 50px;">
+                                                
+                                                <a role="button" title="View Request" 
+                                                class="fa fa-eye" style="font-size: 20px;color: black;"
+                                                (click)=navigateIT(row.requestid)>
+                                                </a> 
+                                            </div>
+                                    </ng-template>
+                                </ngx-datatable-column>       
+                            </ngx-datatable>
+        
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+                
+            </ngb-tabset>
+        
+        </div>
+
+    </div>
+

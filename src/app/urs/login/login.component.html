@@ -1,0 +1,62 @@
+<!-- Start wrapper-->
+<div id="wrapper">
+
+    <div class="height-100v d-flex align-items-center justify-content-center">
+        <div class="card card-authentication1 border-primary border-top-sm mb-0 my-5" style="width:500px;">
+
+            <div class="card mb-0">
+                <div class="card-body" style="height: 340px;">
+                    <div class="card-content p-3">
+                        <div class="text-center">
+                            <img src="assets/images/logo-icon.png" alt="logo icon">
+                        </div>
+                        <div class="card-title text-uppercase text-center py-3">Login</div>
+                        <form  [formGroup]="signin" #f="ngForm">
+                          
+                            <div class="form-group">
+                                <div class="position-relative has-icon-left">
+                                    <label for="emailId" class="sr-only">Email Id</label>
+                                    <input type="text" autocomplete="off" id="emailId" name="emailId" class="form-control" formControlName="userEmail"
+                                        placeholder="Email Id" required>
+                                        <small class="form-text text-muted text-danger"
+                                        *ngIf="!signin.get('userEmail').valid && (signin.get('userEmail').dirty || signin.get('userEmail').touched)">Please
+                                        enter a valid email!</small>
+                                    <div class="form-control-position">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="position-relative has-icon-left">
+                                    <label for="password" class="sr-only">Password</label>
+                                    <input type="password" #password id="password" name="password" class="form-control" formControlName="password"
+                                        placeholder="Password"  required>
+                                    <div (click)="password.type=password.type=='password'?'text':'password'" class="form-control-position">
+                                        <i class="fa fa-unlock-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                           <div *ngIf="loginValidation" style="color: red;">
+                               <span style="font-size: small;">Invalid User and Password</span>
+                           </div>
+                           <div *ngIf="!loginValidation" style="color: red;">
+                                <br>                        
+                         </div>
+                            <button type="button" class="btn btn-primary btn-block waves-effect waves-light" [disabled]="!signin.valid"
+                                (click)='userlogin(signin)'>Sign In</button>
+                            <!--<div class="text-center pt-3">
+                                <hr>
+                                <p>Do not have an account? <a href="JavaScript:;" (click)="onSignup()"> Sign Up here</a>
+                                </p>
+                            </div>-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+    </div>
+    </div>
+    
+</div>
+<!--wrapper-->

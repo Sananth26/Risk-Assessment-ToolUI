@@ -1,0 +1,106 @@
+  <div class="modal-header">
+    <h4 class="modal-title">Workflow</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="overflow-x: hidden;">
+    <div class="row">
+      <div class="col-sm-4">
+        <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;"> Category</label>
+        <div>
+
+        <angular2-multiselect style="width:200px" [required]='true'
+            [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedCategory" 
+            (onSelect)="onCategorySelectCreate($event)" [data]="categoryDTOList"
+          [settings]="categorydropdownSettings">
+        </angular2-multiselect>
+
+    <!--    <ng-multiselect-dropdown style="width:200px" [required]='true' [placeholder]="'Select the Category'"
+            [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedCategory"
+            (onSelect)="onCategorySelectCreate($event)" [data]="categoryDTOList"
+            [settings]="singleSelectdropdownSettings">
+          </ng-multiselect-dropdown>-->
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Level Name</label>
+        <div>
+      <angular2-multiselect style="width:200px" [required]='true'
+        [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selectedRoles" 
+        [data]="roleDTOList" (onSelect)="onRoleSelect($event)"
+        (onDeSelect)="onRoleDeSelect($event)" (onSelectAll)="onRoleSelectAll($event)"
+        (onDeSelectAll)="onRoleDeSelectAll($event)" [settings]="leveldropdownSettings"
+        [settings]="leveldropdownSettings">
+      </angular2-multiselect>
+
+          <!--<ng-multiselect-dropdown style="width:200px" [placeholder]="'Select the Levels'" [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="item.selectedRoles" [data]="roleDTOList" (onSelect)="onRoleSelect($event)"
+            (onDeSelect)="onRoleDeSelect($event)" (onSelectAll)="onRoleSelectAll($event)"
+            (onDeSelectAll)="onRoleDeSelectAll($event)" [settings]="dropdownSettings">
+          </ng-multiselect-dropdown>-->
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Users</label>
+      <div>
+        <angular2-multiselect style="width:100px" [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="item.selectedUsers" [data]="userListTemp" [settings]="userdropdownSettings">
+      </angular2-multiselect>
+
+      <!--<ng-multiselect-dropdown style="width:100px" [placeholder]="'Select the users'" [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="item.selectedUsers" [data]="item.userList" [settings]="dropdownUsersSettings"
+        (onSelect)="onDropDownSelect($event, 'users')" (onDeSelect)="onDropDownDeSelect($event,'users')"
+        (onSelectAll)="onDropDownSelectAll($event, 'users')"
+        (onDeSelectAll)="onDropDownDeSelectAll($event, 'users')">
+      </ng-multiselect-dropdown>-->
+    </div> 
+  </div>
+</div>
+
+<div style="margin-left: 48%;margin-right: auto;">
+    <br>
+    <button type="button" class="btn btn-primary" title="Add Level"
+    (click)="save()">{{btnlevelUser}}</button>
+    <!-- <button type="button" style="border: none;background-color: transparent;" (click)="save()"> <i><img
+      style="width: 30px; height: 30px;" title="Add Level"
+      src="assets/images/avatars/AddWF.png"></i></button> &nbsp;&nbsp; -->
+</div>
+
+&nbsp;
+  <div class="row" style="padding:10px;">
+    <div class="col-sm-12">
+        <table class="table-striped table-bordered" id="tbllevel" style="margin-left: auto;margin-right: auto;width: 70%;height: 400px;padding:10px 20px;">
+            <tr *ngFor="let levellist of this.workFlowMasterDetailsList ; let i = index">
+              <td>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="col-md-12"> <b>Level</b>: <label>{{levellist.levelName}}</label></div>
+                    <div class="col-md-12"> <b>Order</b>: <label>{{i+1}}</label></div>
+                  </div>
+                  <div class="col-md-4"><b>Users</b>: <label>{{levellist.users}}</label></div>
+                  <div class="col-md-4" style="padding-left: 30px;">
+                    <a role="button" title="Edit Level"    (click)="Leveledit(levellist)" class="fa fa-edit" style="font-size: 20px;color: #367588;"></a> 
+                    &nbsp;<a role="button" title="Delete Level"    (click)="Deletelevel(levellist)" class="fa fa-trash-o" style="font-size: 20px;color: #ff4500;"></a>
+                  </div>
+                </div>
+                <div class="col-md-12 text-center"><i class="fa fas fa-arrow-down" style="font-size: 20px;height:30px"></i></div>
+              </td>
+            </tr>
+          </table>
+    </div>
+</div>
+
+
+    
+  </div>
+  <div id="footer">
+    <div class="col-md-12 text-center">
+    <button  type="button" class="btn btn-primary" (click)="onSave()">save</button>&nbsp;&nbsp;&nbsp;
+    <button  type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+    </div>
+</div>
+
+

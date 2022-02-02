@@ -1,0 +1,231 @@
+<!-- <div class="card-header" style="text-align: left;">
+    <b>
+        <h4 class="card-header-text">
+            <i><img style="width: 40px; height: 40px;" src="assets/images/avatars/RiskDetail.png"></i> &nbsp;
+            Risk Detail and Ranking
+        </h4>
+    </b>
+    <hr>
+</div> -->
+
+<div style="padding: 20px;">
+  <div *ngFor="let row of categoryLst;let i=index">
+  <div class="row" style="padding:0px 13px;">
+    <div class="col-sm-12" style="background-color:#bfc1c2;color: black;padding:10px">
+      <strong>{{i+1 }} {{row.riskCategory}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong>Likelihood - {{ calculateLikihood(row.calcualtnLikelihood )}}</strong>&nbsp;&nbsp;
+      <strong>Severity -  {{calculateSeverity(row.calcualtnSeverity) }}</strong>&nbsp;&nbsp;
+      <strong>Ranking - {{calculateRank(i,row.calcualtnLikelihood,row.calcualtnSeverity)}}</strong>
+    </div>
+  </div>
+  <table>
+    <tr  style="color:black;font-weight: 500;">
+      <td class="col-sm-3" style="padding: 10px;border: 1px solid #B2BEB5;">Risk Category</td>
+      <td class="col-sm-3" style="padding: 10px;border: 1px solid #B2BEB5;">Identified Risk</td>
+      <td class="col-sm-3" style="padding: 10px;border: 1px solid #B2BEB5;">Yes/No</td>
+      <td class="col-sm-3" style="padding: 10px;border: 1px solid #B2BEB5;">Comments & Discussion</td>
+      <td class="col-sm-3" style="padding: 10px;border: 1px solid #B2BEB5;">Likelihood</td>
+      <td class="col-sm-3" style="padding: 10px;border: 1px solid #B2BEB5;">Severity</td>
+    </tr>
+
+    <tr style=" color:#000000" *ngFor="let rowquestions of row.questions; let in=index">
+      <td style="width: 20%; font-size: 15px; color:black">{{rowquestions.risk}}</td>
+      <td style="width: 22%; font-size: 15px; color:black">{{rowquestions.questionExplanation.question}} 
+        <i class="fa fas fa-info-circle" style="color: #bfc1c2;width: 25px;height: 25px;" ngbTooltip={{rowquestions.questionExplanation.explanation}}>
+        </i>  
+      </td>
+
+     <td style="width: 10%; color:black">
+      {{rowquestions.yesNo=== 'Yes' ? 'Yes' : 'No'}} 
+      </td>     
+       
+      <td style="width: 22%;font-size: 15px; color: #000;">
+      {{rowquestions.comments}}
+       </td>
+       <td style="width: 15%; color: #000;">
+        <select class="form-control" [(ngModel)]="rowquestions.decisionLikelihood" name="risklikelihood_{{in}}" (ngModelChange)="ChangeLikelihood(row)"  required>
+          <option value="">Select</option>    
+          <option *ngFor="let decisionLikelihood of dataForValuelikelihood;let i=index" [value]="decisionLikelihood.value"  >
+                {{decisionLikelihood.key}}
+            </option>
+        </select>
+    </td>    
+    <td style="width: 15%; color: #000;">
+      <select class="form-control"  name="riskseverity_{{in}}" [(ngModel)]="rowquestions.decisionSeverity" (ngModelChange)="ChangeSeverity(row)"   required>
+        <option value="">Select</option>           
+        <option *ngFor="let decisionSeverity of dataForValueSeverity;let i=index" [value]="decisionSeverity.value" >
+                {{decisionSeverity.key}}
+            </option>
+        </select>       
+    </td>
+     
+  </tr>
+
+  </table>
+  </div>
+</div>
+ 
+
+<div *ngIf="false">
+  <app-risksummaryandmitigation #risksummarymitigation>
+  </app-risksummaryandmitigation>
+</div>
+<!--<div class="card">
+         <div class="card-body">
+            <div>
+                <div class="row" class="col-sm-12">
+                  <small>
+                    <button *ngIf="!showExpansion"   href="javascript:void(0)" (click)="myTable.rowDetail.expandAllRows(); showExpansion=!showExpansion" style="width: 90px; height: 40px; font-size: 14px;">Expand All</button>
+                    <button *ngIf="showExpansion" href="javascript:void(0)" (click)="myTable.rowDetail.collapseAllRows(); showExpansion=!showExpansion" style="width: 90px; height: 40px; font-size: 14px">Collapse All</button>
+                  </small>
+                </div> 
+                 
+                  <ngx-datatable #myTable  id="summaryCustomTable" class="material" [rows]='categoryLst' [headerHeight]="('auto')"
+                        [footerHeight]="0" [rowHeight]="'auto'" [columnMode]="'force'"  >                          
+                         <ngx-datatable-row-detail [rowHeight]="'auto'">
+                          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+      
+                               <ng-container >                                 
+                                <div class="card" >
+                                  <div class="card-body">      
+                                    <div style="width: 100%;" >
+                                        <table id="planTable" class="table-striped table-bordered">                                          
+                                          <tbody>
+                                            <tr style=" color:#000000" *ngFor="let rowquestions of row.questions; let in=index">
+                                                <td style="width: 20%; font-size: 15px; color:black">{{rowquestions.Risk}}</td>
+                                                <td style="width: 22%; font-size: 15px; color:black">{{rowquestions.QuestionToAsk}} <i><img ngbTooltip={{rowquestions.Explanation}}  style="width: 18px; height: 18px;"
+                                                  src="assets/images/avatars/blue_info2.png"></i> </td>
+                                               <td style="width: 7%; color:black">
+                                                  <select class="form-control" [(ngModel)]="rowquestions.yesNo"  name="decision_{{in}}"  
+                                                    required>
+                                                    <option > </option>
+                                                     <option *ngFor="let decision of data;let i=index" [value]="decision.value"  >
+                                                        {{decision.key}}
+                                                    </option>
+                                                </select> 
+                                                </td>     
+                                                 
+                                                <td style="width: 22%;font-size: 15px; color: #000;">
+                                                <textarea type="text"  name="comments" class="form-control" [(ngModel)]="rowquestions.Comments" ></textarea>
+                              
+                                                 </td>
+                                                 <td style="width: 10%; color: #000;">
+                                                  <select class="form-control" [(ngModel)]="rowquestions.decisionLikelihood" name="risklikelihood_{{in}}" (change)="ChangeLikelihood(row)"  required>
+                                                        <option *ngFor="let decisionLikelihood of dataForValuelikelihood;let i=index" [value]="decisionLikelihood.value"  >
+                                                          {{decisionLikelihood.key}}
+                                                      </option>
+                                                  </select>
+                                              </td>    <td style="width: 10%; color: #000;">
+                                                  <select class="form-control"  name="riskseverity_{{in}}"   [(ngModel)]="rowquestions.decisionSeverity" (change)="ChangeSeverity(row)" [disabled]="rowquestions.decisionSeverity == '0'"  required>
+                                                        <option *ngFor="let decisionSeverity of dataForValueSeverity;let i=index" [value]="decisionSeverity.value" >
+                                                          {{decisionSeverity.key}}
+                                                      </option>
+                                                  </select>
+
+                                                  
+                                              </td>    <td style="width: 9%;">
+                                                  
+                                              </td>    
+                                               
+                                            </tr>
+                                            <br>
+                                          </tbody>
+                                        </table>
+                                       </div>
+                                  </div>
+                                </div>
+                              </ng-container>
+                          </ng-template>
+                          </ngx-datatable-row-detail>
+                          <ngx-datatable-column   [width]="30" [cellClass]="'bg-white'" [sortable]="false" [draggable]="false"
+                          [canAutoResize]="false" [resizeable]="true">
+                          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                            <a 
+                              href="javascript:;" [class.datatable-icon-right]="!expanded"
+                              [class.datatable-icon-down]="expanded" title="Expand/Collapse Row"
+                              (click)="toggleExpandRow(row)"></a>
+
+                          </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column   [width]="180" [sortable]="false" [resizeable]="true" name="Risk Category/Questions for Consideration">
+                            <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                              <div class="page-header-title">
+                                <i 
+                                  style="font-size: 15px; height: 30px; width: 30px;"></i>
+                                <div class="d-inline p-t-10">
+                                  <strong style="color:black; ">{{row.RiskCategory}}</strong>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </ngx-datatable-column>
+                          <ngx-datatable-column [width]="240" [sortable]="false" [resizeable]="true" name="Identified Risks (Notes)">
+                            <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                              <div class="page-header-title">
+                                <i 
+                                  style="font-size: 15px; height: 30px; width: 30px;"></i>
+                                <div class="d-inline p-t-10">
+                                  <strong></strong>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </ngx-datatable-column>
+                          <ngx-datatable-column [width]="85" [sortable]="false" [resizeable]="true" name="Yes/No">
+                            <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                              <div class="page-header-title">
+                                <i style="font-size: 15px; height: 30px; width: 30px;"></i>
+                                <div class="d-inline p-t-10">
+                                  <strong></strong> 
+                                </div>
+                              </div>
+                            </ng-template>
+                          </ngx-datatable-column>
+                          <ngx-datatable-column [width]="290" [sortable]="false" [resizeable]="true" name="Comment and Discussion">
+                            <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                              <div class="page-header-title">
+                                <i  
+                                  style="font-size: 15px; height: 30px; width: 30px;"></i>
+                                <div class="d-inline p-t-10">
+                                  <strong></strong>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </ngx-datatable-column>
+                          <ngx-datatable-column [width]="150" [sortable]="false" [resizeable]="true" name="Risk Likelihood">
+                            <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                              <div >
+                                <i  
+                                  style="font-size: 15px; height: 30px; width: 30px;  text-align: center;"></i>
+                                <div class="d-inline p-t-10">
+                                  <strong style="color: black;  text-align: center;">{{row.CalcualtnLikelihood}}</strong>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </ngx-datatable-column>
+                          <ngx-datatable-column [width]="170" [sortable]="false"  [resizeable]="true" name="Risk Severity">
+                            <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                              <div class="page-header-title">
+                                <i  
+                                  style="font-size: 15px; height: 30px; width: 30px;  text-align: center;"></i>
+                                <div class="d-inline p-t-10">
+                                  <strong style="color: black; text-align: center;">{{row.CalcualtnSeverity}}</strong>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </ngx-datatable-column> <ngx-datatable-column [width]="100" [resizeable]="true" [sortable]="false" name="Risk Ranking">
+                            <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                              <div class="page-header-title">
+                                <i  
+                                  style="font-size: 15px; height: 30px; width: 30px; text-align: center;"></i>
+                                <div class="d-inline p-t-10">
+                                  <strong style="color: black;  text-align: center;">{{ ConvertToInt(row.CalcualtnLikelihood )   + ConvertToInt(row.CalcualtnSeverity) }}</strong>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </ngx-datatable-column>
+                  </ngx-datatable>
+         </div>
+        
+         </div>
+        </div>-->
+
+       

@@ -1,0 +1,341 @@
+
+
+   <div class="top" *ngIf="enableStepper" style="margin-top:-13px;padding:0px 20px;box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;background-color:white">
+    <div class="row" style="padding:10px">
+      <div class="col-sm-12">
+        <div style="float:left;padding-top: 10px;">
+          <div>
+            <span class="applabel ">Request Id  :<span class="sublabel">{{requestSno}}</span>&nbsp;&nbsp;&nbsp;</span>
+            <span class="applabel ">Status :
+              <span *ngIf="status=='Draft'" style="background-color: yellow;">Draft</span>
+              <span *ngIf="status=='userpublish'" style="background-color: yellow;">Published</span>
+              <span *ngIf="status=='Publish'" style="background-color: yellow;">Manager Approved</span>
+              <span *ngIf="status=='ITApprove'" style="background-color: yellow;">Network Approved</span>
+              <span *ngIf="status=='Peer Review'" style="background-color: yellow;">Peer Review</span>
+              <span *ngIf="status=='Completed'" style="background-color: yellow;">Completed</span>
+          </span>&nbsp;
+            <a  style="cursor: pointer;">
+              <i class="fa fas fa-info-circle" style="font-size: 15px;" 
+              placement="bottom" [ngbTooltip]="popContent" ></i>&nbsp;&nbsp;</a>
+           <br>
+         </div>
+      </div>
+
+      
+      <ng-template #popContent>
+        <span class="text-left">
+          <div><b>Corp-Id : </b>{{corpid}}</div>
+          <div><b>Requestor Name :</b> {{requestersName}}</div>
+          <div>{{requestersEmail}}</div>
+          <div><b>Phone No : </b> {{requestersPhone}}</div>
+          <div><b>Department : </b>{{requestersDept}}</div>
+        </span>
+      </ng-template>
+
+       &nbsp;&nbsp;&nbsp;
+       <div style="float: right;padding-top: 10px;" >                
+         <a style="cursor: pointer;"
+         (click)="navigatePrevious();"  *ngIf ="this.btnPrev">
+         <i><img style="width: 30px; height: 30px;" title="Previous"
+            src="assets/images/avatars/previous.png"></i>&nbsp;&nbsp;</a>
+            
+            <a  style="cursor: pointer;"
+            (click)="navigateNext();"  *ngIf ="!this.enableNext"  >
+            <i><img style="width: 30px; height: 30px;" title="Next"
+               src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>
+   
+
+               <a  style="cursor: pointer;"
+               (click)="openModal();"  >
+               <i><img style="width: 30px; height: 30px;" title="Workflow"
+                  src="assets/images/avatars/workflow.png"></i>&nbsp;&nbsp;</a>
+
+         <a  *ngIf="saveRisk" style="cursor: pointer;" (click)="this.riskdetailRankingComp.saveAndGo()" >
+           <i><img style="width: 25px; height: 25px;" title="Update"
+             src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;</a> 
+ 
+          <a  *ngIf="saveRiskSummary" style="cursor: pointer;" (click)="this.riskSummaryComp.saveAndGo()" >
+              <i><img style="width: 25px; height: 25px;" title="Update"
+                src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;</a> 
+                
+          <a  *ngIf="saveRemediation" style="cursor: pointer;" (click)="this.remediationPlanComp.saveAndGo();" >
+               <i><img style="width: 25px; height: 25px;" title="Update"
+                 src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;</a> 
+      
+      <a   *ngIf="saveSummary" style="cursor: pointer;"
+      (click)="this.summaryComp.openApprove()" >
+      <i><img style="width: 28px; height:28px;" title="Approve Request"
+         src="assets/images/avatars/check.png"></i>&nbsp; </a>     
+         
+         <a  style="cursor: pointer;"  [routerLink]="['/urs/itreview']">
+         <i><img style="width: 30px; height: 30px;" title="Cancel"
+            src="assets/images/avatars/cancel1.png"></i></a>
+
+      </div>  
+       
+      </div>
+      <div  class="col-sm-12" *ngIf="!this.riskdetailRankingComp.riskValidation" style="color: red;font-size: small;text-align: center;">Please select all the Likelihood & Severity</div>
+      <div  class="col-sm-12" *ngIf="!this.riskSummaryComp.riskSummaryValidation" style="color: red;font-size: small;text-align: center;">Please enter risk mitigation strategy and other details</div>
+      <div  class="col-sm-12" *ngIf="!this.remediationPlanComp.remediationValidation" style="color: red;font-size: small;text-align: center;">Please enter values in all the fields</div>
+
+    </div>
+  </div>
+ 
+ <br><br><br><br>
+
+ <div style="margin: 0px 20px;">
+  <form-wizard id="project-form-wizard" #formWizard (onStepChanged)="onStepChangedLoadData($event)">
+ 
+    <wizard-step [title]="'Request Information'"     [showPrev]="false" [showNext]="false">
+   <div *ngIf="summaryEnable" style="padding:20px 20px">
+<div>
+    <h4 class="card-header-text">
+      <i><img style="width: 40px; height: 40px;" src="assets/images/avatars/Firewallinfo.png"></i>
+      Firewall Request Form
+    </h4>
+</div>
+    <div class="col-sm-12">
+      <table class="a">
+        <tr>
+          <td>
+            <div>
+              <strong style="color: black; font-size: 14px;" class="strong" >Request No : </strong>
+              <span style="color: black;font-size: 14px;"> {{this.requestNo}} </span> 
+            </div>
+          </td>
+          <td>
+            <div>
+              <strong style="color: black; font-size: 14px;" class="strong">Created By : </strong>
+              <span style="color: black; font-size: 14px;"> {{this.createdBy}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>
+              <strong style="color: black; font-size: 14px;" class="strong" >Category : </strong>
+              <span style="color: black;font-size: 14px;"> {{this.Category}} </span> 
+            </div>
+          </td>
+          <td>
+            <div>
+              <strong style="color: black; font-size: 14px;" class="strong">Sub Category : </strong>
+              <span style="color: black; font-size: 14px;"> {{this.SubCategory}}</span>
+            </div>
+          </td>
+      
+        </tr>
+        <tr>
+          <td>
+            <div>
+              <strong style="color: black; font-size: 14px;" class="strong">Business Justification : </strong>
+              <span style="color: black;font-size: 14px;">{{this.BusinessJustification}}</span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <strong style="color: black; font-size: 14px;" class="strong">Managed Services : </strong>
+              <span style="color: black;font-size: 14px;"> {{this.ManagedServices}}</span>
+            </div>
+          </td>
+      
+        </tr>
+      
+        <tr>
+          <td>
+            <div>
+              <strong style="color: black;font-size: 14px;" class="strong">Firewall Region : </strong>
+              <span style="color: black;font-size: 14px;">{{this.FirewallRegion}}</span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <strong  style="color: black;font-size: 14px;" class="strong">Normal/Expedited : </strong>
+              <span style="color: black;font-size: 14px;"> {{this.NormalExpedited}}</span>
+            </div>
+          </td>
+      
+        </tr>
+
+        <tr>
+          <td>
+            <div>
+              <strong style="color: black;font-size: 14px;" class="strong">Project Name : </strong>
+              <span style="color: black;font-size: 14px;">{{this.projectName}}</span>
+            </div>
+          </td>
+          <td>
+            <div>
+              <strong  style="color: black;font-size: 14px;" class="strong">Description : </strong>
+              <span style="color: black;font-size: 14px;"> {{this.description}}</span>
+            </div>
+          </td>
+      
+        </tr>
+
+        <tr>
+          <td>
+            <div>
+              <strong style="color: black;font-size: 14px;" class="strong">Business Impact : </strong>
+              <span style="color: black;font-size: 14px;">{{this.businessImpact}}</span>
+            </div>
+          </td>
+          <td>
+            <strong style="color: black;font-size: 14px;" class="strong">Business Owners : </strong>
+            <span *ngFor="let item of  businessOwner;let i=index"style="color: black;font-size: 14px;">{{item.firstName}}<span *ngIf="i<businessOwner.length-1">,</span></span>        
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong style="color: black;font-size: 14px;" class="strong">IT Owners : </strong>
+            <span *ngFor="let item of  itOwner;let i=index"style="color: black;font-size: 14px;">{{item.firstName}}<span *ngIf="i<itOwner.length-1">,</span></span>        
+          </td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <div class="row" *ngIf="this.SecurityPolicy.length>0" style="padding: 0px 20px;">
+      <div class="col-sm-12"><strong
+          style="font-size: 15px; font-weight: bold; color: black; font-family: Open Sans, sans-serif;">Security
+          Policy</strong> 
+      </div>
+      <div class="col-sm-12">
+        <div>
+
+          <table style="width: 100%;">
+            <thead style="background-color:#C0C0C0;color: black;padding:5px;">
+              <tr style="color: black;">
+                <td class="w-6" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">S No.</label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Source VPC/Account</label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Source IP Address</label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Destination VPC/Account </label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Destination Address </label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Application</label></td>
+                <td class="w-10" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Port/Service</label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Protocol</label></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let Policy of  SecurityPolicy;let i=index">
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{i+1}}
+                </td>
+                <td style="text-align: center; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Sourcevpcaccount[0].key}}
+                </td>
+                <td style="text-align: center; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Sourceipaddress}}
+                </td>
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Destinationvpcaccount[0].key}}
+                </td>
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Destination}}
+                </td>
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Application}}
+                </td>
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Portservice}}
+                </td>
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.protocal[0].key}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="col-sm-12" >
+      <div><strong
+        style="font-size: 15px; font-weight: bold; color: black; font-family: Open Sans,sans-serif;">Architecture Diagram</strong> 
+    </div>
+
+      <table  style="width: 100%;border: 1px solid #B2BEB5;" *ngIf="this.fileList.length > 0">
+        <thead style="background-color: #C0C0C0;color: black;">
+          <th style="border: 1px solid #B2BEB5;padding:5px;">S. No</th>
+          <th style="border: 1px solid #B2BEB5;padding:5px;">File Name</th>
+          <th style="border: 1px solid #B2BEB5;padding:5px;">Date</th>
+          <th style="border: 1px solid #B2BEB5;padding:5px;">Action</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let file of this.fileList ; let i = index ">
+            <td style="border: 1px solid #B2BEB5;;padding:5px;font-size: 14px;">{{i+1}}</td>
+            <td style="border: 1px solid #B2BEB5;;padding:5px;font-size: 14px;"><label>{{file.FileName}}</label></td>
+            <td style="border: 1px solid #B2BEB5;;padding:5px;font-size: 14px;"><label>{{this.requestDate}}</label></td>
+            <td style="border: 1px solid #B2BEB5;;padding:5px;">
+              &nbsp;&nbsp;<a style="cursor:pointer;font-weight: bold" class="icofont icofont-eye-alt" placement="top"
+              container="body" ngbTooltip="view" (click)="viewFile1(file, fileIndex, 'Static')"></a>
+          </td>       
+          </tr>
+        </tbody>
+      </table>
+
+    
+      <br>
+      <br>
+      <br>
+    </div>
+   </div>
+    
+
+    
+
+      <!--<app-firewallrequest #firewallrequest>
+     </app-firewallrequest>-->
+  </wizard-step>
+      <wizard-step [title]="'Risk Detail and Ranking'"   [showPrev]="false" [showNext]="false">
+        <app-firewallrequestformnew #riskdetails>
+           
+        </app-firewallrequestformnew>
+      </wizard-step>
+      <wizard-step [title]="'Risk Summary & Mitigation'"  [showPrev]="false" [showNext]="false">
+        <app-risksummaryandmitigation #risksummarymitigation>
+        </app-risksummaryandmitigation>
+       </wizard-step>
+      <wizard-step [title]="'Remediation Plan'"  [showPrev]="false" [showNext]="false">
+        <app-remediationplan #remediation>
+        </app-remediationplan>
+       </wizard-step>
+      <wizard-step [title]="'Summary'"   [showPrev]="false" [showNext]="false">
+      <app-viewsummary #summaryIT></app-viewsummary> 
+      </wizard-step>
+    </form-wizard>
+  
+</div>
+
+              <!--
+
+             <a  style="cursor: pointer;"
+         (click)="navigateNext();"  *ngIf ="this.btnNext && !enableNext">
+         <i><img style="width: 30px; height: 30px;" title="Next"
+            src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>
+            
+                <a  style="cursor: pointer;"
+         (click)="navigateNext();"  *ngIf ="this.enableNext && !saveSummary "  >
+         <i><img style="width: 30px; height: 30px;" title="Next Last"
+            src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>
+
+              
+              
+              <a  style="cursor: pointer;"
+            (click)="navigateNext();"  *ngIf ="!this.btnNext && this.riskdetailRankingComp.nextFlag"  >
+            <i><img style="width: 30px; height: 30px;" title="Next Risk"
+               src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>
+
+               <a  style="cursor: pointer;"
+               (click)="navigateNext();"  *ngIf ="!this.btnNext && this.riskSummaryComp.nextFlag"  >
+               <i><img style="width: 30px; height: 30px;" title="Next Summary"
+                  src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>
+
+                  <a  style="cursor: pointer;"
+                  (click)="navigateNext();"  *ngIf ="!this.btnNext && this.remediationPlanComp.nextFlag"  >
+                  <i><img style="width: 30px; height: 30px;" title="Next Remediation"
+                     src="assets/images/avatars/next-button.png"></i>&nbsp;&nbsp;</a>-->
+
+      
+         <!--<a *ngIf="saveRequest" style="cursor: pointer;" (click)="this.firewallRequestComp.saveAndGo()" >
+        <i><img style="width: 25px; height: 25px;" title="Save Request"
+           src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;</a> -->

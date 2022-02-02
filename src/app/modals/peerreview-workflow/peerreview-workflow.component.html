@@ -1,0 +1,19 @@
+<div style="padding: 0px;">
+    <div class="row">
+        <div class="col-sm-12">
+    <h5 class="modal-title" id="modal-basic-title" style="display: inline;">Peer Review</h5>
+    <button type="button" style="display: inline;background-color: transparent;border: none;float: right" (click)="closeModal()"><i class="fa fas fa-times"></i></button>
+    <hr>
+        </div>
+       
+        <div class="col-sm-12" style="height:110px;">
+           <br>
+            <angular2-multiselect [data]="UsersList" [(ngModel)]="selectedUsers" [settings]="userdropdownSettings">
+            </angular2-multiselect>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <hr>
+        <button type="button" class="btn btn-primary" (click)="SavePeerreview1()">Send</button>
+    </div>
+</div>

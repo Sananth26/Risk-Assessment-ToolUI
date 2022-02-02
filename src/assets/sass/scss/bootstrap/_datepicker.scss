@@ -1,0 +1,45 @@
+select.custom-select {
+  margin: $spacer * .25 $spacer * .25 0 0;
+  width: auto;
+}
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem $spacer * .25;
+  display: inline-block;
+  height: 1.9rem;
+  width: 1.9rem;
+
+  &.focused {
+    background-color: #e6e6e6;
+  }
+
+  &.range, &:hover {
+    background-color: #7f5be8;
+    color: $white;
+  }
+
+  &.faded {
+    background-color: #b095ff;
+  }
+
+  text-align: center;
+  padding: 0.185rem $spacer * .25;
+  border-radius: 1rem;
+  display: inline-block;
+  width: 1.9rem;
+
+  &:hover, &.focused {
+    background-color: #b095ff;
+  }
+}
+
+.weekend {
+  background-color: #ffc16a;
+  border-radius: 1rem;
+  color: $white;
+}
+
+.hidden {
+  display: none;
+}

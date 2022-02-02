@@ -1,0 +1,51 @@
+div.table-wrapper {
+    border: 1px solid rgb(255, 255, 255);
+    height: 700px;
+    width: 100%;
+    overflow-y: auto;
+   }
+   
+   table {
+     width: 100%;
+   }
+   table thead tr th {
+     text-align: left;
+     position: sticky;
+     border: 1px solid rgb(255, 255, 255);
+     white-space: normal; 
+     word-wrap: break-word;
+     text-align: center;
+     top: 0px;
+     background-color: rgba(190, 190, 190, 0.712);     
+     color: rgb(7, 7, 7);
+     font-family: Helvetica Neue,Roboto,sans-serif;
+
+   }
+   table  td {
+    padding: 5px;
+    border: 1px solid rgb(255, 255, 255);
+    width: 100px;
+    word-wrap: break-word;
+    width: 100%;
+    background-color: rgb(255, 255, 255);;  
+    font-family: Helvetica Neue,Roboto,sans-serif;
+   
+
+   }
+
+  .ngx-datatable.material {
+overflow-wrap: break-word;
+}
+
+//ngx css for datatable
+
+ 
+  :host ::ng-deep.ngx-datatable.material {
+    .datatable-header-cell {
+      background-color: rgba(190, 190, 190, 0.801);
+      color: black;
+      text-align: center;
+      border: 1px solid white;
+       font-size:15px ;
+     }
+  }

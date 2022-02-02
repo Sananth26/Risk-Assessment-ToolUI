@@ -1,0 +1,170 @@
+/* Forms */
+
+.input-group .btn {
+  box-shadow: none;
+  padding: .375rem .75rem;
+}
+
+.input-group-text {
+  color: #495057;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+}
+
+.col-form-label {
+  font-size: 13px;
+}
+
+.form-control {
+  border: 1px solid #ced4da;
+  background-color: $white;
+  color: #495057 !important;
+
+  &:focus {
+    border: 1px solid #5e72e4;
+    background-color: $white;
+    box-shadow: 0 0 0 0.2rem rgba(20, 171, 239, 0);
+  }
+}
+
+.form-control-rounded {
+  border-radius: 30px !important;
+}
+
+.form-control-square {
+  border-radius: 0px !important;
+}
+
+.form-control {
+  &:disabled, &[readonly] {
+    background-color: rgba(158, 158, 158, 0.33);
+    opacity: 1;
+  }
+}
+
+.form-control-xl {
+  height: 60px !important;
+  font-size: 26px !important;
+}
+
+.position-relative {
+  position: relative !important;
+}
+
+.has-icon-left .form-control {
+  padding-right: .85rem;
+  padding-left: 2.9rem;
+}
+
+.form-control-position {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  z-index: 2;
+  display: block;
+  width: 3.5rem;
+  height: 3.5rem;
+  line-height: 3.5rem;
+  text-align: center;
+}
+
+.has-icon-left .form-control-position {
+  right: auto;
+  left: 0px;
+}
+
+.has-icon-right {
+  .form-control-position {
+    right: 0px;
+    left: auto;
+  }
+
+  .form-control {
+    padding-right: 37px;
+  }
+}
+
+form {
+  .form-header {
+    color: $black;
+    line-height: $spacer * 3;
+    font-size: $font-size-base;
+    letter-spacing: 1.0px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .form-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 20px 0 10px 0;
+    margin-top: 20px;
+  }
+
+  &.form-bordered .form-group {
+    margin: 0;
+    border-bottom: 1px solid #ebeff5;
+
+    > div {
+      padding: 20px;
+      padding-right: 0;
+      border-left: 1px solid #ebeff5;
+    }
+
+    .col-form-label {
+      padding-top: 30px;
+    }
+  }
+
+  &.striped-rows .form-group {
+    &:nth-child(2n) {
+      background-color: #f4f5fa;
+    }
+
+    margin: 0;
+  }
+}
+
+.search-input {
+  margin-bottom: 10px;
+}
+
+.custom-header {
+  background: rgba(255, 255, 255, 0.34);
+  padding: 5px;
+  color: $white;
+}
+
+.input-group-prepend {
+  [type=checkbox] {
+    &:checked, &:not(:checked) {
+      position: initial;
+      opacity: 1;
+      margin-top: 0px;
+    }
+  }
+
+  [type=radio] {
+    &:checked, &:not(:checked) {
+      position: initial;
+      opacity: 1;
+      margin-top: 0px;
+    }
+  }
+}
+
+
+.ng-touched.ng-invalid{
+  border-color: theme-color("danger");
+}
+
+.bootstrap-touchspin .input-group-text {
+  border-radius: 0px;
+}
+
+.datepicker table tr {
+  td, th {
+    width: 40px;
+    height: 40px;
+  }
+}

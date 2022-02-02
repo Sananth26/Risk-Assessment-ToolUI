@@ -1,0 +1,287 @@
+
+<div class="card">
+  <div class="card-body">
+      <h5>Project Details - General Information</h5> <br>
+     
+      <div class="form-group row">
+        <div class="col-6">
+          <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Business Owners</label>
+          <div>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <div class=" col-6">
+          <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Actual Target Completion Date</label>
+          <div>
+            <input type="date" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-6">
+          <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">IT Owners</label>
+          <div>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <div class=" col-6">
+          <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Name</label>
+          <div>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+      </div>
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Description</label>
+      <div>
+        <textarea type="text" rows="4" class="form-control"></textarea>
+      </div>
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Business Impact</label>
+      <div>
+        <textarea type="text" rows="4" class="form-control"></textarea>
+      </div>
+      <div class="form-group row ">
+        <label class="col-2 col-form-label">Select the Document<span class='asterisk'>*</span></label>
+        <div class="col-10">
+            <ng-multiselect-dropdown [required]='true'   [placeholder]="'Select the Document'" [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="selectedDocNum" [data]="documentNumberList" [settings]="docNumdropdownSettings">
+        </ng-multiselect-dropdown>
+        <small class="form-text text-muted text-danger"  *ngIf="this.selectedDocNum.length<=0"> Document Number is required...!</small>
+        </div>
+      </div>
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Decision Diary</label>
+      <div>
+        <textarea type="text" rows="4" class="form-control"></textarea>
+      </div>
+
+
+      <div>
+
+      </div>
+      <br><br>
+
+    <div class="form-group row">
+    <div class="col-sm-12"><strong style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Conditions for Closure</strong> </div>
+    <div class="col-sm-12">
+      <div id="check-list-drag-id" class="panel panel-default" dnd-sortable-container>
+        <table id="testcase-table-checkList" class="table table-striped">
+          <thead class="thead-dark background-color:'green'">
+            <tr>
+              <td class="w-6"><label class="text">Condition</label></td>
+              <td class="w-40"><label class="text">Responsible Party</label></td>
+              <td class="w-40"><label class="text">Completed</label></td>
+              <td class="w-40"><label class="text">Actions</label></td> 
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let securitypolicygrid of securitypolicygrid; let i = index">
+              <tr [draggable] dnd-sortable>                                 
+                <td class="noBorder">
+                  <input id="check_list_name_id_{{i}}" type="text" class="form-control"
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="securitypolicygrid.Condition"
+                    rows="1" />
+                </td>
+                
+                <td class="noBorder">
+                  <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="securitypolicygrid.ResponsibleParty" rows="1" />
+                </td>
+                <td class="noBorder">
+                  <input type="text" autofocus class="form-control" [(ngModel)]="securitypolicygrid.Completed"
+                    [ngModelOptions]="{standalone: true}" />
+                </td>
+                <td>
+                  <a role="button" title="Add Security Policy" (click)="addChecklistItem(securitypolicygrid);">
+                    <i><img style="width: 20px; height: 20px;"
+                      src="assets/images/avatars/plus14x14.png"></i></a>
+
+                  <a class="pointer" role="button" title="Delete" (click)="deleteSecurityTable(securitypolicygrid,i)">
+                    <i><img style="width: 20px; height: 20px;"
+                        src="assets/images/avatars/delete14x14.png"></i></a>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+<br><br>
+      </div>
+
+      <div>
+
+      </div>
+      <div class="col-sm-12">
+        <div class="messages text-danger" *ngIf="isCheckListEntered">Please Fill the Details to Continue . . .
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-12">
+          <strong style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Attachments</strong> </div>
+          <div class="row"     >
+            <ng-container>
+              <div class="col-sm-12" style="left:30px" ><strong class="strong">Upload Your Files </strong></div>
+              <div class="col-sm-12 p-0"  >
+                <br>
+                <div class="col-sm-7" style="left:30px">
+                  <form method="post" action="#">
+                    <div class="files color">
+                     <input #fileuploaddiv type="file" (change)="onFileChange($event)" multiple
+                        accept=".pdf,.doc,.docx,.txt,.xls,.xlsx,.png,.jpeg,.mp4">
+                    </div>
+                  </form>
+                </div>                   
+              </div>
+            </ng-container>
+          </div>
+          <div class="col-sm-12">
+            <div *ngIf="this.fileList.length > 0">
+              <div class="dt-desc" style="padding: 0px;padding-left: 1%; overflow-x:auto;">
+                <div class="dt-desc dy-ui">
+                  <br>
+                  <table class="table-striped table-bordered" style="width: 100%;">
+                    <thead>
+                      <th>S. No</th>
+                      <th>File Name</th>
+                      <th>Date</th>
+                      <th>Action</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let file of this.fileList ; let i = index ">
+                        <td>{{i+1}}</td>
+                        <td><label>{{file.name}}</label></td>
+                        <td><label>{{file.displayDate | date: 'dd/MM/yyyy'}} </label></td>
+                        <td><a style="cursor:pointer;font-weight: bold" class="icofont icofont-eye-alt" placement="top"
+                          container="body" ngbTooltip="view" (click)="viewFile(file, fileIndex, 'Static')"></a>&nbsp;&nbsp;
+                       
+                        <a [ngbCollapse]="createNewVersion" style="cursor:pointer;font-weight: bold"
+                          style="cursor: pointer;" class="icofont icofont-ui-delete" placement="top" container="body"
+                          ngbTooltip="delete" (click)="deleteUploadedFileForDoc(file, fileIndex)"></a>&nbsp;&nbsp;
+                      </td>
+                            
+  
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br><br>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br><br>
+    </div>
+ 
+  <div>
+  <strong style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Review</strong> 
+  
+  <div class="form-group row">
+    <div class="col-6">
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Remediation Plan Owner</label>
+      <div>
+        <input type="text" class="form-control">
+      </div>
+    </div>
+    <div class=" col-6">
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Submission Status</label>
+      <div>
+        <input type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-6">
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Additional Contacts</label>
+      <div>
+        <input type="text" class="form-control">
+      </div>
+    </div>
+    <div class=" col-6">
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Submission Date</label>
+      <div>
+        <input type="date" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-6">
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Remediation Plan Reviewer</label>
+      <div>
+        <input type="text" class="form-control">
+      </div>
+    </div>
+    <div class=" col-6">
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Review Status</label>
+      <div>
+        <input type="text" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-6">
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Number of Approvals Required</label>
+      <div>
+        <input type="text" class="form-control">
+      </div>
+    </div>
+    <div class=" col-6">
+      <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Review Date</label>
+      <div>
+        <input type="date" class="form-control">
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+</div>
+<div>
+    <strong style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Approval</strong> 
+    
+    <div class="form-group row">
+      <div class="col-6">
+        <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Business Approver</label>
+        <div>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+      <div class=" col-6">
+        <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">IT Approver</label>
+        <div>
+          <input type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">      
+      <div class=" col-6">
+        <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Business Approver Date</label>
+        <div>
+          <input type="date" class="form-control">
+        </div>
+      </div>
+      <div class=" col-6">
+        <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">IT Approver Date</label>
+        <div>
+          <input type="date" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-6">
+        <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">Business Approver Comments</label>
+        <div>
+          <textarea type="text" row=4 class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="col-6">
+        <label style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;">IT Approver Comments</label>
+        <div>
+          <textarea type="text" row=4 class="form-control"></textarea>
+        </div>
+      </div>
+     </div>
+    
+    <br>
+    <br>
+  </div>
+    
+  </div>
+</div>
+          

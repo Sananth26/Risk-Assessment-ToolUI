@@ -1,0 +1,357 @@
+<div class="card-header" style="text-align: centeleftr;">
+<br>
+  <div style="float: right;">
+    <a type="button" (click)="openModal()" title="Add Category" style="float: right;padding-left:20px;">
+      <i><img style="width: 30px; height: 30px;" src="assets/images/avatars/AddPlus1.png"></i>
+    </a>
+    <select style="width:300px;" class="form-control" name="categoryId" (change)="onCateogoriesChange($event)"
+    [(ngModel)]="selectedCategory" required>
+    <option *ngFor="let category of categoryList" [ngValue]="category">
+      {{category.key}}</option>
+  </select>
+  </div>
+  <span style="display: inline;float: right;color: black;"><label>Select LookUp :</label></span>
+
+  <b>
+    <h4 class="card-header-text">
+      <i><img style="width: 40px; height: 40px;" src="assets/images/avatars/lookup.svg"></i> &nbsp;
+      Look Up Master
+    </h4>
+  </b>
+  <hr>
+  <div>
+    <div>
+  
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-basic-title">{{titlePopUP}}</h5>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <form [formGroup]="formAddCategory">
+            <!-- <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button> -->
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Key</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" formControlName="name" [(ngModel)]="addNewcategory.name" required
+                  (blur)="checkCategoryName()">
+                <small class="form-text text-muted text-danger"
+                  *ngIf="!formAddCategory.get('name').valid && (formAddCategory.get('name').dirty || formAddCategory.get('name').touched)">
+                  Name is required...!</small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Description</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" [(ngModel)]="addNewcategory.description"
+                  formControlName="description" required>
+                <small class="form-text text-muted text-danger"
+                  *ngIf="!formAddCategory.get('description').valid && (formAddCategory.get('description').dirty || formAddCategory.get('description').touched)">
+                  Description is required...!</small>
+              </div>
+            </div>
+          </form>
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary"  
+            (click)="saveCategory()" >&nbsp;&nbsp;save</button>&nbsp;&nbsp;&nbsp;
+          <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cancel click')">&nbsp;&nbsp;Cancel</button>
+        </div>
+      </ng-template>
+    
+      <div class="row">
+        <div class="col-lg-12">
+          <div>
+            <!-- <div class="card-header text-uppercase">{{selectedCategory.key}}</div> -->
+            <div>
+              <ngb-tabset [justify]="currentJustify" #vendorTab>
+                <ngb-tab id="draft">
+                  <ng-template ngbTabTitle><b>
+                      {{selectedCategory.key == undefined ? "Select Category" : selectedCategory.key  }}</b>
+                  </ng-template>
+                  <ng-template ngbTabContent>
+                    
+
+                
+        <div  *ngIf="isShownQuestion" id="divshow" style="text-align: left;">
+        <div style="text-align: center;">
+          <br><br>
+          <input id="input-file-id" type="file" accept=".xlsx" (change)="handleFileInput($event)" />
+          <a href="assets/images/Sample Questions.xlsx">
+           <img style="width: 40px; height: 40px;display:inline;" src="assets/images/excel.png" ngbTooltip="Sample Download">
+         </a>
+        </div>
+         
+        <br> <br>
+        <div style="text-align: center;" *ngIf="enableUpload">
+          <button type="btn" class="btn btn-primary"  (click)="upload()">Upload</button>
+        </div>        
+          <table class="sjs-table">
+              <tbody>
+              <tr *ngFor="let row of data">
+              <td *ngFor="let val of row" style="padding:10px;border:1px solid #ccc;color: black;font-weight: 400;">
+                {{val}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          
+           <!--<button class="btn btn-outline-primary" > <label color="primary"
+              for="input-file-id"><i><img style="width: 20px; height: 20px;"
+              src="assets/images/avatars/upload.png"></i>&nbsp;&nbsp; Risk Questionnaire</label> </button>
+                      <span style="color:red;font-size: small;">&nbsp;(.xlsx files only.)</span>-->
+                    <br><br>
+        </div>
+  
+                    <div  *ngIf="isShown">
+                      <div  *ngIf="!isShownQuestion" class="row" style="padding:10px 0px">
+                        <div class="col-sm-4">
+                          <span style="color: black;"><label>Key :&nbsp;</label></span><span><input class="itemInput" [(ngModel)]="categoryKey"></span> 
+                        </div>
+                        <div class="col-sm-4">
+                          <span style="color: black;"><label>Value :&nbsp;</label></span><span><input class="itemInput" [(ngModel)]="categoryValue"></span> 
+                        </div>
+                        <div class="col-sm-4">
+                          <button *ngIf="isUpdate"type="btn" class="btn btn-primary" (click)="update1()">Update</button>&nbsp;
+                          <button *ngIf="!isUpdate"type="btn" class="btn btn-primary" (click)="save1()">Save</button>&nbsp;
+                          <button type="btn" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                        </div>
+                     </div>
+
+                      <div class="col-sm-12 mb-4">
+                        <ngx-datatable #table class='material' [columnMode]="'force'" [headerHeight]="40"
+                          [footerHeight]="40" [rowHeight]="'50'" [limit]="5" [rows]='categoryItems' style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
+                          <ngx-datatable-column [flexGrow]="1.5" name="Key" prop="key">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                              let-row="row">
+  
+                              <input class="itemInput" [ngStyle]="styleFunctions(isEditable[rowIndex])" value="key" [(ngModel)]="row.key"
+                                [disabled]="!isEditable[rowIndex]">
+                            </ng-template>
+                          </ngx-datatable-column>
+  
+                          <ngx-datatable-column [flexGrow]="1.5" name="Value" prop="value">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                              let-row="row">
+                              <input class="itemInput" [ngStyle]="styleFunctions(isEditable[rowIndex])" value="value"
+                                [(ngModel)]="row.value" [disabled]="!isEditable[rowIndex]">
+                            </ng-template>
+                          </ngx-datatable-column>
+  
+                          <!--<ngx-datatable-column [flexGrow]="1.5" name="Display Order" prop="displayOrder">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                              let-row="row">
+                              <input class="itemInput" [ngStyle]="styleFunctions(isEditable[rowIndex])" value="display"
+                                [(ngModel)]="row.displayOrder" [disabled]="!isEditable[rowIndex]">
+                            </ng-template>
+                          </ngx-datatable-column>-->
+                          <!--<ngx-datatable-column [flexGrow]="1.5" name="Active" prop="active">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                              let-row="row">
+                                <input class="itemInput" [ngStyle]="styleFunctions(isEditable[rowIndex])" value="active"
+                                [(ngModel)]="row.active" [disabled]="!isEditable[rowIndex]">
+                            </ng-template>
+                          </ngx-datatable-column>-->
+  
+                          <ngx-datatable-column [flexGrow]="1.5" name="Action">
+                            <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"
+                              ngx-datatable-cell-template>
+                              <!-- Pencil icon -->
+                       <div style="padding:0% 48%;">
+
+                        <a role="button" title="Edit" class="fa fa-edit" style="font-size: 20px;color: black;" (click)="editCategory(row)">
+                        </a>
+                        <a  class="pointer" role="button" title="Withdraw">
+                          <i aria-hidden="true" class="fa fas-fa-trash-alt" style="font-size: 20px;color: black;" (click)="deleteCategoryItem(row,'category')"></i>
+                          &nbsp;</a>
+
+  
+                      <!-- Save/Delete icons 
+                      <button type="button" style="background: transparent;border: none;"
+                        title="Save" (click)="saveCategoryItem(row, rowIndex, 'category');">
+                        <i><img style="width: 20px; height: 20px;"
+                            src="assets/images/avatars/save.png"></i></button>-->
+  
+                      </div>
+                            </ng-template>
+                          </ngx-datatable-column>
+  
+                        </ngx-datatable>
+                      </div>
+                    </div>
+
+                    <div *ngIf="false">
+                        <div class="row" ngbDropdown style="padding:10px 0px;"> 
+                          <div class="col-sm-4">
+                            <span style="color: black;display: inline;">Select Category :</span>
+                            <select style="display:inline;width:60%" class="form-control" name="subcategoryId" (change)="onSubCateogoriesChange($event)"
+                              [(ngModel)]="selectedSubCategory" required>
+                              <option *ngFor="let category of subCategoryList" [ngValue]="category">
+                                {{category.key}}</option>
+                            </select>
+                          </div>
+                          <div class="col-sm-3">
+                            <span  style="color: black;"><label>Key :&nbsp;</label></span><span><input class="itemInput" [(ngModel)]="categoryKey"></span> 
+                          </div>
+                          <div class="col-sm-3">
+                            <span style="color: black;"><label>Value :&nbsp;</label></span><span><input class="itemInput" [(ngModel)]="categoryValue"></span> 
+                          </div>
+                          <div class="col-sm-2">
+                            <button *ngIf="isUpdate"type="btn" class="btn btn-primary" (click)="update2()">Update</button>&nbsp;
+                            <button *ngIf="!isUpdate"type="btn" class="btn btn-primary" (click)="save2()">Save</button>&nbsp;
+                            <button type="btn" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                          </div>
+                        </div>
+    
+                        <!--<div class="row" style="padding:10px 0px">
+                          <div class="col-sm-4">
+                            <span><label>Key :&nbsp;</label></span><span><input class="itemInput" [(ngModel)]="categoryKey"></span> 
+                          </div>
+                          <div class="col-sm-4">
+                            <span><label>Value :&nbsp;</label></span><span><input class="itemInput" [(ngModel)]="categoryValue"></span> 
+                          </div>
+                          <div class="col-sm-4">
+                            <button *ngIf="isUpdate"type="btn" class="btn btn-primary" (click)="update2()">Update</button>&nbsp;
+                            <button *ngIf="!isUpdate"type="btn" class="btn btn-primary" (click)="save2()">Save</button>&nbsp;
+                            <button type="btn" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                          </div>
+                       </div>-->
+      
+                        <div class="row">
+                          <div class="col-sm-12 mb-4">
+                            <ngx-datatable #tableSubCategory class='material' [columnMode]="'force'" [headerHeight]="40"
+                              [footerHeight]="40" [rowHeight]="'50'" [limit]="5" [rows]='subCategoryItems' style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
+                              <ngx-datatable-column [flexGrow]="1.5" name="Key" prop="key">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                                  let-row="row">
+      
+                                  <input class="itemInput" [ngStyle]="styleFunctions(isSubEditable[rowIndex])" value="key" [(ngModel)]="row.key"
+                                    [disabled]="!isSubEditable[rowIndex]">
+                                </ng-template>
+                              </ngx-datatable-column>
+      
+                              <ngx-datatable-column [flexGrow]="1.5" name="Value" prop="value">
+                                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                                  let-row="row">
+                                  <input class="itemInput" [ngStyle]="styleFunctions(isSubEditable[rowIndex])" value="value"
+                                    [(ngModel)]="row.value" [disabled]="!isSubEditable[rowIndex]">
+                                </ng-template>
+                              </ngx-datatable-column>
+      
+                              <ngx-datatable-column [flexGrow]="1.5" name="Action">
+                                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"
+                                  ngx-datatable-cell-template>
+                                  <!-- Pencil icon -->
+                                <div style="padding:0% 48%;">
+                                  <a role="button" title="Edit" class="fa fa-edit" style="font-size: 20px;color: black;"   (click)="editCategory(row)">
+                                  </a>
+                                  <a  class="pointer" role="button" title="Withdraw">
+                                    <i aria-hidden="true" class="fa fas-fa-trash-alt" style="font-size: 20px;color: black;" (click)="deleteCategoryItem(row,'subCategory')"></i>
+                                    &nbsp;</a>
+    
+    
+                                    </div>
+                                </ng-template>
+                              </ngx-datatable-column>
+      
+                            </ngx-datatable>
+                          </div>
+                        </div>
+                    </div>
+                  </ng-template>
+   
+                </ngb-tab>
+
+                <ngb-tab [disabled]="(selectedCategory == undefined || selectedCategory.id != 1) ? true : false" id="audit">
+                  <ng-template ngbTabTitle><b>
+                      {{(selectedCategory == undefined || selectedCategory.id != 1) ? "" : "Sub-Categories" }} </b>
+                  </ng-template>
+                  <ng-template ngbTabContent>
+                    <div class="row" ngbDropdown style="padding:10px 0px;"> 
+                      <div class="col-sm-4">
+                        <span style="color: black;display: inline;">Select Category :</span>
+                        <select style="display:inline;width:60%" class="form-control" name="subcategoryId" (change)="onSubCateogoriesChange($event)"
+                          [(ngModel)]="selectedSubCategory" required>
+                          <option *ngFor="let category of subCategoryList" [ngValue]="category">
+                            {{category.key}}</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-3">
+                        <span  style="color: black;"><label>Key :&nbsp;</label></span><span><input class="itemInput" [(ngModel)]="subcategoryKey"></span> 
+                      </div>
+                      <div class="col-sm-3">
+                        <span style="color: black;"><label>Value :&nbsp;</label></span><span><input class="itemInput" [(ngModel)]="subcategoryValue"></span> 
+                      </div>
+                      <div class="col-sm-2">
+                        <button *ngIf="isUpdate"type="btn" class="btn btn-primary" (click)="update2()">Update</button>&nbsp;
+                        <button *ngIf="!isUpdate"type="btn" class="btn btn-primary" (click)="save2()">Save</button>&nbsp;
+                        <button type="btn" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12 mb-4">
+                        <ngx-datatable #tableSubCategory class='material' [columnMode]="'force'" [headerHeight]="40"
+                          [footerHeight]="40" [rowHeight]="'50'" [limit]="5" [rows]='subCategoryItems' style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
+                          <ngx-datatable-column [flexGrow]="1.5" name="Key" prop="key">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                              let-row="row">
+  
+                              <input class="itemInput" [ngStyle]="styleFunctions(isSubEditable[rowIndex])" value="key" [(ngModel)]="row.key"
+                                [disabled]="!isSubEditable[rowIndex]">
+                            </ng-template>
+                          </ngx-datatable-column>
+  
+                          <ngx-datatable-column [flexGrow]="1.5" name="Value" prop="value">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                              let-row="row">
+                              <input class="itemInput" [ngStyle]="styleFunctions(isSubEditable[rowIndex])" value="value"
+                                [(ngModel)]="row.value" [disabled]="!isSubEditable[rowIndex]">
+                            </ng-template>
+                          </ngx-datatable-column>
+  
+                          <ngx-datatable-column [flexGrow]="1.5" name="Action">
+                            <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"
+                              ngx-datatable-cell-template>
+                              <!-- Pencil icon -->
+                            <div style="padding:0% 48%;">
+                              <a role="button" title="Edit" class="fa fa-edit" style="font-size: 20px;color: black;"   (click)="editsubCategory(row)">
+                              </a>
+                              <a  class="pointer" role="button" title="Withdraw">
+                                <i aria-hidden="true" class="fa fas-fa-trash-alt" style="font-size: 20px;color: black;" (click)="deleteCategoryItem(row,'subCategory')"></i>
+                                &nbsp;</a>
+
+
+                                </div>
+                            </ng-template>
+                          </ngx-datatable-column>
+  
+                        </ngx-datatable>
+                      </div>
+                    </div>
+
+
+   
+  
+                  </ng-template>
+                </ngb-tab>
+
+              </ngb-tabset>
+            </div>
+          </div>
+        </div>
+        <!--Nav justification Ends-->
+      </div>
+  
+  
+    </div>
+  </div>
+</div>
+
+
+
+

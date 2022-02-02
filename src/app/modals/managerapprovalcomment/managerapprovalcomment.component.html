@@ -1,0 +1,25 @@
+<div>
+    <h5 class="modal-title" id="modal-basic-title" style="display: inline;">Manager Approval</h5>
+    <button type="button" style="display: inline;background-color: transparent;border: none;float: right" (click)="closeModal()"><i class="fa fas fa-times"></i></button>
+    <hr>
+    <div class="row" style="padding:8px 0px">
+        <div class="col-sm-12" style="padding-bottom: 5px;">
+            <textarea id ="documentName" #search [(ngModel)]="comment" class="form-control" placeholder="Enter Comment"></textarea>
+        </div>
+        <div class="custom-control custom-radio col-sm-3">
+            <input type="radio" [checked]="true"  [(ngModel)]="radiovalue"  value="Approve" name="options" id="option1"> Approve
+        </div>
+        <div class="custom-control custom-radio col-sm-3">
+           <input type="radio" [(ngModel)]="radiovalue"  value="Reject" name="options" id="option2"> Reject
+        </div>
+        <div class="custom-control custom-radio col-sm-3">
+            <input type="radio" [(ngModel)]="radiovalue"  value="Revert" name="options" id="option2"> Close
+         </div>
+    </div>
+    <br>
+    <div *ngIf="validationMsg" style="color: red;font-size:small">Please enter some comments </div>
+    <div *ngIf="!validationMsg"><br> </div>
+    <div style="text-align: right;">
+        <button type="button" class="btn btn-primary" (click)="ManagerPublish()">Submit</button>
+    </div>
+</div>

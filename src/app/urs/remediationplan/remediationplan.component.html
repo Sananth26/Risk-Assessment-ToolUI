@@ -1,0 +1,206 @@
+<div class="card-header" style="text-align: left;padding: 10px 20px;">
+    <br>
+    <div class="row">
+      <div class="col-sm-12">
+        <span *ngIf="isNotEmpty" style="text-align: center;color: #3b5998;padding:10px;font-weight: 700;"> No data to display.</span>
+
+        <table class="table-striped" style="width: 100%;padding:10px;" *ngIf="!isNotEmpty">
+          <tr style="color: black;background-color: #bfc1c2;">
+            <td style="width:100px">Risk No</td>
+            <td>Risk Being Mitigated</td>
+            <td>Planned Completion</td>
+            <td style="width:400px">Remediation Plan</td>
+            <td>Status</td>
+            <td>Responsible Party</td>
+            
+          </tr>
+          <tbody  *ngFor="let row of categoryLst1;let i=index">
+            <tr  *ngIf="showHighRisk(row.calcualtnRanking)" style="color: black;background-color: white;">
+              <td style="font-weight:normal;text-align:center;">Risk-{{i+1}}</td>
+              <td style="font-weight: lighter;">{{row.riskCategory}}</td>
+            <td>
+              <input type="date" [min]="todayDate" class="form-control" [(ngModel)]="row.plannedCompletion" placeholder="MM/dd/yyyy" required >
+            </td>
+            <td>
+              <textarea type="text" cols="50 "Placeholder="Remediation Plan/Action" [(ngModel)]="row.remediationPlan"> </textarea> 
+            </td>
+            <td>
+              <select class="status"  class="form-control" [(ngModel)]="row.status" >
+              <option *ngFor="let e of dataForStatus" [selected]="value == e.value">
+                       {{e.key}}
+              </option>
+            </select>
+          </td>
+            <td>  
+              <angular2-multiselect style="width:100px" [ngModelOptions]="{standalone: true}" 
+              [(ngModel)]="row.responsibleParty" [data]="userList" [settings]="userdropdownSettings">
+            </angular2-multiselect>
+           </td>
+            
+          </tr>
+          </tbody>
+        </table>
+
+        <br>
+
+        <br>
+        <mat-accordion multi>
+          <!--<mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h6>File Attachments</h6>
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="col-sm-12" style="padding: 0px 20px;">
+            <br>
+            <div class="row">
+               <div class="col-sm-4">
+                  <input type="file" class="form-control-file" (change)="onFileUploadStatic($event)"
+              accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/*"
+              multiple id="basicformFile1">
+              <br>    
+              </div>
+            </div>
+    
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table-striped table-bordered" style="width: 100%;">
+                  <thead>
+                    <th>Sr. No</th>
+                    <th>File Name</th>
+                    <th>Action</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let file of staticAttachmentTable; let fileIndex=index ">
+                      <td>{{fileIndex+1}}</td>
+                      <td><label>{{file.FileName}}</label></td>
+    
+                      <td><a style="cursor:pointer;font-weight: bold" class="icofont icofont-eye-alt" placement="top"
+                          container="body" ngbTooltip="view" (click)="viewFile(file, fileIndex, 'Static')"></a>&nbsp;&nbsp;
+                      
+                        <a [ngbCollapse]="createNewVersion" style="cursor:pointer;font-weight: bold"
+                          style="cursor: pointer;" class="icofont icofont-ui-delete" placement="top" container="body"
+                          ngbTooltip="delete" (click)="deleteStaticUploadedFile(file, fileIndex)"></a>&nbsp;&nbsp;
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              </div>
+                  <br><br><br>
+            </div>
+          
+          </mat-expansion-panel>-->
+          </mat-accordion>
+  
+      </div>
+      <strong style="font-size: 16px; color: black; font-family: Open Sans, sans-serif;padding:0px 20px">Remediation Diary</strong> </div>
+      <br>
+      <div [ngClass]="(this.isModalSlide)?'container1':'container'">
+        <div class="reply-container">
+          <label class="badge badge-margin col-form-label">{{currentUserBadge}}</label>
+          <div class="autocomplete">
+           <!-- <mwl-text-input-autocomplete-container>
+              <textarea
+                class="form-control" rows="5" placeholder="Leave a Comment" [formControl]="commentForm"
+                (focusout)="onClickOut();" #commentField (ngModelChange)="searchSuggestions($event)"              
+                mwlTextInputAutocomplete
+                [findChoices]="findChoices"
+                [getChoiceLabel]="getChoiceLabel">
+              </textarea>
+            </mwl-text-input-autocomplete-container>-->
+            <textarea class="form-control" placeholder="Leave a Comment" 
+            [formControl]="commentForm" (keyup)="checkBackSpace($event)" (keypress)="suggest($event,false);"
+            (focusout)="onClickOut();" #commentField (ngModelChange)="searchSuggestions($event)"></textarea>
+            <div class="autocomplete-items" *ngIf="!isReply &&show && suggestions.length >0">
+              <ul class="list-group" id="suggestId" *ngFor="let s of suggestions">
+                <li (click)="selectSuggestion(s)" class="list-group-item pointer">{{s.value}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      
+        <div class="button-container" *ngIf="commentForm.value">
+          <button type="button" class="btn btn-primary btn-sm" (click)="onSubmit()">Submit</button>
+        </div>
+        <br><br>
+      
+        <div *ngIf="checkedItemsCount > 0" style="text-align: right;">
+          <button type="button" class="btn-sm btn-primary" (click)="onClickShowAll()">{{hideButtonText}}</button>
+        </div>
+      
+        <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{list: list}"></ng-container>
+      
+        <ng-template #recursiveListTmpl let-list="list">
+          <div *ngFor="let item of list">
+            <div [ngClass]="item.ChildFlag ? 'margin-left40' : 'margin-left0 well well-sm'">
+              <div class="reply-container" *ngIf="!item.EditIndividualFlag"
+                [ngStyle]="{'margin-left': (item.groupingFlag && !item.showBadge) ? '40px' : '0px'}">
+                <label *ngIf="!item.groupingFlag" class="badge col-form-label">{{item.UserBadge.toUpperCase()}}</label>
+      
+                <label *ngIf="item.groupingFlag && item.showBadge"
+                  class="badge col-form-label">{{item.UserBadge.toUpperCase()}}</label>
+                <input style="margin-top: 11px;" type="checkbox" name="check" [(ngModel)]="item.CheckedFlag"
+                  (ngModelChange)="UpdateStrikeout(item)">&nbsp;
+                <label style="padding-top: 5px;" [style.text-decoration]="item.CheckedFlag ? 'line-through' : 'none'"
+                  [innerHtml]="item.Comments"></label>
+              </div>
+              <div style="margin-left: 40px;">
+                <div *ngIf="!item.EditIndividualFlag" class="reply-container" style="margin-top: 8px;">
+                  <i *ngIf="!isExterApproval" class="like-icon"
+                    [ngClass]="item.UserLikeFlag ? 'fa fa-heart' : 'fa fa-heart-o'" (click)="UpdateLike(item)"
+                    title="Like"></i>
+                  <span class="like-count" style="margin-left: 4px;"
+                    *ngIf="item.UserLikeCount !=0">{{item.UserLikeCount}}</span>
+                  <div    *ngIf="!item.ChildFlag" class="like-count" style="margin-left: 1em;" (click)="onCLickReply(item);">Reply</div>
+                  <i *ngIf="item.editFlag" class="icofont icofont-edit edit-icon" title="Edit"
+                    (click)="onClickEdit(item);"></i>
+                  <i *ngIf="item.editFlag && !isExterApproval" class="icofont icofont-ui-delete edit-icon" title="Delete"
+                    (click)="onClickDelete(item);"></i>
+                  <label class="comment-time float-right">{{item.Diffdate}}</label>
+                </div>
+                <hr>
+                <div *ngIf="item.ReplyFlag || item.EditIndividualFlag">
+                  <div class="reply-container">
+                    <label class="badge badge-margin col-form-label">{{currentUserBadge}}</label>
+                    <div class="autocomplete">
+                      <textarea class="form-control" placeholder="Leave a reply" [formControl]="replyCommentsForm"
+                        [innerHtml]="replyCommentsForm.value" (keypress)="suggest($event,true);" focus="true"
+                        (ngModelChange)="searchSuggestions($event)" #replyCommentField></textarea>
+                      <div class="autocomplete-items" *ngIf="isReply && show  && suggestions.length >0">
+                        <ul class="list-group" *ngFor="let s of suggestions">
+                          <li (click)="replySelectSuggestion(s)" class="list-group-item pointer">{{ s.value }}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="button-container">
+                    <button *ngIf="replyCommentsForm.value" type="button" class="btn btn-primary btn-sm"
+                      (click)="onReplySubmit(item,replyCommentsForm.value)">Submit</button>&nbsp;
+                    <button type="button" class="btn btn-danger btn-sm" (click)="onCancel(item);">Cancel</button>
+                  </div>
+                  <hr style="margin-top: 50px;">
+                </div>
+              </div>
+              <div>
+                <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.list }"></ng-container>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div *ngIf="list.length>4" class="comments-load-more" (click)="onClickMore()">Show more replies</div>
+      </div>
+      <br><br>
+</div>       
+
+
+  
+
+ 
+
+
+   
+
+

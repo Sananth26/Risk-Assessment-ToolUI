@@ -1,0 +1,60 @@
+<!-- Sidebar Header starts -->
+<div id="sidebar-wrapper" class="sidebar bg-theme8" style="color: red;">
+    <div class="brand-logo">
+        <a [routerLink]="['/']">
+            <img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+            <h2 class="logo-text"> User Access Review </h2>
+        </a>
+    </div>
+
+     
+    <div class="sidebar-content" [perfectScrollbar]>
+         <ul id="active-class" class="navigation"> 
+          
+            <li class="hoverCard"*ngFor="let menuItem of menuItems"  
+                [routerLinkActive]="'active'"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="menuItem.class === '' ? [menuItem.path] : null"
+                    *ngIf="!menuItem.isExternalLink; else externalLinkBlock">
+                    <i [ngClass]="[menuItem.icon]" style="color:black;"></i>
+                    <!-- <img style="width: 27px; height: 27px;" [src]="(imgPath + menuItem.icon)">&nbsp;&nbsp; -->
+                    <span class="menu-title" style="font-weight: 400;color:#f8f8ff;">{{menuItem.title}}</span>
+                    <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
+                    <span Class="divider"></span>
+                </a>
+                <ng-template #externalLinkBlock>
+                    <a [href]="[menuItem.path]" target="_blank">
+                        <i [ngClass]="[menuItem.icon]"></i>
+                        <span class="menu-title">{{menuItem.title}}</span>
+                        <span *ngIf="menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
+                    </a>
+                    <span  class="divider"></span>
+                </ng-template>
+               
+                <ul class="menu-content" *ngIf="menuItem.submenu.length > 0">
+                    <li *ngFor="let menuSubItem of menuItem.submenu"
+                        [routerLinkActive]="menuSubItem.submenu.length > 0 ? '' : 'active'"
+                        [ngClass]="[menuSubItem.class]">
+                        <a [routerLink]="menuSubItem.submenu.length > 0 ? null : [menuSubItem.path]"
+                            *ngIf="!menuSubItem.isExternalLink; else externalSubLinkBlock">
+                            <i [ngClass]="[menuSubItem.icon]"></i>
+                            <span class="menu-title">{{menuSubItem.title}}</span>
+                            <span *ngIf="menuSubItem.badge != '' "
+                                [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span>
+                        </a>
+                        <ng-template #externalSubLinkBlock>
+                            <a [href]="[menuSubItem.path]">
+                                <i [ngClass]="[menuSubItem.icon]"></i>
+                                <span class="menu-title">{{menuSubItem.title}}</span>
+                                <span *ngIf="menuSubItem.badge != '' "
+                                    [ngClass]="[menuSubItem.badgeClass]">{{menuSubItem.badge}}</span>
+                            </a>
+                        </ng-template>
+                    </li>
+                </ul>
+            </li>
+         
+        </ul>
+    </div>
+    <!-- Sidebar Content Ends -->
+</div>

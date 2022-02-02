@@ -1,0 +1,783 @@
+
+  <div class="top" *ngIf="summaryEnable" style="margin-top:-20px;padding:0px 20px;box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;background-color:white">
+    <div class="row" style="padding:10px">
+      <div class="col-sm-12">
+        <div style="float:left;padding-top: 10px;">
+          <div>
+            <b><span class="applabel ">Request Id  :<span class="sublabel">{{this.requestNo}}</span>&nbsp;&nbsp;&nbsp;</span>
+            <span class="applabel ">Status :
+              <span *ngIf="statusName=='Draft'" style="background-color: yellow;">Draft</span>
+              <span *ngIf="statusName=='userpublish'" style="background-color: yellow;">Published</span>
+              <span *ngIf="statusName=='Publish'" style="background-color: yellow;">Manager Approved</span>
+              <span *ngIf="statusName=='ITApprove'" style="background-color: yellow;">Network Approved</span>
+              <span *ngIf="statusName=='Peer Review'" style="background-color: yellow;">Peer Review</span>
+              <span *ngIf="statusName=='Completed'" style="background-color: yellow;">Completed</span>
+          </span></b>&nbsp;
+            <!--<a  style="cursor: pointer;">
+              <i class="fa fas fa-info-circle" style="font-size: 15px;" 
+              placement="bottom" [ngbTooltip]="popContent" ></i>&nbsp;&nbsp;</a>-->
+           <br>
+         </div>
+      </div>
+
+       &nbsp;&nbsp;&nbsp;
+       <div style="float: right;padding-top: 10px;" >   
+        <div style="float:right">
+  
+    
+              <div style="float:right">
+              
+                <a  style="cursor: pointer;"
+                (click)="openModal1();"  >
+                <i><img style="width: 28px; height: 28px;" title="Workflow"
+                   src="assets/images/avatars/workflow.png"></i>
+                </a>&nbsp;
+    
+              <a style="cursor: pointer;"  [routerLink]="['/urs/userview']">
+              <i><img style="width: 28px; height: 28px;" title="Cancel"
+                  src="assets/images/avatars/cancel1.png"></i>
+              </a>
+  
+
+        </div>
+      </div>  
+       
+      </div>
+    </div>
+  </div>
+  </div>
+  <br><br><br>
+  <div class="card" style="padding:20px;overflow-x:hidden" *ngIf="summaryEnable">
+    <div  style="text-align: left;padding-top:10px">
+    <b>
+  
+      <h4 class="card-header-text">
+        <i><img style="width: 40px; height: 40px;" src="assets/images/avatars/Firewallinfo.png"></i>
+        Firewall Request Form
+      </h4>
+      
+    </b>
+  </div>
+  
+  
+  <div>
+    <table class="a">
+      <tr>
+        <td>
+          <div>
+            <strong style="color: black; font-size: 14px;" class="strong" >Request No : </strong>
+            <span style="color: black;font-size: 14px;"> {{this.requestNo}} </span> 
+          </div>
+        </td>
+        <td>
+          <div>
+            <strong style="color: black; font-size: 14px;" class="strong">Created By : </strong>
+            <span style="color: black; font-size: 14px;"> {{this.createdBy}}</span>
+          </div>
+        </td>
+    
+      </tr>
+      <tr>
+        <td>
+          <div>
+            <strong style="color: black; font-size: 14px;" class="strong" >Category : </strong>
+            <span style="color: black;font-size: 14px;"> {{this.Category}} </span> 
+          </div>
+        </td>
+        <td>
+          <div>
+            <strong style="color: black; font-size: 14px;" class="strong">Sub Category : </strong>
+            <span style="color: black; font-size: 14px;"> {{this.SubCategory}}</span>
+          </div>
+        </td>
+    
+      </tr>
+      <tr>
+        <td>
+          <div>
+            <strong style="color: black; font-size: 14px;" class="strong">Business Justification : </strong>
+            <span style="color: black;font-size: 14px;">{{this.BusinessJustification}}</span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <strong style="color: black; font-size: 14px;" class="strong">Managed Services : </strong>
+            <span style="color: black;font-size: 14px;"> {{this.ManagedServices}}</span>
+          </div>
+        </td>
+    
+      </tr>
+    
+      <tr>
+        <td>
+          <div>
+            <strong style="color: black;font-size: 14px;" class="strong">Firewall Region : </strong>
+            <span style="color: black;font-size: 14px;">{{this.FirewallRegion}}</span>
+          </div>
+        </td>
+        <td>
+          <div>
+            <strong  style="color: black;font-size: 14px;" class="strong">Normal/Expedited : </strong>
+            <span style="color: black;font-size: 14px;"> {{this.NormalExpedited}}</span>
+          </div>
+        </td>
+    
+      </tr>
+  
+              <tr>
+            <td>
+              <div>
+                <strong style="color: black;font-size: 14px;" class="strong">Project Name : </strong>
+                <span style="color: black;font-size: 14px;">{{this.projectName}}</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <strong  style="color: black;font-size: 14px;" class="strong">Description : </strong>
+                <span style="color: black;font-size: 14px;"> {{this.description}}</span>
+              </div>
+            </td>
+        
+          </tr>
+  
+          <tr>
+            <td>
+              <div>
+                <strong style="color: black;font-size: 14px;" class="strong">Business Impact : </strong>
+                <span style="color: black;font-size: 14px;">{{this.businessImpact}}</span>
+              </div>
+            </td>
+            <td>
+              <strong style="color: black;font-size: 14px;" class="strong">Business Owners : </strong>
+              <span *ngFor="let item of  businessOwner;let i=index"style="color: black;font-size: 14px;">{{item.firstName}}<span *ngIf="i<businessOwner.length-1">,</span></span>        
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong style="color: black;font-size: 14px;" class="strong">IT Owners : </strong>
+              <span *ngFor="let item of  itOwner;let i=index"style="color: black;font-size: 14px;">{{item.firstName}}<span *ngIf="i<itOwner.length-1">,</span></span>        
+            </td>
+          </tr>
+    </table>
+  </div>
+  
+  <br>
+  
+  <div>
+    <div class="form-group row">
+      <div class="col-sm-12"><h6>Security Policy</h6></div>
+      <div class="col-sm-12">
+        <div>
+          <table style="width: 100%;">
+            <thead style="background-color:#c0c0c0;color: black;padding:5px;font-size: 14px;">
+              <tr style="color: black;">
+                <td class="w-6" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">S No.</label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Source VPC/Account</label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Source IP Address</label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Destination VPC/Account </label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Destination Address </label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Application</label></td>
+                <td class="w-10" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Port/Service</label></td>
+                <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Protocol</label></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let Policy of  SecurityPolicy;let i=index">
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{i+1}}
+                </td>
+                <td style="text-align: center; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Sourcevpcaccount[0].key}}
+                </td>
+                <td style="text-align: center; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Sourceipaddress}}
+                </td>
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Destinationvpcaccount[0].key}}
+                </td>
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Destination}}
+                </td>
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Application}}
+                </td>
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.Portservice}}
+                </td>
+                <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                  {{Policy.protocal[0].key}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+    <br>
+  </div>
+  <div>
+  
+  <mat-accordion multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h6> Risk Detail and Ranking</h6>
+        </mat-panel-title>
+        <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header> 
+      <div>
+        <div *ngFor="let row of categoryLst;let i=index">
+        <div class="row" style="padding:0px 13px;">
+          <div class="col-sm-12" style="background-color:#c0c0c0;color: black;padding:5px">
+            <strong>{{i+1}} {{row.riskCategory}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <strong>Likelihood - {{ calculateLikihood(row.calcualtnLikelihood )}}</strong>&nbsp;&nbsp;
+            <strong>Severity -  {{calculateSeverity(row.calcualtnSeverity) }}</strong>&nbsp;&nbsp;
+            <strong>Ranking - {{calculateRank(i,row.calcualtnLikelihood,row.calcualtnSeverity) }}</strong>
+          </div>
+        </div>
+        <table>
+          <tr  style="color:black;font-weight: bold;">
+            <td class="col-sm-2" style="padding:5px;border: 1px solid #B2BEB5;">Risk Category</td>
+            <td class="col-sm-4" style="padding:5px;border: 1px solid #B2BEB5;">Identified Risk</td>
+            <td class="col-sm-1" style="padding:5px;border: 1px solid #B2BEB5;">Yes/No</td>
+            <td class="col-sm-3" style="padding:5px;border: 1px solid #B2BEB5;">Comments & Discussion</td>
+            <td class="col-sm-1" style="padding:5px;border: 1px solid #B2BEB5;">Likelihood</td>
+            <td class="col-sm-1" style="padding:5px;border: 1px solid #B2BEB5;">Severity</td>
+          </tr>
+      
+          <tr style=" color:#000000" *ngFor="let rowquestions of row.questions; let in=index">
+            <td style=" font-size: 14px; color:black;padding:5px;border: 1px solid #B2BEB5;">{{rowquestions.risk}}</td>
+            <td style="font-size: 14px; color:black;padding:5px;border: 1px solid #B2BEB5;">{{rowquestions.questionExplanation.question}} 
+              <i class="fa fas fa-info-circle" style="color: #bfc1c2;width: 25px;height: 25px;" ngbTooltip={{rowquestions.questionExplanation.explanation}}>
+              </i>  
+            </td>
+      
+           <td style="color:black;padding:5px;border: 1px solid #B2BEB5;">
+            {{rowquestions.yesNo=== 'Yes' ? 'Yes' : 'No'}}
+            </td>     
+             
+            <td style="font-size: 14px; color: #000;padding:5px;border: 1px solid #B2BEB5;">
+            {{rowquestions.comments}}
+             </td>
+             <td style="color: #000;padding:5px;border: 1px solid #B2BEB5;">
+              {{valueLikelihood(rowquestions.decisionLikelihood)}}
+          </td>    
+          <td style="color: #000;padding:5px;border: 1px solid #B2BEB5;">
+            {{valueSeverity(rowquestions.decisionSeverity)}}
+          </td>
+           
+        </tr>
+      
+        </table>
+        </div>
+      </div>
+  
+    <br>
+    <br>
+    </mat-expansion-panel>
+    <br>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h6>Risk Summary & Mitigation</h6>
+        </mat-panel-title>
+        <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>  
+    <div class="table-wrapper">
+    <div>
+      <span *ngIf="isNotEmpty" style="text-align: center;color: #3b5998;padding:5px;font-weight: 700;"> No data to display.</span>
+  
+      <table style="width:100%;color: black;" *ngIf="!isNotEmpty" >
+        <tr style="background-color: #bfc1c2;font-weight:bold">
+          <td  style="border: 1px solid #B2BEB5;padding:5px;width:400px">Risk Category</td>
+          <td  style="border: 1px solid #B2BEB5;padding:5px;width:50px">Scroe</td>
+          <td  style="border: 1px solid #B2BEB5;padding:5px;width:50px">Ranking</td>
+          <td  style="border: 1px solid #B2BEB5;padding:5px;width:300px">Risk Mitigation Strategy</td>
+          <td  style="border: 1px solid #B2BEB5;padding:5px;Width:150px">Responsible Party</td>
+      </tr>
+      <tbody *ngFor="let row of categoryLst;let i=index">
+          <tr *ngIf="showHighRisk(row.calcualtnRanking)">
+              <td style="border: 1px solid #B2BEB5;color: black;padding:5px;">{{row.riskCategory}}</td>
+              <td style="border: 1px solid #B2BEB5;color: black;padding:5px;">
+                &nbsp;&nbsp; {{row.calcualtnRanking}}
+              </td>
+              <td style="border: 1px solid #B2BEB5;padding:5px">
+                <div style="width:50px;height:50px;margin:10px;padding:5px 0px"  [style.background-color]="row.color">
+                    <span style="padding:0px 20px;font-weight: 500;">{{(row.ranking)}}</span>
+                </div>
+            </td>
+              <td style="border: 1px solid #B2BEB5;color: black;padding:5px;">
+                {{row.riskMitigationComments}}
+              </td> 
+              <td style="border: 1px solid #B2BEB5;color:black;padding:5px;">
+               {{row.responsibleParty[0].name}},{{row.responsibleParty[1].name}}
+              </td>
+          </tr>
+          </tbody>
+          </table>
+  </div>
+    <br>
+  
+  </div>
+  </mat-expansion-panel>
+  
+  <br>
+  
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h6>Remediation Plan</h6>
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>  
+    <div class="table-wrapper">  
+      <span *ngIf="isNotEmpty" style="text-align: center;color: #3b5998;padding:5px;font-weight: 700;"> No data to display.</span>
+  
+       <table class="table-striped" style="width: 100%;padding:5px;color:black" *ngIf="!isNotEmpty">
+        <tr style="color: black;background-color: #bfc1c2;font-weight: bold;">
+          <td class="tabletd">Risk Being Mitigated</td>
+          <td class="tabletd">Planned Completion</td>
+          <td class="tabletd">Remediation Plan</td>
+          <td class="tabletd">Status</td>
+          <td class="tabletd">Responsible Party</td>
+         
+        </tr>
+        <tbody *ngFor="let row of categoryLst">
+        <tr *ngIf="showHighRisk(row.calcualtnRanking)" style="background-color: white;color: black;">
+          <td class="tabletd">{{row.riskCategory}}</td>
+          <td class="tabletd">
+            {{row.plannedCompletion | date: 'MM/dd/yyyy'}}
+          </td>
+          <td class="tabletd">
+          {{row.remediationPlan}} 
+          </td>
+          <td class="tabletd">
+            {{row.status}}
+         </td>
+          <td class="tabletd">      
+           {{row.responsibleParty[0].name}},{{row.responsibleParty[1].name}}
+          </td>
+          
+        </tr>
+        </tbody>
+      </table>
+       <br><br>
+  </div>
+  </mat-expansion-panel>
+  
+  <br>
+  <!--<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h6>Workflow Summary</h6>
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class='container-fluid'> 
+      <ul class='htimeline'>
+        <li class='step col-sm-3 green'*ngFor="let item of workflowList" >
+          <div style="text-align: center;font-size: 16px;"><strong>{{item.levelName}}</strong></div>
+            <div class='tasks container-fluid'>
+                <span><strong>User :</strong>{{item.actionTakenBy}}</span><br>
+                <span><strong>Created Time :</strong>{{item.actionTakenOn}}</span><br>
+                <span><strong>Status :</strong>{{item.currentStatus}}</span><br>
+            </div>
+        </li>      
+      </ul>
+    </div>
+  </mat-expansion-panel>
+  <br>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h6>Peer Review Comments</h6>
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>  
+      <div style="padding:0px 10px">
+        <textarea name="peerReviewComment" id="" rows="4"   readonly style="height: 50%; width: 100%;color: black;font-size: 14px;">
+          {{this.peerReviewComment}}</textarea>
+        <br>
+        <br>
+      </div>
+  </mat-expansion-panel> 
+  <br>-->
+  
+  <mat-expansion-panel  *ngIf="this.fileList.length > 0">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h6>Attachments</h6>
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  
+          <br>
+          <table  style="width: 100%;border: 1px solid #B2BEB5;">
+            <thead style="background-color: #C0C0C0;color: black;">
+              <th style="border: 1px solid #B2BEB5;padding:5px">S. No</th>
+              <th style="border: 1px solid #B2BEB5;padding:5px">File Name</th>
+              <th style="border: 1px solid #B2BEB5;padding:5px">Date</th>
+              <th style="border: 1px solid #B2BEB5;padding:5px">Action</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let file of this.fileList ; let i = index ">
+                <td style="border: 1px solid #B2BEB5;;padding:5px">{{i+1}}</td>
+                <td style="border: 1px solid #B2BEB5;;padding:5px"><label>{{file.FileName}}</label></td>
+                <td style="border: 1px solid #B2BEB5;;padding:5px"><label>{{this.requestDate}}</label></td>
+                <td style="border: 1px solid #B2BEB5;;padding:5px">
+                  &nbsp;&nbsp;<a style="cursor:pointer;font-weight: bold" class="icofont icofont-eye-alt" placement="top"
+                  container="body" ngbTooltip="view" (click)="viewFile1(file, fileIndex, 'Static')"></a>
+              </td>       
+              </tr>
+            </tbody>
+          </table>
+  
+  </mat-expansion-panel>
+  <br   *ngIf="this.fileList.length > 0">
+
+  <mat-expansion-panel >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h6>Remediation Diary</h6>
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div *ngIf="list.length==0?true:false">No data to display</div>
+    <div *ngIf="list.length>0?true:false">
+      <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{list: list}"></ng-container>
+          
+      <ng-template #recursiveListTmpl let-list="list">
+        <div *ngFor="let item of list">
+          <div [ngClass]="item.ChildFlag ? 'margin-left40' : 'margin-left0 well well-sm'">
+            <div class="reply-container" *ngIf="!item.EditIndividualFlag"
+              [ngStyle]="{'margin-left': (item.groupingFlag && !item.showBadge) ? '40px' : '0px'}">
+              <label *ngIf="!item.groupingFlag" class="badge col-form-label">{{item.UserBadge.toUpperCase()}}</label>
+      
+              <label *ngIf="item.groupingFlag && item.showBadge"
+                class="badge col-form-label">{{item.UserBadge.toUpperCase()}}</label>
+              <!--<input style="margin-top: 11px;" type="checkbox" name="check" [(ngModel)]="item.CheckedFlag"
+                (ngModelChange)="UpdateStrikeout(item)">&nbsp;-->
+              <label style="padding-top: 5px;" [style.text-decoration]="item.CheckedFlag ? 'line-through' : 'none'"
+                [innerHtml]="item.Comments"></label>
+            </div>
+            <div style="margin-left: 40px;">
+              <div *ngIf="!item.EditIndividualFlag" class="reply-container" style="margin-top: 8px;">
+               <!-- <i *ngIf="!isExterApproval" class="like-icon"
+                  [ngClass]="item.UserLikeFlag ? 'fa fa-heart' : 'fa fa-heart-o'" (click)="UpdateLike(item)"
+                  title="Like"></i>
+                <span class="like-count" style="margin-left: 4px;"
+                  *ngIf="item.UserLikeCount !=0">{{item.UserLikeCount}}</span>
+                <div    *ngIf="!item.ChildFlag" class="like-count" style="margin-left: 1em;" (click)="onCLickReply(item);">Reply</div>-->
+                <i *ngIf="item.editFlag" class="icofont icofont-edit edit-icon" title="Edit"
+                  (click)="onClickEdit(item);"></i>
+                <i *ngIf="item.editFlag && !isExterApproval" class="icofont icofont-ui-delete edit-icon" title="Delete"
+                  (click)="onClickDelete(item);"></i>
+                <label class="comment-time float-right">{{item.Diffdate}}</label>
+              </div>
+              <hr>
+              <div *ngIf="item.ReplyFlag || item.EditIndividualFlag">
+                <div class="reply-container">
+                  <label class="badge badge-margin col-form-label">{{currentUserBadge}}</label>
+                  <div class="autocomplete">
+                    <textarea class="form-control" placeholder="Leave a reply" [formControl]="replyCommentsForm"
+                      [innerHtml]="replyCommentsForm.value" (keypress)="suggest($event,true);" focus="true"
+                      (ngModelChange)="searchSuggestions($event)" #replyCommentField></textarea>
+                    <div class="autocomplete-items" *ngIf="isReply && show  && suggestions.length >0">
+                      <ul class="list-group" *ngFor="let s of suggestions">
+                        <li (click)="replySelectSuggestion(s)" class="list-group-item pointer">{{ s.value }}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="button-container">
+                  <button *ngIf="replyCommentsForm.value" type="button" class="btn btn-primary btn-sm"
+                    (click)="onReplySubmit(item,replyCommentsForm.value)">Submit</button>&nbsp;
+                  <button type="button" class="btn btn-danger btn-sm" (click)="onCancel(item);">Cancel</button>
+                </div>
+                <hr style="margin-top: 50px;">
+              </div>
+            </div>
+            <div>
+              <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.list }"></ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    <div *ngIf="list.length>4" class="comments-load-more" (click)="onClickMore()">Show more replies</div>
+    </div>
+    </mat-expansion-panel>
+    
+    <br>
+
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h6>Audit Trial</h6>
+        </mat-panel-title>
+        <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="card-body">
+        <div>
+            <div class="card-notification" *ngFor="let v of auditTrial">
+              <div class="card-noti-conatin">
+          
+        <div class="row">
+          <div class="col-sm-6">
+            <i style="color: red;" class="fa fa-circle">	</i>&nbsp;	&nbsp;				 
+            <Strong style="size: 16px; color: black;">Module : </Strong><label style="size: 14px; color: black;">{{v.module}}</label>
+          </div>
+          <div class="col-sm-6">
+                    <Strong style="size: 16px; color: black;">Event : </Strong><label style="size: 14px; color: black;">{{v.eventname}}</label>
+          </div>
+        </div>
+                
+        <div class="row">          
+          <div class="col-sm-6">
+                    <Strong style="size: 16px; color: black;">Ip Address : </Strong><label style="size: 14px; color: black;">{{v.ipaddress}}</label>
+          </div>
+          <div class="col-sm-6">
+                    <Strong style="size: 16px; color: black;"> Device : </Strong><label style="size: 14px; color: black;">{{v.browser}}</label>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-sm-6">
+            <Strong style="size: 16px; color: black;">Action Taken By : </Strong><label style="size: 14px; color: black;">{{v.username}}</label>
+          </div>
+      
+        <div class="col-sm-6">
+          <Strong style="size: 16px; color: black;">Action Taken On : </Strong><label style="size: 14px; color: black;">{{v.createddate| date: 'MM/dd/yyyy HH:mm:ss'}}</label>
+        </div>
+      </div>
+      
+      <div class="row">
+            <div class="col-sm-6">
+              <Strong style="size: 16px; color: black;">User Remarks :  </Strong><label style="size: 14px; color: black;">{{v.userremark==null ?'NA':v.userremark}}</label>
+            </div>          
+       </div>
+      
+    
+            <div class="dt-desc col-sm-12" style="padding: 0px; overflow-x:auto;">
+            <div class="dt-desc dy-ui" style="padding-left: 0px !important;">
+              <table class="table-striped table-bordered">
+                <tbody>
+                 <ng-container *ngFor="let remark of v.accesstype ; let i = index ">
+                  <label>
+                    <Strong style="size: 16px; color: black;" >System Remarks</Strong>:<span *ngIf="remark.categorydescription==null?true:false">NA</span>
+                  </label>
+                    <tr *ngFor="let orivalue of remark.categorydescription; let j=index" > 
+                      <td style="size: 14px; color: black;">{{j+1}}. [ {{orivalue}} ] </td>
+                    </tr>
+                </ng-container>  
+                </tbody>
+                </table>
+               <div >
+                <ng-container *ngFor="let remark of v.accesstype ; let k = index ">
+              <div *ngIf="remark.securitypolicy==null?false:true">
+                <table class="table-striped table-bordered" *ngIf="remark.securitypolicy.length==0?false:true" >
+                  <Strong style="size: 16px; color: black;" >Security Policy </Strong>
+                  <tr>
+                    <th style="padding: 5px;;font-size:14px;border:1px solid #eee">SourceVPC Account</th>
+                    <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Source IPAddress</th>
+                    <th style="padding: 5px;;font-size:14px;border:1px solid #eee">DestinationVPCAccount</th>
+                    <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Destination</th>
+                    <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Application</th>
+                  <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Portservice</th>
+                  <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Protocol</th></tr>
+                <tr *ngFor="let orivalue of remark.securitypolicy ;let j=index" > 
+                  <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.sourcevpcaccount}}  </td>
+                  <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.sourceipaddress}} </td>
+                  <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.destinationvpcaccount}}  </td>
+                  <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.destination}} </td>
+                  <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.application}} </td>
+                  <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.portservice}} </td>
+                  <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.protocal}} </td>
+                </tr>
+              </table>
+              </div>
+                </ng-container>
+    
+                <ng-container *ngFor="let remark of v.accesstype ; let k = index ">
+                  <div *ngIf="remark.riskaudit==null?false:true">
+                   <table class="table-striped table-bordered" style="width:100%"*ngIf="remark.riskaudit.length==0?false:true">
+                     <Strong style="size: 16px; color: black;" >Risk Detail & Ranking </Strong>
+                     <tr>
+                       <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Questions</th>
+                       <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Yes/No</th>
+                       <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Comments</th>
+                      </tr>
+                   <tr class="tr1" *ngFor="let orivalue of remark.riskaudit ;let j=index" > 
+                     <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.question}}  </td>
+                     <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.riskyesno}} </td>
+                     <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.riskcomment}}  </td>
+                   </tr>
+                 </table>
+                  </div>
+               </ng-container>
+    
+               <ng-container *ngFor="let remark of v.accesstype ; let k = index ">
+                <div *ngIf="remark.securityrank==null?false:true">
+                 <table class="table-striped table-bordered" *ngIf="remark.securityrank.length==0?false:true">
+                   <Strong style="size: 16px; color: black;" >Risk Likelihood & Severity </Strong>
+                   <tr>
+                     <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Questions</th>
+                     <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Likelihood</th>
+                     <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Severity</th>
+                    </tr>
+                 <tr class="tr1" *ngFor="let orivalue of remark.securityrank ;let j=index" > 
+                   <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.question}}  </td>
+                   <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{calculateLikihood(orivalue.likelyhood)}} </td>
+                   <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{calculateSeverity(orivalue.severity)}}  </td>
+                 </tr>
+               </table>
+                </div>
+             </ng-container>
+    
+             <ng-container *ngFor="let remark of v.accesstype ; let k = index ">
+              <div *ngIf="remark.securitymitigation==null?false:true">
+               <table class="table-striped table-bordered" style="width:100%" *ngIf="remark.securitymitigation.length==0?false:true">
+                 <Strong style="size: 16px; color: black;" >Risk Mitigation Strategy </Strong>
+                 <tr>
+                   <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Questions</th>
+                   <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Score</th>
+                   <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Ranking</th>
+                   <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Risk Mitigation</th>
+                   <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Responsible Party</th>
+                  </tr>
+               <tr class="tr1" *ngFor="let orivalue of remark.securitymitigation ;let j=index" > 
+                 <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.question}}  </td>
+                 <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.likelyhood)}}  </td>
+                 <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.ranking)}}  </td>
+                 <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.riskcomment}} </td>
+                 <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.reposibleparty)}}  </td>
+    
+               </tr>
+             </table>
+              </div>
+           </ng-container>
+    
+           <ng-container *ngFor="let remark of v.accesstype ; let k = index ">
+            <div *ngIf="remark.securityplan==null?false:true">
+             <table class="table-striped table-bordered"  style="width:100%" *ngIf="remark.securityplan.length==0?false:true">
+               <Strong style="size: 16px; color: black;" >Remediation Plan</Strong>
+               <tr>
+                 <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Questions</th>
+                 <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Planned Completion</th>
+                 <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Remediation Plan</th>
+                 <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Status</th>
+                 <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Responsible Party</th>
+    
+    
+                </tr>
+             <tr class="tr1" *ngFor="let orivalue of remark.securityplan ;let j=index" > 
+               <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.question}}  </td>
+               <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.plantcompletion)}} </td>
+               <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.riskcomment}} </td>
+               <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.status)}}  </td>
+               <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.reposibleparty)}}  </td>
+             </tr>
+           </table>
+            </div>
+         </ng-container>
+                
+                <br>
+               </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </mat-expansion-panel>
+    <br>
+  
+  </mat-accordion>
+  </div>
+  
+  
+  
+  <!--<div class="card">
+    <div class="card-body">
+  
+  
+  <div>
+  
+  
+  <br>
+  
+  
+  
+  
+  
+      <br>
+  
+  
+   <br>
+  
+       
+   
+  
+  
+  <br>
+  
+      
+          
+        <br>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6>Attachments</h6>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+    
+      <div class="row">
+        <br>
+        <div  class="row container-fluid" id="divshowArchi">
+          <br>
+          <div class="col-sm-12">
+            <div *ngIf="this.fileList.length > 0">
+              <div class="dt-desc" style="padding: 0px;padding-left: 1%; overflow-x:auto;">
+                <div class="dt-desc dy-ui">
+                  <br>
+                  <table  style="width: 100%;border: 1px solid #B2BEB5;">
+                    <thead style="background-color: #C0C0C0;">
+                      <th style="border: 1px solid #B2BEB5;padding:5px">S. No</th>
+                      <th style="border: 1px solid #B2BEB5;padding:5px">File Name</th>
+                      <th style="border: 1px solid #B2BEB5;padding:5px">Date</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let file of this.fileList ; let i = index ">
+                        <td style="border: 1px solid #B2BEB5;;padding:5px">{{i+1}}</td>
+                        <td style="border: 1px solid #B2BEB5;;padding:5px"><label>{{file.FileName}}</label></td>
+                        <td style="border: 1px solid #B2BEB5;;padding:5px"><label>{{this.requestDate}}</label></td>
+              
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+        </mat-expansion-panel>
+        <br>
+  
+  
+  
+  
+  
+  
+  </div>
+  </div>-->

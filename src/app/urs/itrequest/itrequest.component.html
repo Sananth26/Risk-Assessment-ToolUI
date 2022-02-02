@@ -1,0 +1,520 @@
+<div style="overflow: hidden;">
+  <div class="top" *ngIf="summaryEnable" style="margin-top:-5px;padding:0px 20px;box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;background-color:white">
+    <div class="row" style="padding:10px">
+      <div class="col-sm-12">
+        <div style="float:left;padding-top: 10px;">
+          <div>
+            <span class="applabel ">Request Id  :<span class="sublabel">{{this.requestNo}}</span>&nbsp;&nbsp;&nbsp;</span>
+            <span class="applabel ">Status :
+              <span *ngIf="statusName=='Draft'" style="background-color: yellow;">Draft</span>
+              <span *ngIf="statusName=='userpublish'" style="background-color: yellow;">Published</span>
+              <span *ngIf="statusName=='Publish'" style="background-color: yellow;">Manager Approved</span>
+              <span *ngIf="statusName=='ITApprove'" style="background-color: yellow;">Network Approved</span>
+              <span *ngIf="statusName=='Peer Review'" style="background-color: yellow;">Peer Review</span>
+              <span *ngIf="statusName=='Completed'" style="background-color: yellow;">Completed</span>
+          </span>&nbsp;
+            <!--<a  style="cursor: pointer;">
+              <i class="fa fas fa-info-circle" style="font-size: 15px;" 
+              placement="bottom" [ngbTooltip]="popContent" ></i>&nbsp;&nbsp;</a>-->
+           <br>
+         </div>
+      </div>
+
+       &nbsp;&nbsp;&nbsp;
+       <div style="float: right;padding-top: 10px;" >   
+        <div style="float:right">
+             
+              <div style="float:right">
+                <a  *ngIf="networkEnable"  style="cursor: pointer;"
+                (click)="openModal1();"  >
+                <i><img style="width: 28px; height: 28px;" title="Workflow"
+                   src="assets/images/avatars/workflow.png"></i>
+                </a>&nbsp;
+
+                <a  role="button" style="cursor: pointer;" 
+                title="Edit Request" (click)="navigate()">
+                  <i><img style="width: 28px; height: 28px;" title="Edit Request"
+                    src="assets/images/edit.png"></i>&nbsp;
+               </a>
+  
+                <a *ngIf="networkEnable" role="button" style="cursor: pointer;" 
+                title="Reject Request" (click)="openReject()">
+                  <i><img style="width: 28px; height: 28px;" title="Reject Request"
+                    src="assets/images/avatars/check.png"></i>
+              </a>&nbsp;
+            
+   
+              <a *ngIf="networkEnable"  style="cursor: pointer;"  [routerLink]="['/urs/itreview']">
+              <i><img style="width: 28px; height: 28px;" title="Cancel"
+                  src="assets/images/avatars/cancel1.png"></i>
+              </a>
+
+        </div>
+      </div>  
+       
+      </div>
+    </div>
+  </div>
+  </div>
+  <br><br><br>
+    <div class="card" *ngIf="summaryEnable" style="padding: 10px 20px;">
+      <div  style="text-align: left;padding-top:10px;">
+              <div style="float:right">
+            
+  
+            
+              </div>
+          <h4 class="card-header-text">
+            <i><img style="width: 40px; height: 40px;" src="assets/images/avatars/Firewallinfo.png"></i>
+            Firewall Request Form
+          </h4>
+      </div>
+  
+      <div class="col-sm-12">
+        <table class="a">
+          <tr>
+            <td>
+              <div>
+                <strong style="color: black; font-size: 14px;" class="strong" >Request No : </strong>
+                <span style="color: black;font-size: 14px;"> {{this.requestNo}} </span> 
+              </div>
+            </td>
+            <td>
+              <div>
+                <strong style="color: black; font-size: 14px;" class="strong">Created By : </strong>
+                <span style="color: black; font-size: 14px;"> {{this.createdBy}}</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div>
+                <strong style="color: black; font-size: 14px;" class="strong" >Category : </strong>
+                <span style="color: black;font-size: 14px;"> {{this.Category}} </span> 
+              </div>
+            </td>
+            <td>
+              <div>
+                <strong style="color: black; font-size: 14px;" class="strong">Sub Category : </strong>
+                <span style="color: black; font-size: 14px;"> {{this.SubCategory}}</span>
+              </div>
+            </td>
+        
+          </tr>
+          <tr>
+            <td>
+              <div>
+                <strong style="color: black; font-size: 14px;" class="strong">Business Justification : </strong>
+                <span style="color: black;font-size: 14px;">{{this.BusinessJustification}}</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <strong style="color: black; font-size: 14px;" class="strong">Managed Services : </strong>
+                <span style="color: black;font-size: 14px;"> {{this.ManagedServices}}</span>
+              </div>
+            </td>
+        
+          </tr>
+        
+          <tr>
+            <td>
+              <div>
+                <strong style="color: black;font-size: 14px;" class="strong">Firewall Region : </strong>
+                <span style="color: black;font-size: 14px;">{{this.FirewallRegion}}</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <strong  style="color: black;font-size: 14px;" class="strong">Normal/Expedited : </strong>
+                <span style="color: black;font-size: 14px;"> {{this.NormalExpedited}}</span>
+              </div>
+            </td>
+        
+          </tr>
+  
+          <tr>
+            <td>
+              <div>
+                <strong style="color: black;font-size: 14px;" class="strong">Project Name : </strong>
+                <span style="color: black;font-size: 14px;">{{this.projectName}}</span>
+              </div>
+            </td>
+            <td>
+              <div>
+                <strong  style="color: black;font-size: 14px;" class="strong">Description : </strong>
+                <span style="color: black;font-size: 14px;"> {{this.description}}</span>
+              </div>
+            </td>
+        
+          </tr>
+  
+          <tr>
+            <td>
+              <div>
+                <strong style="color: black;font-size: 14px;" class="strong">Business Impact : </strong>
+                <span style="color: black;font-size: 14px;">{{this.businessImpact}}</span>
+              </div>
+            </td>
+            <td>
+              <strong style="color: black;font-size: 14px;" class="strong">Business Owners : </strong>
+              <span *ngFor="let item of  businessOwner;let i=index"style="color: black;font-size: 14px;">{{item.firstName}}<span *ngIf="i<businessOwner.length-1">,</span></span>        
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong style="color: black;font-size: 14px;" class="strong">IT Owners : </strong>
+              <span *ngFor="let item of  itOwner;let i=index"style="color: black;font-size: 14px;">{{item.firstName}}<span *ngIf="i<itOwner.length-1">,</span></span>        
+            </td>
+          </tr>
+        </table>
+      </div>
+  
+      <div class="col-sm-12">
+        <br>
+        <div class="row" *ngIf="this.SecurityPolicy.length>0">
+          <div class="col-sm-12"><strong
+              style="font-size: 15px; font-weight: bold; color: black; font-family: Open Sans, sans-serif;">Security
+              Policy</strong> 
+          </div>
+          <div class="col-sm-12">
+            <div >
+              
+              <table style="width: 100%;">
+                <thead style="background-color:#C0C0C0;color: black;padding:5px;">
+                  <tr style="color: black;">
+                    <td class="w-6" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">S No.</label></td>
+                    <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Source VPC/Account</label></td>
+                    <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Source IP Address</label></td>
+                    <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Destination VPC/Account </label></td>
+                    <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Destination Address </label></td>
+                    <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Application</label></td>
+                    <td class="w-10" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Port/Service</label></td>
+                    <td class="w-40" style="padding:5px;border: 1px solid 	#B2BEB5;"><label class="text">Protocol</label></td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let Policy of  SecurityPolicy;let i=index">
+                    <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                      {{i+1}}
+                    </td>
+                    <td style="text-align: center; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                      {{Policy.Sourcevpcaccount[0].key}}
+                    </td>
+                    <td style="text-align: center; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                      {{Policy.Sourceipaddress}}
+                    </td>
+                    <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                      {{Policy.Destinationvpcaccount[0].key}}
+                    </td>
+                    <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                      {{Policy.Destination}}
+                    </td>
+                    <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                      {{Policy.Application}}
+                    </td>
+                    <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                      {{Policy.Portservice}}
+                    </td>
+                    <td style="padding-left: 25px; color: black;font-size: 14px;padding:5px;border: 1px solid 	#B2BEB5;">
+                      {{Policy.protocal[0].key}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+  
+  
+    <div class="col-sm-12">
+      <br>
+      <mat-accordion multi> 
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6>Risk Detail and Ranking</h6>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="col-sm-12">
+            <span *ngIf="noData" style="text-align: center;color: #3b5998;padding:10px;font-weight: 700;"> 
+              No data to display.Question not uploaded for this request</span>
+            <div  *ngIf="!noData">
+              <br>
+               <div *ngFor="let data of categoryLst;let i=index" style="padding: 0px 20px;">
+                 <div class="row" style="background-color:#C0C0C0;color: black;">
+                   <div style="padding:5px;">
+                     <strong>{{i+1}} {{data.riskCategory}}</strong>
+                   </div>
+                 </div>
+                   <div class="row" style="color:black;font-weight: 500;">
+                     <div class="col-sm-3" style="padding:5px;border: 1px solid #B2BEB5;">Risk Category</div>
+                     <div class="col-sm-4" style="padding:5px;border: 1px solid #B2BEB5;">Identified Risk</div>
+                     <div class="col-sm-1" style="padding:5px;border: 1px solid #B2BEB5">Yes/No</div>
+                     <div class="col-sm-4" style="padding:5px;border: 1px solid #B2BEB5">Comments & Discussion</div>
+                   </div>
+                   <div class="row" *ngFor="let rowquestions of data.questions; let in=index">
+                     <div class="col-sm-3" style="padding:5px;border: 1px solid #B2BEB5;color: black;">{{rowquestions.risk}}</div>
+                     <div class="col-sm-4" style="padding:5px;border: 1px solid #B2BEB5;color: black;">{{rowquestions.questionExplanation.question}}
+                       <i class="fa fas fa-info-circle" style="color: #CCCCFF;width: 25px;height: 25px;" ngbTooltip={{rowquestions.questionExplanation.explanation}}>
+                         <img ngbTooltip={{rowquestions.explanation}}></i> 
+                     </div>
+                     <div class="col-sm-1" style="padding:5px;border: 1px solid #B2BEB5;color: black;">
+                      {{rowquestions.yesNo=== 'Yes' ? 'Yes' : 'No'}}
+                    </div>
+                     <div class="col-sm-4"style="padding:5px;border: 1px solid #B2BEB5;color: black;">{{rowquestions.comments}}</div>
+                   </div>
+                 </div>
+           </div>
+          </div>
+          </mat-expansion-panel>
+          <br>
+        <mat-expansion-panel  *ngIf="this.fileList.length > 0">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h6>Attachments</h6>
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+       
+                  <br>
+                  <table  style="width: 100%;border: 1px solid #B2BEB5;">
+                    <thead style="background-color: #C0C0C0;color: black;">
+                      <th style="border: 1px solid #B2BEB5;padding:5px;">S. No</th>
+                      <th style="border: 1px solid #B2BEB5;padding:5px;">File Name</th>
+                      <th style="border: 1px solid #B2BEB5;padding:5px;">Date</th>
+                      <th style="border: 1px solid #B2BEB5;padding:5px;">Action</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let file of this.fileList ; let i = index ">
+                        <td style="border: 1px solid #B2BEB5;;padding:5px;">{{i+1}}</td>
+                        <td style="border: 1px solid #B2BEB5;;padding:5px;"><label>{{file.FileName}}</label></td>
+                        <td style="border: 1px solid #B2BEB5;;padding:5px;"><label>{{this.requestDate}}</label></td>
+                        <td style="border: 1px solid #B2BEB5;;padding:5px;">
+                          &nbsp;&nbsp;<a style="cursor:pointer;font-weight: bold" class="icofont icofont-eye-alt" placement="top"
+                          container="body" ngbTooltip="view" (click)="viewFile1(file, fileIndex, 'Static')"></a>
+                      </td>       
+                      </tr>
+                    </tbody>
+                  </table>
+          
+      </mat-expansion-panel>
+       
+        <!-- <br>
+          <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6>Workflow Summary</h6>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class='container-fluid'> 
+            <ul class='htimeline'>
+              <li class='step col-sm-3 green'*ngFor="let item of workflowList" >
+                <div style="text-align: center;font-size: 16px;"><strong>{{item.levelName}}</strong></div>
+                  <div class='tasks container-fluid'>
+                      <span><strong>User :</strong>{{item.actionTakenBy}}</span><br>
+                      <span><strong>Created Time :</strong>{{item.actionTakenOn}}</span><br>
+                      <span><strong>Status :</strong>{{item.currentStatus}}</span><br>
+                  </div>
+              </li>      
+            </ul>
+          </div>
+        </mat-expansion-panel>-->
+  
+        <br>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h6>Audit Trial</h6>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="card-body">
+            <div>
+                <div class="card-notification" *ngFor="let v of auditTrial">
+                  <div class="card-noti-conatin">
+              
+            <div class="row">
+              <div class="col-sm-6">
+                <i style="color: red;" class="fa fa-circle">	</i>&nbsp;	&nbsp;				 
+                <Strong style="size: 16px; color: black;">Module : </Strong><label style="size: 14px; color: black;">{{v.module}}</label>
+              </div>
+              <div class="col-sm-6">
+                        <Strong style="size: 16px; color: black;">Event : </Strong><label style="size: 14px; color: black;">{{v.eventname}}</label>
+              </div>
+            </div>
+                    
+            <div class="row">          
+              <div class="col-sm-6">
+                        <Strong style="size: 16px; color: black;">Ip Address : </Strong><label style="size: 14px; color: black;">{{v.ipaddress}}</label>
+              </div>
+              <div class="col-sm-6">
+                        <Strong style="size: 16px; color: black;"> Device : </Strong><label style="size: 14px; color: black;">{{v.browser}}</label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-sm-6">
+                <Strong style="size: 16px; color: black;">Action Taken By : </Strong><label style="size: 14px; color: black;">{{v.username}}</label>
+              </div>
+          
+            <div class="col-sm-6">
+              <Strong style="size: 16px; color: black;">Action Taken On : </Strong><label style="size: 14px; color: black;">{{v.createddate| date: 'MM/dd/yyyy HH:mm:ss'}}</label>
+            </div>
+          </div>
+          
+          <div class="row">
+                <div class="col-sm-6">
+                  <Strong style="size: 16px; color: black;">User Remarks :  </Strong><label style="size: 14px; color: black;">{{v.userremark==null ?'NA':v.userremark}}</label>
+                </div>          
+           </div>
+          
+        
+                <div class="dt-desc col-sm-12" style="padding: 0px; overflow-x:auto;">
+                <div class="dt-desc dy-ui" style="padding-left: 0px !important;">
+                  <table class="table-striped table-bordered">
+                    <tbody>
+                     <ng-container *ngFor="let remark of v.accesstype ; let i = index ">
+                      <label>
+                        <Strong style="size: 16px; color: black;" >System Remarks</Strong>:<span *ngIf="remark.categorydescription==null?true:false">NA</span>
+                      </label>
+                        <tr *ngFor="let orivalue of remark.categorydescription; let j=index" > 
+                          <td style="size: 14px; color: black;">{{j+1}}. [ {{orivalue}} ] </td>
+                        </tr>
+                    </ng-container>  
+                    </tbody>
+                    </table>
+                   <div >
+                    <ng-container *ngFor="let remark of v.accesstype ; let k = index ">
+                  <div *ngIf="remark.securitypolicy==null?false:true">
+                    <table class="table-striped table-bordered" *ngIf="remark.securitypolicy.length==0?false:true" >
+                      <Strong style="size: 16px; color: black;" >Security Policy </Strong>
+                      <tr>
+                        <th style="padding: 5px;;font-size:14px;border:1px solid #eee">SourceVPC Account</th>
+                        <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Source IPAddress</th>
+                        <th style="padding: 5px;;font-size:14px;border:1px solid #eee">DestinationVPCAccount</th>
+                        <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Destination</th>
+                        <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Application</th>
+                      <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Portservice</th>
+                      <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Protocol</th></tr>
+                    <tr *ngFor="let orivalue of remark.securitypolicy ;let j=index" > 
+                      <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.sourcevpcaccount}}  </td>
+                      <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.sourceipaddress}} </td>
+                      <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.destinationvpcaccount}}  </td>
+                      <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.destination}} </td>
+                      <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.application}} </td>
+                      <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.portservice}} </td>
+                      <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.protocal}} </td>
+                    </tr>
+                  </table>
+                  </div>
+                    </ng-container>
+        
+                    <ng-container *ngFor="let remark of v.accesstype ; let k = index ">
+                      <div *ngIf="remark.riskaudit==null?false:true">
+                       <table class="table-striped table-bordered" style="width:100%"*ngIf="remark.riskaudit.length==0?false:true">
+                         <Strong style="size: 16px; color: black;" >Risk Detail & Ranking </Strong>
+                         <tr>
+                           <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Questions</th>
+                           <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Yes/No</th>
+                           <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Comments</th>
+                          </tr>
+                       <tr class="tr1" *ngFor="let orivalue of remark.riskaudit ;let j=index" > 
+                         <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.question}}  </td>
+                         <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.riskyesno}} </td>
+                         <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.riskcomment}}  </td>
+                       </tr>
+                     </table>
+                      </div>
+                   </ng-container>
+        
+                   <ng-container *ngFor="let remark of v.accesstype ; let k = index ">
+                    <div *ngIf="remark.securityrank==null?false:true">
+                     <table class="table-striped table-bordered" *ngIf="remark.securityrank.length==0?false:true">
+                       <Strong style="size: 16px; color: black;" >Risk Likelihood & Severity </Strong>
+                       <tr>
+                         <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Questions</th>
+                         <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Likelihood</th>
+                         <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Severity</th>
+                        </tr>
+                     <tr class="tr1" *ngFor="let orivalue of remark.securityrank ;let j=index" > 
+                       <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.question}}  </td>
+                       <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{calculateLikihood(orivalue.likelyhood)}} </td>
+                       <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{calculateSeverity(orivalue.severity)}}  </td>
+                     </tr>
+                   </table>
+                    </div>
+                 </ng-container>
+        
+                 <ng-container *ngFor="let remark of v.accesstype ; let k = index ">
+                  <div *ngIf="remark.securitymitigation==null?false:true">
+                   <table class="table-striped table-bordered" style="width:100%" *ngIf="remark.securitymitigation.length==0?false:true">
+                     <Strong style="size: 16px; color: black;" >Risk Mitigation Strategy </Strong>
+                     <tr>
+                       <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Questions</th>
+                       <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Score</th>
+                       <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Ranking</th>
+                       <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Risk Mitigation</th>
+                       <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Responsible Party</th>
+                      </tr>
+                   <tr class="tr1" *ngFor="let orivalue of remark.securitymitigation ;let j=index" > 
+                     <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.question}}  </td>
+                     <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.likelyhood)}}  </td>
+                     <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.ranking)}}  </td>
+                     <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.riskcomment}} </td>
+                     <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.reposibleparty)}}  </td>
+        
+                   </tr>
+                 </table>
+                  </div>
+               </ng-container>
+        
+               <ng-container *ngFor="let remark of v.accesstype ; let k = index ">
+                <div *ngIf="remark.securityplan==null?false:true">
+                 <table class="table-striped table-bordered"  style="width:100%" *ngIf="remark.securityplan.length==0?false:true">
+                   <Strong style="size: 16px; color: black;" >Remediation Plan</Strong>
+                   <tr>
+                     <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Questions</th>
+                     <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Planned Completion</th>
+                     <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Remediation Plan</th>
+                     <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Status</th>
+                     <th style="padding: 5px;;font-size:14px;border:1px solid #eee">Responsible Party</th>
+        
+        
+                    </tr>
+                 <tr class="tr1" *ngFor="let orivalue of remark.securityplan ;let j=index" > 
+                   <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.question}}  </td>
+                   <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.plantcompletion)}} </td>
+                   <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{orivalue.riskcomment}} </td>
+                   <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.status)}}  </td>
+                   <td style="padding: 5px;size: 14px; color: black;;border:1px solid #eee">{{(orivalue.reposibleparty)}}  </td>
+                 </tr>
+               </table>
+                </div>
+             </ng-container>
+                    
+                    <br>
+                   </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          </mat-expansion-panel>
+        <br>
+        </mat-accordion>
+    </div>
+    <br><br>
+    </div>
+    <br>    
+  </div>

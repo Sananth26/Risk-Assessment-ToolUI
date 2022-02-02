@@ -1,0 +1,35 @@
+<div>
+    <h5 class="modal-title" id="modal-basic-title" style="display: inline;">Add New Category</h5>
+    <button type="button" style="display: inline;background-color: transparent;border: none;float: right" (click)="closeModal()"><i class="fa fas fa-times"></i></button>
+    <hr>
+    <form [formGroup]="categoryForm">
+        <!-- <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button> -->
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Key:<span style="color: red;">*</span></label>
+            <div class="col-sm-8" >
+                <input class="itemInput" type="text" name="key" formControlName="key" size="30">
+                <!--<div style="color: red;" *ngIf="this.message!=''">{{this.message}}</div>-->
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Description:<span style="color: red;">*</span></label>
+            <div class="col-sm-8">
+                <input class="itemInput" type="text" name="description" formControlName="description" size="30">
+            </div>
+        </div>
+    </form>
+    <div *ngIf="validationMsg" style="font-size: small;color: red;">
+        Please enter all the required fields
+    </div>
+    <div *ngIf="!validationMsg" style="font-size: small;color: red;">
+       <br>
+    </div>
+
+   <div class="col-md-12 text-center">
+       <hr>
+                    <button type="button" class="btn btn-primary" (click)="saveCategory(categoryForm.valid)">save</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-danger" (click)="closeCategory()">Cancel</button>
+    </div>
+</div>
+
+

@@ -1,0 +1,108 @@
+<div class="card">
+  <div class="card-body">
+
+    <div class="modal-header">
+      <h4 class="modal-title">Delete Screen </h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form #checkboxForm="ngForm" name="popUpRequest" [formGroup]="popUpRequest" (ngSubmit)="saveAndGo()" novalidate>
+
+        <div class="card-body">
+          <ngx-datatable #myTable class="material" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="0"
+            [rowHeight]="auto" [scrollbarH]="false" [rows]='fields' [selectionType]="'checkbox'" [selected]="selected"
+            (activate)="onActivate($event)" (select)='onSelect($event)'>
+            
+            <ngx-datatable-column name="Request Id">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                   <strong class="fontStyle">{{row['requestDetailsId']}}</strong>
+
+              </ng-template>
+          </ngx-datatable-column>
+           
+          <ngx-datatable-column name="Requested To">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <strong class="fontStyle">{{row['userName']}}</strong>
+            </ng-template>
+        </ngx-datatable-column>
+          
+          <ngx-datatable-column name="Access Category">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <strong class="fontStyle">{{row['accessCategory']}}</strong>
+              </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Sub Category">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <strong class="fontStyle">{{row['subCategory']}}</strong>
+              </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Access Type">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                  <strong class="fontStyle">{{row['accessType']}}</strong>
+              </ng-template>
+          </ngx-datatable-column>
+         
+         
+         
+          </ngx-datatable>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label" for="basicformFile1">Attachment</label>
+          <div class="col-4">
+            <input type="file" class="form-control-file" (change)="onFileUploadStatic($event)"
+             accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/*" 
+            multiple id="basicformFile1">
+          </div>
+
+          <div class="col-6 col-form-label"   >
+              <span>Uploaded Files:</span>
+            <div class="dt-desc dy-ui">
+              <table class="table-striped table-bordered">
+                <thead><th>Sr. No</th><th>File Name</th><th>Date</th></thead>
+                <tbody>
+                <tr *ngFor="let file of staticAttachmentTable; let fileIndex=index ">
+                  <td>{{fileIndex+1}}</td>
+                  <td><label>{{file.FileName}}</label></td>
+                  <td><label>{{file.Date | date:"dd/MM/yy"}}</label></td>
+
+                   
+                </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label">Reason For Delete</label>
+          <div class="col-10">
+            <textarea type="text" class="form-control" formControlName="Remark" placeholder="Remarks"
+              [(ngModel)]="newRequestApiData.Remarks" required></textarea>
+              <small class="form-text text-muted text-danger"
+              *ngIf="!popUpRequest.get('Remark').valid && (popUpRequest.get('Remark').dirty || popUpRequest.get('Remark').touched)">
+              Remark is required...!</small>
+          </div>
+        </div>
+
+
+        <div class="col-12 text-center">
+          <div class="form-group">
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-primary"
+                (click)="saveAndGo(checkboxForm.form.valid)">Submit</button>&nbsp;&nbsp;&nbsp;
+              <button type="button" class="btn btn-danger mr-2" (click)="clear()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

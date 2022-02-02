@@ -1,0 +1,70 @@
+#btnnewrequest {
+  float: right;
+  margin-top: -50px;
+}
+
+input#txtSearch {
+  // margin-top: -12px;
+  //position: absolute;
+  float: right;
+  width: 20%;
+  height: 30px;
+  margin-top: -50px;
+  margin-right: 00px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 10px;
+}
+.has-feedback .fa-search {
+  float: right;
+  position: absolute;
+  right: 50px;
+  top: 82px;
+}
+
+::ng-deep .nav-fill .nav-link.active {
+  margin-top: -1px;
+  border-top: 2px solid #20a8d8;
+}
+::ng-deep .nav-pills .nav-link {
+  border-radius: 2px;
+  background-color: #b6bbbd4d;
+  color: black;
+  margin-right: 2px;
+}
+
+::ng-deep .nav-pills .nav-link.active,
+::ng-deep .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #20a8d8;
+}
+::ng-deep a {
+  color: #20a8d8;
+}
+
+:host ::ng-deep.datatable-row-even {
+  background-color: #ffffff;
+  text-align: center;
+}
+
+:host ::ng-deep.datatable-row-odd {
+  background-color: #efeffb;
+  text-align: center;
+}
+:host ::ng-deep.datatable-body-cell {
+  border: 0.5px solid white;
+}
+:host ::ng-deep.datatable-header-cell {
+  background-color: #c0c0c0;
+  color: black;
+  text-align: center;
+  border: 1px solid white;
+}
+:host ::ng-deep.ngx-datatable.material {
+  .datatable-header-cell {
+    background-color: #c0c0c0;
+    color: white;
+    text-align: center;
+    border: 1px solid white;
+  }
+}

@@ -1,0 +1,180 @@
+<div class="card-header" style="text-align: center;">
+    <hr>
+    <b>
+        <h3 class="card-header-text">
+            Question and Answers 
+        </h3>
+    </b>
+    <hr>
+</div>
+
+<div class="card">
+    <form name="QAForm" [formGroup]="QAForm"  novalidate>
+        <!-- name="sopForm" <div class="card-body" [formGroup]="QAForm" (ngSubmit)="saveAndGo()">
+        
+                <div> -->
+        <div class="card-body">
+            <ngb-tabset #t="ngbTabset" (tabChange)="fetchNews($event)">
+                <ngb-tab  id="AddQuestionandAnswers" title="Add Q&A" >
+                    <ng-template ngbTabContent>
+                      
+                        <div class="card">
+                            <div class="card-body">
+                              <div class="form-group row ">
+                                <label class="col-2 col-form-label">Select Department<span class='asterisk'>*</span></label>
+                                <div class="col-10">
+                                    <select  class="form-control" formControlName="departmentName"  
+                                        (ngModelChange)="onDepartmentNameChange($event)"  [(ngModel)]="QAFields.lookupitemid"  
+                                        name="departmentName"   required>
+                                         <option *ngFor="let module of this.departmentList;let i=index" [value]="module.id" >
+                                            {{module.key}}
+                                        </option>
+                                    </select>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-2 col-form-label">Document Number<span class='asterisk'>*</span></label>
+                                <div class="col-10">
+                                    <select  class="form-control" formControlName="documentnumber"
+                                        (ngModelChange)="ondocumentNumberChange($event)" [(ngModel)]="QAFields.sopid" name="documentnumber"
+                                         required>
+                                         <option *ngFor="let module of this.documentNumberList;let i=index" [value]="module.id">
+                                            {{module.documentnumber}}
+                                        </option>
+                                    </select>
+                                </div>
+                              </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Question </label>
+                                    <div class="col-sm-10">
+                                        <textarea type="text"  class="form-control" formControlName="question" required></textarea>
+                                    </div>
+                                </div>
+
+                                <div fxFlex="1 0 auto" class="form-group row" fxLayoutAlign="start"
+                                style="height:35px;" matTooltip="Upload CSV Data" >
+                                <img [src]="url" height="200"> <br/>
+                                <input type='file' (change)="onSelectFile($event)">
+                                <label mat-flat-button color="primary" for="input-file-id" class="md-button md-raised md-primary">
+                                  Choose video
+                                </label>
+                              </div>
+                                                          
+                               <div class="video">
+                                <video controls (click)="toggleVideo()" #videoPlayer>
+                                  <source src="oceans.mp4" type="video/mp4" />
+                                  <!-- https://vjs.zencdn.net/v/oceans.mp4 -->
+                                  Browser not supported
+                                </video>
+                              </div> 
+
+                            </div>
+                        </div>
+
+                    
+  
+
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab  id="ViewQuestionAndAnswersDetails"  title="View Q&A Details" >
+                    <ng-template ngbTabContent>
+                        <div class="card">
+                            <div class="card-body">
+                              <div class="table-responsive">
+                                <table class="table table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Action</th> 
+                                      <th scope="col">Id</th>
+                                      <th scope="col">Department </th>
+                                      <th scope="col">Document Number</th>
+                                      <th scope="col"> Question</th>
+                                    
+                                      <!-- <th scope="col">Answer</th>  -->
+                                                                     
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let field of fields">
+                                      <td>
+                                        <span>
+                                          <button type="button" class="btn btn-outline-success m-1"
+                                            (click)="editQARecord(field.id);t.select('AddQuestionandAnswers')"> <i
+                                              class="zmdi zmdi-edit"></i></button>
+                                              &nbsp; &nbsp; &nbsp;
+                                          <button type="button" class="btn btn-outline-danger m-1"
+                                            (click)="deleteQARecord(field.id)" > <i
+                                              class="zmdi zmdi-delete"></i></button>
+                                        </span>
+                                      </td> 
+                                      <td scope="row">{{field.id}}</td>
+                                      <td scope="row">{{field.lookupitemname}}</td>
+                                      <td scope="row">{{field.document_number}}</td>
+                                      <td scope="row">{{field.qa_form_data}}</td>
+                                
+                                      <!-- <div  class="form-group row" *ngIf="(field.type==='radio-group')">
+                                        <b><label class="col-sm-12" [for]='field.name'><label [innerHtml]="field.label"></label> <span
+                                              *ngIf="field.required!=undefined" class="asterisk">*</span>
+                                            <a *ngIf="field.description!=undefined" href="javascript:;"
+                                              class="m-r-15 crm-action-info text-muted text-primary" placement="top"
+                                              [ngbTooltip]="field.description">
+                                              <i style="font-size: 17px" class="icofont icofont-info-circle"></i>
+                                            </a></label></b>
+                                        <div *ngFor="let radioButtonValue of field.values" class="form-radio col-sm-10">
+                                          <form>
+                                            <div class="radio radiofill">
+                                              <label>
+                                                <input type="checkbox" [name]="field.name" [checked]="radioButtonValue.selected" >
+                                                <span class="cr"></span>
+                                                <i class="helper"></i>{{radioButtonValue.label}}
+                                              </label>
+                                             </div>
+                                          </form>
+                                        </div>
+                                      </div> -->
+                                      
+                                                                     
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </form>
+</div>
+
+
+<!-- dynamic form -->
+<div [ngbCollapse]="showDynamic">
+<div >
+    <div class="card">
+        <div class="card-header text-uppercase">Add Fields / Select type of answers</div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-12 well well-lg build-wrapQA">
+                    <br>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <label class="col-sm-5"></label>
+    <div class="col-sm-7">
+        <button (click)="saveAndGoto()" type="submit" class="btn btn-primary m-b-0">Submit
+            <span *ngIf="isLoading" class="ti-reload rotate-refresh"></span>&nbsp;
+        </button>
+        <button type="button" class="btn btn-danger mr-2"  (click)="cancel('new')">Cancel</button>
+    </div>
+</div><br>
+<br>
+<br>
+
+</div>

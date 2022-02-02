@@ -1,0 +1,39 @@
+
+  .footer {
+    color: rgba(0, 0, 0, 0.65);
+    text-align: center;
+    padding: 12px 30px;
+    position: absolute;
+    right: 0;
+    left: 240px;
+    background-color: $white;
+    border-top: 1px solid #e7ebf1;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+  
+  .back-to-top {
+    display: none;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: $white;
+    position: fixed;
+    border-radius: 40px;
+    bottom: 20px;
+    right: 12px;
+    background-color: #7f5be8;
+    z-index: 10000;
+    .fa-angle-double-up {
+      margin-top: 20%;
+      font-size: 20px;
+    }
+    &:hover {
+      color: $white;
+      background-color: $black;
+      transition: all .5s;
+    }
+  }
+  

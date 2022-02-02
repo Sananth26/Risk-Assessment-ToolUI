@@ -1,0 +1,525 @@
+
+/* sidebar switcher */
+ 
+#sidebar-wrapper.bg-theme .brand-logo .logo-text{
+	color: #ffffff;
+}
+
+#sidebar-wrapper.bg-theme .brand-logo{
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#sidebar-wrapper.bg-theme .user-details{
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#sidebar-wrapper.bg-theme .user-details .media .media-body .side-user-name{
+	color: #ffffff;
+}
+
+#sidebar-wrapper.bg-theme .user-details div.user-pointer:after{
+	color: #ffffff;
+}
+
+#sidebar-wrapper.bg-theme .user-setting-menu>li>a{
+	color: rgba(255, 255, 255, 0.22);
+}
+
+#sidebar-wrapper.bg-theme .user-setting-menu>li>a:hover{
+	color: rgba(255, 255, 255, 255);
+}
+
+#sidebar-wrapper.bg-theme .sidebar-header{
+	color: rgba(255, 255, 255, 0.50);
+}
+
+#sidebar-wrapper.bg-theme .navigation > li > a {
+	color: rgba(255, 255, 255, 0.50);
+}
+
+#sidebar-wrapper.bg-theme .navigation li ul > li > a {
+	color: rgba(255, 255, 255, 0.50);
+}
+
+
+
+/* topbar switcher */
+
+.color-header .toggle-menu i{
+	color: #ffffff;
+}
+
+.color-header .right-nav-link a.nav-link{
+	color: #ffffff;
+}
+
+.color-header .search-bar input {
+	 background-color: #ffffff;
+	 border: 1px solid #ffffff;
+}
+
+.color-header .search-bar input:focus { 
+   box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.255);
+}
+
+
+// Sidebar Active Color
+
+	// Active1
+#active-class.active1 li.open > a {
+	background: #ffffff70;
+	color: #fff;
+}
+
+#active-class.active1 li:hover > a {
+	background: #ffffff70;
+	color: #fff;
+}
+#active-class.active1 li.active > a {
+	background: #ffffff70;
+	color: #fff;
+}
+
+#active-class.active1 li ul li:hover > a, #active-class.active1 li ul li.active > a {
+	background: none;
+	color: #fff;
+}
+
+
+	// Active2
+#active-class.active2 li.open > a {
+	background: #f79420;
+	color: #fff;
+}
+
+#active-class.active2 li:hover > a {
+	background: #f79420;
+	color: #fff;
+}
+#active-class.active2 li.active > a {
+	background: #f79420;
+	color: #fff;
+}
+
+#active-class.active2 li ul li:hover > a, #active-class.active2 li ul li.active > a {
+	background: none;
+	color: #f79420;
+}
+
+
+
+	// Active3
+#active-class.active3 li.open > a {
+	background: #8ec443;
+	color: #fff;
+}
+
+#active-class.active3 li:hover > a {
+	background: #8ec443;
+	color: #fff;
+}
+#active-class.active3 li.active > a {
+	background: #8ec443;
+	color: #fff;
+}
+
+#active-class.active3 li ul li:hover > a, #active-class.active3 li ul li.active > a {
+	background: none;
+	color: #8ec443;
+}
+
+
+	// Active4
+#active-class.active4 li.open > a {
+	background: #2babe1;
+	color: #fff;
+}
+
+#active-class.active4 li:hover > a {
+	background: #2babe1;
+	color: #fff;
+}
+#active-class.active4 li.active > a {
+	background: #2babe1;
+	color: #fff;
+}
+
+#active-class.active4 li ul li:hover > a, #active-class.active4 li ul li.active > a {
+	background: none;
+	color: #2babe1;
+}
+
+
+	// Active5
+#active-class.active5 li.open > a {
+	background: #0098f0;
+	background: -webkit-gradient(linear,left bottom,left top,from(#0098f0),to(#00f2c3)) !important;
+	background: linear-gradient(0deg,#0098f0,#00f2c3) !important;
+	color: #fff;
+}
+
+#active-class.active5 li:hover > a {
+	background: #0098f0;
+	background: -webkit-gradient(linear,left bottom,left top,from(#0098f0),to(#00f2c3));
+	background: linear-gradient(0deg,#0098f0,#00f2c3) ;
+	color: #fff;
+}
+#active-class.active5 li.active > a {
+	background: #0098f0;
+	background: -webkit-gradient(linear,left bottom,left top,from(#0098f0),to(#00f2c3));
+	background: linear-gradient(0deg,#0098f0,#00f2c3) ;
+	color: #fff;
+}
+
+#active-class.active5 li ul li:hover > a, #active-class.active5 li ul li.active > a {
+	background: none;
+	color: #0098f0;
+}
+
+
+	// Active6
+#active-class.active6 li.open > a {
+	background: #ec250d;
+    background: -webkit-gradient(linear,left bottom,left top,from(#ec250d),to(#fd5d93)) !important;
+    background: linear-gradient(0deg,#ec250d,#fd5d93) !important;
+	color: #fff;
+}
+
+#active-class.active6 li:hover > a {
+	background: #ec250d;
+    background: -webkit-gradient(linear,left bottom,left top,from(#ec250d),to(#fd5d93));
+    background: linear-gradient(0deg,#ec250d,#fd5d93);
+	color: #fff;
+}
+#active-class.active6 li.active > a {
+	background: #ec250d;
+    background: -webkit-gradient(linear,left bottom,left top,from(#ec250d),to(#fd5d93));
+    background: linear-gradient(0deg,#ec250d,#fd5d93);
+	color: #fff;
+}
+
+#active-class.active6 li ul li:hover > a, #active-class.active6 li ul li.active > a {
+	background: none;
+	color: #ec250d;
+}
+
+
+
+
+// Sidebar Shadow Color
+
+	// Shadow1
+#active-class.shadow1 li.open > a {
+	background: #fff;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.20);
+}
+
+#active-class.shadow1 li:hover > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.20);
+	//color: #fff;
+}
+#active-class.shadow1 li.active > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.20);
+	//color: #fff;
+}
+
+#active-class.shadow1 li ul li:hover > a, #active-class.shadow1 li ul li.active > a {
+	background: none;
+	box-shadow: none;
+
+}
+
+
+	// Shadow2
+#active-class.shadow2 li.open > a {
+	background: #fff;
+	box-shadow: 0 2px 10px #f7932260;
+	color: #f79322;
+
+}
+
+#active-class.shadow2 li:hover > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px #f7932260;
+	color: #f79322;
+}
+#active-class.shadow2 li.active > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px #f7932260;
+	color: #f79322;
+}
+
+#active-class.shadow2 li ul li:hover > a, #active-class.shadow2 li ul li.active > a {
+	background: none;
+	box-shadow: none;
+
+}
+
+	// Shadow3
+#active-class.shadow3 li.open > a {
+	background: #fff;
+	box-shadow: 0 2px 10px #8dc44260;
+	color: #8dc442;
+
+}
+
+#active-class.shadow3 li:hover > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px #8dc44260;
+	color: #8dc442;
+}
+#active-class.shadow3 li.active > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px #8dc44260;
+	color: #8dc442;
+}
+
+#active-class.shadow3 li ul li:hover > a, #active-class.shadow3 li ul li.active > a {
+	background: none;
+	box-shadow: none;
+
+}
+
+	// Shadow4
+#active-class.shadow4 li.open > a {
+	background: #fff;
+	box-shadow: 0 2px 10px #29aae160;
+	color: #29aae1;
+
+}
+
+#active-class.shadow4 li:hover > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px #29aae160;
+	color: #29aae1;
+}
+#active-class.shadow4 li.active > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px #29aae160;
+	color: #29aae1;
+}
+
+#active-class.shadow4 li ul li:hover > a, #active-class.shadow4 li ul li.active > a {
+	background: none;
+	box-shadow: none;
+
+}
+
+
+	// Shadow5
+#active-class.shadow5 li.open > a {
+	background: #fff;
+	box-shadow: 0 2px 10px #fd355060;
+	color: #fd3550;
+
+}
+
+#active-class.shadow5 li:hover > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px #fd355060;
+	color: #fd3550;
+}
+#active-class.shadow5 li.active > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px #fd355060;
+	color: #fd3550;
+}
+
+#active-class.shadow5 li ul li:hover > a, #active-class.shadow5 li ul li.active > a {
+	background: none;
+	box-shadow: none;
+
+}
+
+
+	// Shadow6
+#active-class.shadow6 li.open > a {
+	background: #fff;
+	box-shadow: 0 2px 10px #15ca2060;
+	color: #15ca20;
+
+}
+
+#active-class.shadow6 li:hover > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px #15ca2060;
+	color: #15ca20;
+}
+#active-class.shadow6 li.active > a {
+	background: #ffffff70;
+	box-shadow: 0 2px 10px #15ca2060;
+	color: #15ca20;
+}
+
+#active-class.shadow6 li ul li:hover > a, #active-class.shadow6 li ul li.active > a {
+	background: none;
+	box-shadow: none;
+
+}
+
+
+
+// Sidebar line Active
+
+	// Active1
+#active-class.active1 li.open > a {
+	background: #ffffff70;
+	color: #fff;
+}
+
+#active-class.active1 li:hover > a {
+	background: #ffffff70;
+	color: #fff;
+}
+#active-class.active1 li.active > a {
+	background: #ffffff70;
+	color: #fff;
+}
+
+#active-class.active1 li ul li:hover > a, #active-class.active1 li ul li.active > a {
+	background: none;
+	color: #fff;
+}
+
+
+	// Active2
+#active-class.active2 li.open > a {
+	background: #f79420;
+	color: #fff;
+}
+
+#active-class.active2 li:hover > a {
+	background: #f79420;
+	color: #fff;
+}
+#active-class.active2 li.active > a {
+	background: #f79420;
+	color: #fff;
+}
+
+#active-class.active2 li ul li:hover > a, #active-class.active2 li ul li.active > a {
+	background: none;
+	color: #f79420;
+}
+
+
+
+	// Active3
+#active-class.active3 li.open > a {
+	background: #8ec443;
+	color: #fff;
+}
+
+#active-class.active3 li:hover > a {
+	background: #8ec443;
+	color: #fff;
+}
+#active-class.active3 li.active > a {
+	background: #8ec443;
+	color: #fff;
+}
+
+#active-class.active3 li ul li:hover > a, #active-class.active3 li ul li.active > a {
+	background: none;
+	color: #8ec443;
+}
+
+
+	// Active4
+#active-class.active4 li.open > a {
+	background: #2babe1;
+	color: #fff;
+}
+
+#active-class.active4 li:hover > a {
+	background: #2babe1;
+	color: #fff;
+}
+#active-class.active4 li.active > a {
+	background: #2babe1;
+	color: #fff;
+}
+
+#active-class.active4 li ul li:hover > a, #active-class.active4 li ul li.active > a {
+	background: none;
+	color: #2babe1;
+}
+
+
+	// Active5
+#active-class.active5 li.open > a {
+	background: #0098f0;
+	background: -webkit-gradient(linear,left bottom,left top,from(#0098f0),to(#00f2c3)) !important;
+	background: linear-gradient(0deg,#0098f0,#00f2c3) !important;
+	color: #fff;
+}
+
+#active-class.active5 li:hover > a {
+	background: #0098f0;
+	background: -webkit-gradient(linear,left bottom,left top,from(#0098f0),to(#00f2c3));
+	background: linear-gradient(0deg,#0098f0,#00f2c3) ;
+	color: #fff;
+}
+#active-class.active5 li.active > a {
+	background: #0098f0;
+	background: -webkit-gradient(linear,left bottom,left top,from(#0098f0),to(#00f2c3));
+	background: linear-gradient(0deg,#0098f0,#00f2c3) ;
+	color: #fff;
+}
+
+#active-class.active5 li ul li:hover > a, #active-class.active5 li ul li.active > a {
+	background: none;
+	color: #0098f0;
+}
+
+
+	// Active6
+#active-class.active6 li.open > a {
+	background: #ec250d;
+    background: -webkit-gradient(linear,left bottom,left top,from(#ec250d),to(#fd5d93)) !important;
+    background: linear-gradient(0deg,#ec250d,#fd5d93) !important;
+	color: #fff;
+}
+
+#active-class.active6 li:hover > a {
+	background: #ec250d;
+    background: -webkit-gradient(linear,left bottom,left top,from(#ec250d),to(#fd5d93));
+    background: linear-gradient(0deg,#ec250d,#fd5d93);
+	color: #fff;
+}
+#active-class.active6 li.active > a {
+	background: #ec250d;
+    background: -webkit-gradient(linear,left bottom,left top,from(#ec250d),to(#fd5d93));
+    background: linear-gradient(0deg,#ec250d,#fd5d93);
+	color: #fff;
+}
+
+#active-class.active6 li ul li:hover > a, #active-class.active6 li ul li.active > a {
+	background: none;
+	color: #ec250d;
+}
+
+
+
+/* scrollbar */
+
+#sidebar-wrapper.bg-theme .simplebar-scrollbar:before {
+    background: rgba(255, 255, 255, 0.40);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

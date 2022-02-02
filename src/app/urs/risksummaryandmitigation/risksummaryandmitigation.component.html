@@ -1,0 +1,44 @@
+<div  style="text-align:left;padding:10px;">
+    <div style="height:400px;padding:10px 20px;overflow-y: hidden;">
+        <span *ngIf="isNotEmpty" style="text-align: center;color: #3b5998;padding:10px;font-weight: 700;"> No data to display.</span>
+
+        <table style="width:100%;color: black;"  *ngIf="!isNotEmpty">
+            <tr style="background-color: #bfc1c2;font-weight:bold">
+                <td  style="border: 1px solid #B2BEB5;padding: 10px;width:100px">Risk No</td>
+                <td  style="border: 1px solid #B2BEB5;padding: 10px;width:450px">Risk Category</td>
+                <td  style="border: 1px solid #B2BEB5;padding: 10px;width:50px">Score</td>
+                <td  style="border: 1px solid #B2BEB5;padding: 10px;width:50px">Ranking</td>
+                <td  style="border: 1px solid #B2BEB5;padding: 10px;width:250px">Risk Mitigation Strategy</td>
+                <td  style="border: 1px solid #B2BEB5;padding: 10px;Width:200px">Responsible Party</td>
+            </tr>
+                
+            
+
+            <tbody *ngFor="let row of categoryLst1;let i=index">
+
+            <tr *ngIf="showHighRisk(row.calcualtnRanking)">
+                <td style="border: 1px solid #B2BEB5;text-align: center;">Risk-{{i+1}}</td>
+                <td style="border: 1px solid #B2BEB5;">{{row.riskCategory}}</td>
+                <td style="border: 1px solid #B2BEB5;padding:5px">
+                   &nbsp;&nbsp;{{row.calcualtnRanking}}
+                </td>
+                <td style="border: 1px solid #B2BEB5;padding:5px">
+                    <div style="width:50px;height:50px;margin:10px;padding:10px 0px"  [style.background-color]="getColorEvent(i,row.calcualtnRanking)">
+                        <span style="padding:0px 20px;font-weight: 500;">{{calculateRank(i,row.calcualtnRanking)}}</span>
+                    </div>
+                </td>
+                <td style="border: 1px solid #B2BEB5;padding:5px">
+                    <textarea type="text" cols="60" Placeholder="Risk Mitigation" [(ngModel)]="row.riskMitigationComments"> </textarea> 
+                </td> 
+                <td style="border: 1px solid #B2BEB5;padding:5px;width:200px">
+                    <angular2-multiselect style="width:100px" [ngModelOptions]="{standalone: true}" 
+                    [(ngModel)]="row.responsibleParty" [data]="userList" [settings]="userdropdownSettings">
+                  </angular2-multiselect>                </td>
+            </tr>
+       
+        </tbody>
+            </table>
+    </div>
+</div>
+
+  

@@ -1,0 +1,239 @@
+<div class="card-header" style="text-align: center;">
+  <b>
+    <h4 class="card-header-text">
+      <i><img style="width: 40px; height: 40px;" src="assets/images/avatars/calendar.png"></i> &nbsp;
+      Holiday Planner
+    </h4>
+  </b>
+  <hr>
+</div>
+
+
+<div class="card">
+  <div class="card-body">
+    <ngb-tabset #t="ngbTabset">
+
+      <ngb-tab title="Holiday Planner" id="HolidayPlanner">
+        <ng-template ngbTabContent>
+          <br>
+          <div class="text-center">
+            <button class="btn btn-outline-success " (click)="addEvent()" *ngIf="UserAccessModel.add"><i><img style="width: 23px; height: 23px;"
+                  src="assets/images/avatars/add new event.png"></i>&nbsp;&nbsp;
+              Add new
+            </button>
+          </div>
+          <br>
+          <div class="clearfix"></div>
+          <div class="table-responsive">
+
+           
+            <ngx-datatable #myTable class="material" [rows]='events3' [columnMode]="'force'" [headerHeight]="50"
+                [footerHeight]="50" [rowHeight]="'auto'" [limit]="15">
+
+                <ngx-datatable-column name="Title">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      
+                        <input   type="text" class="form-control"  required [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="row['title']"  />
+                    </ng-template>
+                </ngx-datatable-column>
+               
+                <ngx-datatable-column name="Start Date">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <input   type="date" class="form-control"  required [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="row['start']"  />
+                    
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="End Date">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <input   type="date" class="form-control"  required [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="row['end']"  />
+                    
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [flexGrow]="1.5" name="Action">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <button type="button" class="btn btn-outline-success m-1"
+                      (click)="saveEvent( row)" *ngIf="UserAccessModel.edit"><i ></i><img
+                      style="width: 23px; height: 23px;"
+                      src="assets/images/avatars/save.png"></button>
+                      <button  type="button" class="btn btn-outline-danger m-1"
+                      (click)="deleteEvent(row['id'],rowIndex)"><i class="zmdi zmdi-delete" title="Delete"></i></button>
+                  </ng-template>
+                </ngx-datatable-column>
+
+            </ngx-datatable>
+
+            <!-- <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style=" text-align: center;">Title</th>
+                  <th style=" text-align: center;">Starts at</th>
+                  <th style=" text-align: center;">Ends at</th>
+                  <th style=" text-align: center;">Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let event of events">
+                  <td style=" text-align: center;">
+                    <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()" />
+                  </td>
+
+                  <td style=" text-align: center;">
+                    <input class="form-control" type="date" [(ngModel)]="event.start" (ngModelChange)="refresh.next()"
+                      dateFormat="Y-m-d" placeholder="Not set" />
+                  </td>
+                  <td style=" text-align: center;">
+                   
+                    <input class="form-control" type="date" [(ngModel)]="event.end" (ngModelChange)="refresh.next()"
+                      dateFormat="Y-m-d" placeholder="Not set" /></td>
+
+                   
+                  <td style=" text-align: center;">
+                    <button class="btn btn-outline-primary" (click)="saveEvent(event)"><i><img
+                          style="width: 23px; height: 23px;" src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;
+                      Save
+                    </button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-outline-danger" (click)="deleteEvent(event)"><i><img
+                          style="width: 23px; height: 23px;" src="assets/images/avatars/delete.png"></i>&nbsp;&nbsp;
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table> -->
+
+          </div>
+
+        </ng-template>
+      </ngb-tab>
+
+      <ngb-tab title="Calendar View" id="CalendarView">
+        <ng-template ngbTabContent>
+          <!-- Calendar View -->
+          <div class="card card-body">
+            <div class="d-flex flex-wrap justify-content-md-between mb-3 no-gutters">
+              <div class="col">
+                <div class="btn-group d-none d-lg-inline-flex">
+                  <div class="btn btn-outline-dark btn-square" mwlCalendarPreviousView [view]="view"
+                    [(viewDate)]="viewDate">
+                    Previous
+                  </div>
+                  <div class="btn btn-outline-dark btn-square" mwlCalendarToday [(viewDate)]="viewDate">
+                    Today
+                  </div>
+                  <div class="btn btn-outline-dark btn-square" mwlCalendarNextView [view]="view"
+                    [(viewDate)]="viewDate">
+                    Next
+                  </div>
+                </div>
+
+                <div class="btn-group d-lg-none">
+                  <div class="btn btn-sm btn-outline-dark btn-square" mwlCalendarPreviousView [view]="view"
+                    [(viewDate)]="viewDate">
+                    <i class="zmdi zmdi-arrow-left"></i>
+                  </div>
+                  <div class="btn btn-sm  btn-outline-dark btn-square" mwlCalendarToday [(viewDate)]="viewDate">
+                    <i class="fa fa-circle"></i>
+                  </div>
+                  <div class="btn btn-sm btn-outline-dark btn-square" mwlCalendarNextView [view]="view"
+                    [(viewDate)]="viewDate">
+                    <i class="zmdi zmdi-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col text-center align-self-center d-none d-sm-block">
+                <h6 class="text-uppercase mb-0">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
+                </h6>
+              </div>
+              <div class="col text-right">
+                <div class="btn-group d-none d-lg-inline-flex">
+                  <div class="btn btn-outline-dark btn-square" (click)="view = 'month'"
+                    [class.active]="view === 'month'">
+                    Month
+                  </div>
+                 
+                </div>
+              
+              </div>
+            </div>
+            <div [ngSwitch]="view">
+              <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events"
+                [refresh]="refresh" (dayClicked)="dayClicked($event.day)" [cellTemplate]="customCellTemplate">
+              </mwl-calendar-month-view>
+             
+            </div>
+
+          </div>
+
+
+        </ng-template>
+      </ngb-tab>
+
+    
+     
+      <ngb-tab title="Weekdays Planner" id="WeekdaysPlanner">
+        <ng-template ngbTabContent>
+          <!-- Weekdays Planner -->
+          <br>
+          <!-- <h4>
+            Weekdays Planner
+            <div class="clearfix"></div>
+          </h4> -->
+          <br>
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" style="width: 35%;">
+                  <thead>
+                    <tr>
+                      <th style=" text-align: center;">Select</th>
+                      <th style=" text-align: center;">Week Day</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let day of weekDaysList">
+                      <td style=" text-align: center;">
+                        <input type="checkbox" name="day.weekdayId" [checked]="day.selectedFlag"
+                          (change)="day.selectedFlag = !day.selectedFlag" />
+                        <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                      </td>
+                      <td style=" text-align: center;">
+                        <span class="cr" style="font-weight: 20px;"><strong>{{day.weekday}}</strong></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br>
+               
+                  <div class="text-left"> 
+                  <button class="btn btn-outline-primary" (click)="saveWeekdays(day)" *ngIf="UserAccessModel.edit" ><i><img
+                        style="width: 23px; height: 23px;" src="assets/images/avatars/save.png"></i>&nbsp;&nbsp;
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+  </div>
+</div>
+
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+  <!-- "background-color: lemonchiffon;" -->
+  <div class="cal-cell-top" [ngStyle]=styleFunctions(day)>
+    <!-- [ngStyle]="styleFunctions(isEditable[rowIndex])" -->
+    <span class="cal-day-number" style="font-size: 30px;">{{ day.date | calendarDate:'monthViewDayNumber'  }}</span>
+  </div>
+  <strong style="margin: 15px; " *ngFor="let field of day.events"
+    style="font-size: 15px;  color: black; background-color:orange;">
+    {{ field.title }} </strong>
+</ng-template>

@@ -1,0 +1,49 @@
+
+ 
+<div class="card">
+
+<div   *ngIf="noData" style="padding:20px">
+  <span style="text-align: center;color: #3b5998;padding:10px;font-weight: 700;">
+No data to display.Question not uploaded for this request</span>
+</div>
+
+<div   *ngIf="!noData"  style="padding:20px"> 
+<div *ngFor="let row of categoryLst; let i=index">
+  <div class="col-sm-12" style="background-color:#bfc1c2;color: black;">
+    <div style="padding: 5px;">
+      <strong>{{i+1}}) {{row.riskCategory}}</strong>
+    </div>
+  </div>
+  <table  style="padding: 0px 20px;">
+      <tr  style="color:black;font-weight: 500;">
+        <td class="col-sm-3" style="padding: 10px;border: 1px solid #B2BEB5;">Risk Category</td>
+        <td class="col-sm-5" style="padding: 10px;border: 1px solid #B2BEB5;">Identified Risk</td>
+        <td class="col-sm-1" style="padding: 10px;border: 1px solid #B2BEB5;">Yes/No  <span style="color: orangered;">*</span></td>
+        <td class="col-sm-3" style="padding: 10px;border: 1px solid #B2BEB5;">Comments & Discussion</td>
+      </tr>
+      <tr  *ngFor="let rowquestions of row.questions; let in=index" >
+        <td class="col-sm-3" style="padding: 10px;border: 1px solid #B2BEB5;color: black;">{{rowquestions.risk}}</td>
+        <td class="col-sm-5" style="padding: 10px;border: 1px solid #B2BEB5;color:black">{{rowquestions.questionExplanation.question}}
+          <i class="fa fas fa-info-circle" style="color: #bfc1c2;width: 25px;height: 25px;" ngbTooltip={{rowquestions.questionExplanation.explanation}}>
+          <img ngbTooltip={{rowquestions.explanation}}></i> 
+        </td>
+        <td class="col-sm-1" style="padding: 10px;border: 1px solid #B2BEB5;color: black;">                                         
+          <select class="form-control" [(ngModel)]="rowquestions.yesNo"  name="decision_{{in}}"   required>
+            <option value="">Y/N</option>
+           <option *ngFor="let decision of data;let i=index" [value]="decision.value">
+              {{decision.key}}
+          </option>
+      </select> 
+    </td>
+        <td class="col-sm-3"style="padding: 10px;border: 1px solid #B2BEB5;color:black">
+          <textarea type="text"  name="comments" class="form-control" [(ngModel)]="rowquestions.comments" placeholder="Comments"></textarea>
+        </td>
+        </tr>
+    </table>
+</div>
+    </div>
+   </div>
+
+   
+
+  

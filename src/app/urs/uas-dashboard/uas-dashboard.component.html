@@ -1,0 +1,89 @@
+
+<div class="card">
+  <div class="card-body">
+    <br>
+    <div class="row" style="text-align: center;">
+      <div  class="col-12 col-md-6 col-lg-6 col-xl-3" (click)="openRequest()">
+         <div id="card1" class="card bg-info-2 border-0">
+           <div class="card-body card-block p-1">
+             <div class="media align-items-center bg-white p-3">
+               <div class="media-body" style="width:100px;">
+                  <div  class="align-self-center w-circle-icon rounded bg-white shadow border border-info">
+                      <i  class="fa fa-podcast text-info"></i>                  
+                    </div>
+               </div>
+               <div class="text-info">
+                 <h5  class=" mb-0 text-info">Open Requests<br>{{this.opencount}}</h5>
+              </div>
+             </div>
+           </div>
+         </div>
+      </div>
+    
+      <div  class="col-12 col-md-6 col-lg-6 col-xl-3" (click)="reviewRequest()">
+        <div id="card2" class="card gradient-bloody border-0">
+          <div class="card-body card-block p-1">
+            <div class="media align-items-center bg-white p-3">
+              <div class="media-body">
+                  <div class="align-self-center w-circle-icon rounded bg-white shadow border border-danger">
+                      <i class="fa fa-handshake-o text-danger"></i></div>
+               </div>
+              <div class="text-danger">
+                <h5 class=" mb-0 text-danger">Peer Review<br>{{this.peerreviewcount}}</h5>
+             </div>
+            </div>
+          </div>
+        </div>
+     </div>
+    
+     <div  class="col-12 col-md-6 col-lg-6 col-xl-3" (click)="approveRequest()">
+      <div id="card3" class="card gradient-orange border-0">
+        <div class="card-body card-block p-1">
+          <div class="media align-items-center bg-white p-3">
+              <div class="media-body">
+                  <div class="align-self-center w-circle-icon rounded bg-white shadow border border-warning">
+                      <i class="fa fa-desktop text-warning"></i></div>
+               </div>
+            <div class="text-warning">
+              <h5 class=" mb-0 text-warning">Approval Pending<br>{{approvalcount+managercount+userpublishcount}}</h5>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-12 col-md-6 col-lg-6 col-xl-3" (click)="closedRequest()">
+      <div id="card4" class="card gradient-ohhappiness border-0">
+        <div class="card-body card-block p-1">
+          <div class="media align-items-center bg-white p-3">
+              <div class="media-body">
+                  <div class="align-self-center w-circle-icon rounded bg-white shadow border border-success">
+                      <i class="fa fa-podcast text-success"></i></div>
+               </div>
+            <div class="text-success">
+              <h5 class=" mb-0 text-success">Closed Request<br>{{this.closedcount}}</h5>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+    <hr>
+    
+    <div class="row" style="text-align: left;">
+      <div class="col-sm-3"  style="cursor:pointer;" *ngFor="let item of menuItems;let i=index">
+      <div id="Step{{i}}"[routerLink]="[item.path]">
+        <div style="background-color: white;margin:5px;padding:20px 20px;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+          <i [ngClass]="[item.icon]" style="color:#3b5998;font-size:30px;display: inline;"></i>&nbsp;&nbsp;
+          <h5 style="display: inline;">{{item.title}}</h5>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+</div>
+
+<!--
+  <button (click)="startTour()">Start</button>
+-->

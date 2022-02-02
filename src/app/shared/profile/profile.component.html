@@ -1,0 +1,59 @@
+<div class="card">
+    <br>
+<div style="margin:20px;">
+<div style="padding:10px;text-align: center;">
+    <img style="width: 30px; height: 30px;display: inline;" src="assets/images/user.png">&nbsp;
+    <h5 class="darkblue" style="font-weight:bolder;padding:10px 00px;display: inline;">User Profile</h5>
+</div>
+<br>
+    <ng-container>
+        <table id="org-table" class="table w-100" style="color: black;background-color:white;box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;">
+          <tbody>
+            <tr>
+              <td style="width: 48%;">
+                <div><strong class="strong">CorporateId : </strong>{{corporateId}}</div>
+              </td>
+              <td>
+                <div><strong class="strong">Userame : </strong>{{firstName}}</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div><strong class="strong">Email : </strong>{{email}}</div>
+              </td>
+             
+              <td>
+                <div><strong class="strong">Mobile No : </strong>{{mobileNo}}</div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div><strong class="strong">Department : </strong>{{department}}</div>
+              </td>
+              <td>
+                <div><strong class="strong">Location : </strong>{{location}}</div>
+              </td>
+            </tr>
+            <tr>
+                <td>
+                    <div><strong class="strong">Manager : </strong>{{managerName}}</div>
+                  </td>
+                  <td>
+                    <div><strong class="strong">Active : </strong>{{active=='Y'?'Yes':'No'}}</div>
+                  </td>
+         
+            </tr>
+            <tr>
+                <td>
+                    <div><strong class="strong">Manager Access : </strong>{{manageraccess=='Y'?'Yes':'No'}}</div>
+                  </td>
+              <td>
+                <div><strong class="strong">IT Access : </strong>{{itaccess=='Y'?'Yes':'No'}}</div>
+              </td>
+             
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+</div>
+</div>

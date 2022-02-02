@@ -1,0 +1,112 @@
+#page td {
+  padding: 0;
+  margin: 0;
+}
+.noBorder {
+  border: 0px;
+  padding: 0;
+  margin: 5px;
+  border-collapse: collapse;
+}
+.noBorderserial {
+  border: 0px;
+  padding: 0;
+  margin: 5px;
+  left: 5px;
+  border-collapse: collapse;
+}
+.progressbar {
+  margin: 20px auto;
+  padding: 0;
+  width: 90%;
+  height: 30px;
+  overflow: hidden;
+  background: #e5e5e5;
+  border-radius: 6px;
+}
+
+.barpercent {
+  position: relative;
+  float: left;
+  min-width: 1%;
+  height: 100%;
+  background: cornflowerblue;
+}
+
+.percentbar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-family: tahoma, arial, helvetica;
+  font-size: 12px;
+  color: white;
+}
+.panel-heading1 {
+  padding: 10px 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.container {
+  display: flex;
+}
+.fixed {
+  width: 35px;
+}
+.flex-item {
+  flex-grow: 1;
+}
+
+.text {
+  font-weight: bold;
+  color: black;
+}
+thcss {
+  background-color: #636363 !important;
+  background-color: blue;
+}
+table#testcase-table-checkList thead td {
+  /*background-color: #BEBEBE;*/
+  background-color: rgba(190, 190, 190, 0.801);
+  /* border-right: solid 2px white; */
+}
+table#testcase-table-checkList thead label {
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+table#testcase-table-checkList tbody label {
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+table#testcase-table-checkList tbody td {
+  padding: 10px 2px;
+  vertical-align: middle;
+}
+
+lableClass {
+  font-size: 16px;
+  color: black;
+  font-family: "Open Sans", sans-serif;
+}
+
+.mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}

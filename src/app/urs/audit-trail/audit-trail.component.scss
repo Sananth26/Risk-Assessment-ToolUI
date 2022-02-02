@@ -1,0 +1,67 @@
+//table css
+table  {
+    border: 1px  solid black;
+    width: 40%;
+    }
+    th {
+      border: 1px  ;
+      color : white;
+      padding: 5px;
+      background-color: #5e72e4;
+      text-align: center;
+    }
+     td  {
+      border: 1px solid black;
+      border-collapse: collapse;
+      color : black;
+      text-align: center;
+     padding: 5px;
+    }
+    table tr:nth-child(odd) {
+      background-color: #ffffff;
+      text-align: center;
+    }
+    table tr:nth-child(even) {
+      background-color: #EFEFFB;
+      text-align: center;
+    }
+
+//for ngx 
+:host
+  ::ng-deep
+  .ngx-datatable.bootstrap:not(.cell-selection)
+  .datatable-body-row:hover,
+:host
+  ::ng-deep
+  .ngx-datatable.material:not(.cell-selection)
+  .datatable-body-row:hover
+  .datatable-row-group {
+  background: #EFEFFB;
+}
+//ngx css for datatable
+:host ::ng-deep.datatable-row-even {
+  background-color: #ffffff;
+  text-align: center;
+}
+
+:host ::ng-deep.datatable-row-odd {
+  background-color: #efeffb;
+  text-align: center;
+}
+:host ::ng-deep.datatable-body-cell {
+  border: 0.5px solid white;
+}
+:host ::ng-deep.datatable-header-cell {
+  background-color: #bfc5ec;
+  color: black;
+  text-align: center;
+  border: 1px solid white;
+}
+:host ::ng-deep.ngx-datatable.material {
+  .datatable-header-cell {
+    background-color: #5e72e4;
+    color: white;
+    text-align: center;
+    border: 1px solid white;
+  }
+}

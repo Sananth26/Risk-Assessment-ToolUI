@@ -1,0 +1,641 @@
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.required {
+  color: #f82929;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  left: 1300px;
+  top: 7;
+  z-index: 1001;
+}
+
+main {
+  padding-top: 120px; // Your header height + some slack
+}
+
+#wrapper-progressBar {
+  width: 120%;
+  height: 100%;
+  margin-top: -10%;
+  top: -10%;
+  margin: 30%;
+  white-space: nowrap;
+  overflow-x: auto;
+  margin: 1%;
+
+  .progressBar {
+    display: inline-block;
+    content: "";
+    width: 120px auto;
+    position: relative;
+    margin-left: 2%;
+    margin-right: auto;
+    // margin-top: 3%;
+    // margin-bottom: 3%;
+    z-index: 1;
+  }
+  .progressBar li {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .progressBar li :before {
+    cursor: pointer;
+    content: icon;
+    line-height: 30px;
+    border-radius: 50%;
+    width: 60px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: block;
+    text-align: center;
+    margin: 0 auto 20px;
+    background-color: white;
+    z-index: -1;
+  }
+
+  .progressBar li:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #ddd;
+    top: 62px;
+    left: -170px;
+    z-index: -1;
+  }
+
+  .progressBar li:first-child:after {
+    content: none;
+  }
+
+  .progressBar li i.requested {
+    width: 35%;
+    height: 35%;
+    background-color: white;
+    border: 2px solid green;
+    padding: 6px;
+    border-radius: 13px;
+  }
+  .progressBar li.requested {
+    color: #3be73b;
+  }
+  .progressBar li.requested:before {
+    border-color: #3be73b;
+    background-color: white;
+  }
+  .progressBar li.requested + li:after {
+    background-color: #3be73b;
+  }
+  .progressBar li.rejected {
+    color: red;
+  }
+  .progressBar li.rejected + li:after {
+    background-color: red;
+  }
+  .progressBar li i.rejected {
+    width: 35%;
+    height: 35%;
+    background-color: rgb(247, 228, 228);
+    border: 2px solid red;
+    padding: 6px;
+    border-radius: 13px;
+  }
+  .progressBar li.accepted + li:after {
+    background-color: #3be73b;
+  }
+  .progressBar li.accepted {
+    color: #3be73b;
+  }
+  .progressBar li i.accepted {
+    width: 35%;
+    height: 35%;
+    background-color: #ddf7dd;
+    border: 2px solid green;
+    padding: 6px;
+    border-radius: 13px;
+  }
+
+  .progressBar i.pending {
+    color: #68d2f3;
+  }
+  .progressBar li.pending + li:after {
+    background-color: gainsboro;
+  }
+  .progressBar li i.pending {
+    width: 36%;
+    height: 36%;
+    background-color: rgb(207, 239, 250);
+    border: 2px solid blue;
+    padding: 6px;
+    border-radius: 13px;
+    // color: green;
+  }
+  .progressBar li.completed {
+    color: #3be73b;
+  }
+
+  .progressBar li i.completed {
+    width: 35%;
+    height: 35%;
+    background-color: white;
+    border: 2px solid green;
+    padding: 6px;
+    border-radius: 13px;
+  }
+  .progressBar li.completed + li:after {
+    background-color: white;
+  }
+  //deptComplete
+  .progressBar li.deptComplete {
+    color: #3be73b;
+  }
+
+  .progressBar li i.deptComplete {
+    width: 35%;
+    height: 35%;
+    background-color: white;
+    border: 2px solid green;
+    padding: 6px;
+    border-radius: 13px;
+  }
+  .progressBar li.deptComplete + li:after {
+    // background-color: white;
+    background-color: #3be73b;
+  }
+
+  //blur
+  .progressBar li.upcoming {
+    color: grey;
+  }
+
+  .progressBar li i.upcoming {
+    width: 35%;
+    height: 35%;
+    background-color: rgb(245, 239, 239);
+    border: 2px solid rgb(211, 201, 201);
+    padding: 6px;
+    border-radius: 13px;
+  }
+  .progressBar li.upcoming + li:after {
+    background-color: rgb(211, 201, 201);
+  }
+
+  .btn-secondary {
+    color: #fff;
+    background-color: #070bfa;
+    border-color: #070bfa;
+  }
+  .card-body1 {
+    flex: 0 0 auto;
+  }
+
+  #float-action {
+    position: fixed;
+    top: 60px;
+    left: 0px;
+    z-index: 10;
+    height: 0px;
+    padding-inline-end: 30px;
+    padding-inline-start: 30px;
+  }
+
+  #float-action .card-body {
+    padding-bottom: 1rem !important;
+    overflow-x: initial !important;
+  }
+}
+
+::ng-deep .multiselect-dropdown .dropdown-list {
+  position: inherit !important;
+}
+
+.top {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.appcardBody {
+  margin-top: -39px;
+  background-color: white;
+  border: 2px solid black;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.applabel {
+  font-weight: bold;
+  color: black;
+}
+
+.sublabel {
+  font-weight: normal;
+}
+
+.circles {
+  height: 0.938em;
+  width: 0.938em;
+  border: 0.188em solid #000;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.active {
+  background-color: #ffa500;
+}
+
+.circle-desc-active {
+  font-weight: bold;
+}
+
+.bar {
+  width: 16%;
+  height: 0.063em;
+  margin-bottom: 0.469em;
+  border: 0.031em solid #000;
+  color: #000;
+  background-color: #000;
+  display: inline-block;
+  text-align: center;
+  margin: "0 auto";
+}
+
+.container {
+  min-width: 320px;
+  margin: "0px auto";
+  text-align: center;
+}
+
+.circle-desc {
+  position: absolute;
+  top: 5em;
+  font-size: 1.125em;
+  width: auto;
+  max-width: 9.375em;
+  margin-left: -0.75em;
+}
+
+@media only screen and (max-width: 320px) {
+  body {
+    font-size: 20%;
+  }
+}
+
+/*extra small devices*/
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 40%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  body {
+    font-size: 60%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  body {
+    font-size: 80%;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  body {
+    font-size: 100%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  body {
+    font-size: 120%;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  border: 1px solid white;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.tr1:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+th,
+td {
+  border: 1px solid white;
+  white-space: normal;
+  word-wrap: break-word;
+}
+table.a {
+  table-layout: auto;
+  width: 100%;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+// for table
+
+#page td {
+  padding: 0;
+  margin: 0;
+}
+.noBorder {
+  border: 0px;
+  padding: 0;
+  margin: 5px;
+  border-collapse: collapse;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.noBorderserial {
+  border: 0px;
+  padding: 0;
+  margin: 5px;
+  left: 5px;
+  border-collapse: collapse;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.progressbar {
+  margin: 20px auto;
+  padding: 0;
+  width: 90%;
+  height: 30px;
+  overflow: hidden;
+  background: #e5e5e5;
+  border-radius: 6px;
+}
+
+.barpercent {
+  position: relative;
+  float: left;
+  min-width: 1%;
+  height: 100%;
+  background: cornflowerblue;
+}
+
+.percentbar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-family: tahoma, arial, helvetica;
+  font-size: 12px;
+  color: white;
+}
+.panel-heading1 {
+  padding: 10px 15px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.container {
+  display: flex;
+}
+.fixed {
+  width: 35px;
+}
+.flex-item {
+  flex-grow: 1;
+}
+
+.text {
+  font-weight: bold;
+  color: black;
+  white-space: normal;
+  word-wrap: break-word;
+}
+thcss {
+  background-color: #636363 !important;
+  background-color: blue;
+}
+table#testcase-table-checkList thead td {
+  /*background-color: #BEBEBE;*/
+  background-color: rgba(190, 190, 190, 0.801);
+  /* border-right: solid 2px white; */
+}
+table#testcase-table-checkList thead label {
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+table#testcase-table-checkList tbody label {
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+table#testcase-table-checkList tbody td {
+  padding: 10px 2px;
+  vertical-align: middle;
+}
+
+lableClass {
+  font-size: 16px;
+  color: black;
+  font-family: "Open Sans", sans-serif;
+}
+
+//ngx css for datatable
+
+:host ::ng-deep.datatable-body-cell {
+  border: 0.5px solid white;
+}
+:host ::ng-deep.datatable-header-cell {
+  background-color: #bfc5ec;
+  color: black;
+  text-align: center;
+  border: 1px solid white;
+  font-size: 15px;
+  font-family: "Open Sans", sans-serif;
+}
+:host ::ng-deep.ngx-datatable.material {
+  .datatable-header-cell {
+    background-color: rgba(190, 190, 190, 0.801);
+    color: black;
+    text-align: center;
+    border: 1px solid white;
+    font-size: 15px;
+    font-family: "Open Sans", sans-serif;
+  }
+}
+
+::ng-deep .multiselect-dropdown .dropdown-list {
+  position: inherit !important ;
+}
+
+:host ::ng-deep.datatable-row-even {
+  background-color: #ffffff;
+  text-align: center;
+}
+
+:host ::ng-deep.datatable-row-odd {
+  background-color: #efeffb;
+  text-align: center;
+}
+
+tableValue {
+  border-collapse: collapse;
+  border: 1px solid white;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+::ng-deep.datatable-row-detail {
+  width: max-content !important;
+}
+
+.htimeline {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+}
+
+.htimeline .step {
+  float: left;
+  border-top-style: solid;
+  border-top-width: 5px;
+  position: relative;
+  margin-bottom: 15px;
+  text-align: left;
+  padding: 3px 0 5px 10px;
+  background-color: #ddd;
+  color: #333;
+  height: 160px;
+  vertical-align: middle;
+  border-right: solid 1px #bbb;
+  transition: all 0.5s ease;
+}
+.htimeline .step:nth-child(odd) {
+  background-color: whitesmoke;
+}
+.htimeline .step:nth-child(even) {
+  background-color: whitesmoke;
+}
+.htimeline .step:first-child {
+  border-left: solid 1px #bbb;
+}
+.htimeline .step:hover {
+  background-color: #ccc;
+  border-bottom-width: 6px;
+}
+
+.htimeline .step > div {
+  margin: 0 5px;
+  font-size: 14px;
+  vertical-align: top;
+  padding: 0;
+}
+
+.htimeline .step.green {
+  border-top-color: #348f50;
+}
+.htimeline .step.orange {
+  border-top-color: #f09819;
+}
+.htimeline .step.red {
+  border-top-color: #c04848;
+}
+.htimeline .step.blue {
+  border-top-color: #49a09d;
+}
+
+.htimeline .step::before {
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  content: " ";
+  background-color: white;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  border-style: solid;
+  border-width: 3px;
+  transition: all 0.5s ease;
+}
+.htimeline .step:hover::before {
+  width: 18px;
+  height: 18px;
+  bottom: -12px;
+}
+.htimeline .step.green::before {
+  border-color: #348f50;
+}
+.htimeline .step.orange::before {
+  border-color: #f09819;
+}
+.htimeline .step.red::before {
+  border-color: #c04848;
+}
+.htimeline .step.blue::before {
+  border-color: #49a09d;
+}
+
+.htimeline .step::after {
+  content: attr(data-date);
+  position: absolute;
+  top: -20px;
+  left: 17px;
+  font-size: 11px;
+  font-style: italic;
+  color: #888;
+}
+
+/*TASKS*/
+.htimeline .step .tasks {
+  margin-top: 10px;
+}
+.htimeline .step .tasks .resource {
+  position: relative;
+  height: 40px;
+}
+.htimeline .step .tasks .resource::before {
+  position: absolute;
+  bottom: 2px;
+  left: -5px;
+  content: attr(data-name);
+  font-size: 10px;
+  font-style: italic;
+  color: #888;
+}
+.htimeline .step .tasks .task {
+  overflow: hidden;
+  font-size: 10px;
+  padding: 3px;
+  border: solid 1px white;
+  border-radius: 4px;
+  min-height: 20px;
+}
+.htimeline .step.green .tasks .task {
+  background-color: #348f50;
+  color: white;
+}
+.htimeline .step.orange .tasks .task {
+  background-color: #f09819;
+  color: white;
+}
+.htimeline .step.red .tasks .task {
+  background-color: #c04848;
+  color: white;
+}
+.htimeline .step.blue .tasks .task {
+  background-color: #49a09d;
+  color: white;
+}

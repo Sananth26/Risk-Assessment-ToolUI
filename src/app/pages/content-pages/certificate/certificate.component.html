@@ -1,0 +1,94 @@
+<div class="card-header row" style="text-align: center;">
+
+    <div class="col-10 text-center">
+        <b>
+            <h3 class="card-header-text">
+                SOP
+            </h3>
+        </b>
+    </div>
+    <!-- <div class="float-sm-right col-2 ">
+        <button type="button" [routerLink]="['/pages/sopboard']" class="btn btn-dark m-1"> <i
+                class="fa fa-thumbs-o-up"></i> <span>Board</span></button>
+    </div> -->
+
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="form-group row pt-20 ml-18 mr-9">
+            <label class="col-2 col-form-label">Select Department<span class='asterisk'>*</span></label>
+            <div class="col-10">
+                <select class="form-control" name="departmentName" required>
+                    <!-- formControlName="DepartmentName"
+                        (ngModelChange)="onDepartmentNameChange($event)" [(ngModel)]="SOPRecord.departmentId" -->
+                    <option *ngFor="let module of this.data;let i=index" [value]="module.key">
+                        {{module.key}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group row pt-20 ml-18 mr-9">
+            <label class="col-2 col-form-label">Select SOP Number<span class='asterisk'>*</span></label>
+            <div class="col-10">
+                <select class="form-control" name="departmentName" required>
+                    <!-- formControlName="DepartmentName"
+                        (ngModelChange)="onDepartmentNameChange($event)" [(ngModel)]="SOPRecord.departmentId" -->
+                    <option *ngFor="let module of this.data2;let i=index" [value]="module.key">
+                        {{module.key}}
+                    </option>
+                </select>
+
+            </div>
+        </div>
+
+
+        <div class="form-group row pt-20 ml-18 mr-9">
+            <label class="col-2 col-form-label">Select Participants<span class='asterisk'>*</span></label>
+            <div class="col-10">
+                <select class="form-control" name="participants" required>
+                    <!-- formControlName="DepartmentName"[disabled]="btnDisable"
+                        (ngModelChange)="onDepartmentNameChange($event)" [(ngModel)]="SOPRecord.departmentId" -->
+
+                    <!-- <option [value]="0" [disabled]="value==0">
+                        ----Select Participants----
+                    </option> -->  
+                     <!-- [disabled]="module.value==0" -->
+                    <option [ngValue]="undefined" disabled>----Select Participants----</option>
+                    <option *ngFor="let module of this.data3;let i=index" [value]="module.key"
+                       >
+                        {{module.key}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Marks Scored</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Result</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+        <!-- <img [src]="imgLoad"> -->
+
+        <div class="col-12 text-center">
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <button type="button" class="btn btn-primary" (click)="downloadAsPDF()">Download
+                        certificate
+                        <!-- <a [download]="myFileName" [href]="fileUrl"></a> (click)="downloadAsPDF()"-->
+
+                    </button>&nbsp;&nbsp;&nbsp;
+                    <!-- <button type="button" class="btn btn-danger" >Cancel</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

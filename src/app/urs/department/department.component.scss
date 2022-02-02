@@ -1,0 +1,58 @@
+input[type=checkbox] {
+    position: relative;
+      cursor: pointer;
+}
+input[type=checkbox]:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 15;
+    left: 15;
+    background-color: whitesmoke;
+    border: 2px solid #555555;
+    border-radius: 3px;
+}
+
+input[type=checkbox]:checked:after {
+    content: "";
+    display: block;
+    width: 5px;
+    height: 10px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 4px;
+    left: 7px;
+}
+//ngx css for datatable
+:host ::ng-deep.datatable-row-even {
+    background-color: #ffffff;
+    text-align: center;
+  }
+  
+  :host ::ng-deep.datatable-row-odd {
+    background-color: #efeffb;
+    text-align: center;
+  }
+  :host ::ng-deep.datatable-body-cell {
+    border: 0.5px solid white;
+  }
+  :host ::ng-deep.datatable-header-cell {
+    background-color: #bfc5ec;
+    color: black;
+    text-align: center;
+    border: 1px solid white;
+  }
+  :host ::ng-deep.ngx-datatable.material {
+    .datatable-header-cell {
+      background-color: #5e72e4;
+      color: white;
+      text-align: center;
+      border: 1px solid white;
+    }
+  }

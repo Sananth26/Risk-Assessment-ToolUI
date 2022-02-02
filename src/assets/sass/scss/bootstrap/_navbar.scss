@@ -1,0 +1,29 @@
+/* Topbar Header */
+
+.topbar-nav .navbar {
+  padding: 0px 15px;
+  z-index: 999;
+  height: 60px;
+  background: #fff;
+  -webkit-box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.toggle-menu i {
+  margin-left: 240px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #172b4d;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.right-nav-link a.nav-link {
+  padding-right: 0.8rem !important;
+  padding-left: 0.8rem !important;
+  font-size: $font-size-lg;
+  color: #172b4d;
+}

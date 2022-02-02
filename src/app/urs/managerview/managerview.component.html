@@ -1,0 +1,103 @@
+<div class="card" style="text-align: left;padding: 20px 10px;">
+    <h4 class="card-header-text">
+        <i><img style="width: 30px; height: 30px;" src="assets/images/avatars/department.png"></i> &nbsp;
+        Network Approval
+    </h4>
+    
+    
+    <div class="has-feedback" style="padding-top:10px">    
+        <input type="text" id="txtSearch"  [(ngModel)]="searchText" placeholder="Search" />
+    </div>
+
+    <br><br>
+    <div style="position:relative; left:0px; top:-30px;">
+        <div>
+            <ngx-datatable #myTable class="material" [rows]='openrequestList | filter: searchText' [columnMode]="'force'" [headerHeight]="50"
+                [footerHeight]="50" [rowHeight]="50" [limit]="10" [scrollbarH]="false" style="box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;">
+                
+                <ngx-datatable-column name="S.No" [width]="40" >
+                    <ng-template let-row="row"  let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                        <strong class="fontStyle">{{rowIndex+1}}</strong>
+                    </ng-template>
+                </ngx-datatable-column>
+    
+                <ngx-datatable-column name="Request Id" [width]="170">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <strong class="fontStyle">{{row['requestSno']}}</strong>
+                    </ng-template>
+                </ngx-datatable-column>
+    
+                <ngx-datatable-column name="Category" [width]="120">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <strong class="fontStyle">{{row['categoryname']}}</strong>
+                    </ng-template>
+                </ngx-datatable-column>
+    
+                <ngx-datatable-column name="Status" [width]="120">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <strong class="fontStyle">{{row['status']}}</strong>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Created By" [width]="250">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <strong class="fontStyle">{{row['assignedto']}}</strong>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Last Update" [width]="70">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <strong class="fontStyle">{{row['lastupdate'] | date: 'dd/MM/yyyy'}}</strong>
+                    </ng-template>
+                </ngx-datatable-column>
+    
+                <ngx-datatable-column [flexGrow]="1.5" name="Action" cellClass="d-flex align-items-center">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <div style="padding-left: 50px;">
+    
+                            
+                        <a role="button" title="View Request" class="fa fa-eye"  style="font-size: 20px;color: black;"   
+                                 (click)="navigate(row.requestid);">&nbsp;
+                        </a>
+                        <a role="button" id="openModalButton" data-id="{{row['requestid']}}" data-toggle="modal"
+                                title="Approve Request" data-target="#openModal" class="fa fa-check-square-o"
+                                (click)="openApprove(row['requestid'])" style="font-size: 20px;color:black">
+                        </a>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    
+        <ng-template #mymodal let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Manager Approve</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea id ="txtComment" [(ngModel)]="SubCategoryList1.key" class="form-control" placeholder="eg: Enter Comment"></textarea>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">&nbsp;</div>
+                            <div class="custom-control custom-radio col-md-3">
+                                <input type="radio" [checked]="true"  [(ngModel)]="radiovalue"  value="Approve" name="options" id="option1"> Approve
+                            </div>
+                            <div class="custom-control custom-radio col-md-3">
+                               <input type="radio" [(ngModel)]="radiovalue"  value="Reject" name="options" id="option2"> Reject
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="Publish()">Save</button>
+                <button type="button" class="btn btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">Cancel</button>
+            </div>
+        </ng-template>
+    
+       
+    </div>
+</div>

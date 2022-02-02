@@ -1,0 +1,228 @@
+<div>
+
+<form name="dynamicSOPForm" [formGroup]="dynamicSOPForm"  novalidate>
+
+<div class="row">
+  <div class="col-sm-12">
+
+    <div>
+      <div class="card-header" style="text-align: center;">
+        <hr>
+        <b>
+          <h3 class="card-header-text">
+            Dynamic SOP Template Creation
+          </h3>
+        </b>
+        <hr>
+      </div>
+      <br>
+
+      <div class="row">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <div ngbDropdown class="btn-group dropdown-split-primary">
+          <button type="button" class="btn btn-primary"><i class="icofont icofont-user-alt-3"></i>Action &nbsp;</button>
+          <button type="button" ngbDropdownToggle
+            class="btn btn-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle primary</span>
+          </button>
+          <div ngbDropdownMenu class="dropdown-menu">
+            <a class="dropdown-item waves-effect waves-light" href="javascript:;"
+              (click)="this.status='new';cancel('new')">Add new Template</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item waves-effect waves-light" href="javascript:;"
+              (click)="this.status='existing';cancel('existing')">Add Fields To Existing Template</a>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="card" >
+        <div class="card-body">
+         
+
+          <div *ngIf="this.status=='existing'" class="form-group row">
+            <label class="col-2 col-form-label"><b>Select Template</b><span class='asterisk'>*</span></label>
+            <div class="col-9">
+              <select name="select" class="form-control" [ngModelOptions]="{standalone: true}"  (ngModelChange)="onTemplateNameChange($event)" [(ngModel)]="sopDynamicFields.id"
+              name="templateName" #templateName="ngModel"  required >
+                 <!-- <option value="" selected>Select operator </option> -->
+                <option *ngFor="let module of this.templateNameDTOList;let i=index" [value]="module.id">
+                  {{module.templateName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class=" col-2 col-form-label"><b>Template Name</b><span class='asterisk'>*</span></label>
+            <div class="col-9">
+              <input class="form-control" autocomplete="off" type="text" name="templateName" required formControlName="templateName"
+                [(ngModel)]="sopDynamicFields.templateName" (blur)="checkTemplateName()">
+                <small class="form-text text-muted text-danger"  *ngIf="!dynamicSOPForm.get('templateName').valid && (dynamicSOPForm.get('templateName').dirty || dynamicSOPForm.get('templateName').touched)"> Template Name is required ...!</small>
+            </div>
+          </div>
+
+          <div  class="form-group row">
+             <label class="col-2 col-form-label"><b>Is Active</b></label>
+            <ui-switch uncheckedLabel="off" checkedLabel="on"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="ActiveFlag"  ></ui-switch>
+          </div>
+
+          <div  *ngIf="this.status=='existing'"  class="form-group row">
+               <label class="col-2 col-form-label"><b> Delete </b></label>
+               <ui-switch uncheckedLabel="off" checkedLabel="on"  [ngModelOptions]="{standalone: true}" [(ngModel)]="DeleteFlag"   ></ui-switch>
+           </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="card">
+
+  <div class="col-3 btn-group m-1" ngbDropdown>
+    <button type="button" class="btn btn-outline-primary">Static Fields</button>
+    <button type="button" (click)="showStaticFields = !showStaticFields" class="btn btn-primary dropdown-toggle"
+      placement="top" ngbTooltip="Show Static Fields">
+      <span class="caret"></span>
+    </button>
+  </div>
+
+  <div class="card-body" [ngbCollapse]="showStaticFields">
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Document Number </label>
+      <div class="col-9">
+        <input type="text" class="form-control" placeholder="eg: SOP_0001" required />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Version</label>
+      <div class="col-10">
+        <input type="text" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Effective Date</label>
+      <div class="col-10">
+        <input type="date" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Expiry Date</label>
+      <div class="col-10">
+        <input type="date" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Title</label>
+      <div class="col-10">
+        <input type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Status</label>
+      <div class="col-10">
+        <input type="text" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Department</label>
+      <div class="col-10">
+        <input type="text" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label" for="basicformFile1">Attachment</label>
+      <div class="col-6">
+      <input type="file" class="form-control-file" id="basicformFile1">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Cross Reference SOP</label>
+      <div class="col-10">
+        <select name="select" class="form-control"  required >
+          <option *ngFor="let module of listDOC;let i=index" [value]="module.url">
+            {{module.moduleName}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- dynamic form -->
+<div class="card">
+  <div class="card-header text-uppercase">Add Fields</div>
+  <div class="card-body">
+    <div class="form-group row">
+      <div class="col-12 well well-lg build-wrap">
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="border: 2px dashed gainsboro;">
+
+  <div>
+    <button (click)="addTableFlag = !addTableFlag" type="button" class="btn btn-primary m-b-0">Add Table</button>&nbsp;
+    <button (click)="removeTable()" [ngbCollapse]="!addTableFlag" type="button" class="btn btn-primary m-b-0">Remove Table</button>&nbsp;
+  </div>
+
+  <div [ngbCollapse]="!addTableFlag" class="mt-12" style="padding: 26px;">
+    <br />
+    <div class="form-group row">
+      <label class=" col-2 col-form-label"><b>Number of Columns</b><span class='asterisk'>*</span></label>
+      <div class="col-2">
+        <input class="form-control" type="number" name="tableColumnNum" min="0" required [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="tableColumnCount" >
+      </div>
+      <button type="button"  ngbTooltip="Load column fields" (click)="columnChange($event)" class="btn btn-success m-1"> <i class="fa fa-refresh"></i> </button>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <label><b>Is Active</b></label>&nbsp;&nbsp;
+      <ui-switch uncheckedLabel="off" checkedLabel="on" [ngModelOptions]="{standalone: true}"  [(ngModel)]="tableDetails.tableActiveFlag" ></ui-switch>
+    </div>
+
+    <div class="p-12">
+      <table>
+        <tr>
+          <th style="align-content:center; width:100px" >Column Name</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let item of this.tableDetails.columnNameList; let i=index;">
+          <td> <input type="text"  [ngModelOptions]="{standalone: true}"  [(ngModel)]="item.columnName"></td>
+          <td> <button type="button" (click)="deleteColumnIndex(i)" ngbTooltip="delete" class="btn btn-success m-1"> <i class="fa fa-times"></i> </button> </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="col-12 text-center">
+  <div class="form-group">
+      <div class="col-md-12 text-center">
+          <button type="button" class="btn btn-primary"  
+          (click)="saveOrUpdateTemplate()">Submit</button>&nbsp;&nbsp;&nbsp;
+          <button type="button" class="btn btn-danger mr-2"  (click)="cancel('new')">Cancel</button>
+      </div>
+  </div>
+</div>
+
+</form>
+</div> 
+
+<br/>
+<br/>
